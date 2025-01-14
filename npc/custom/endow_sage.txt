@@ -1,0 +1,80 @@
+izlude,131,142,4	script	EndowedSage	2_M_SAGE_OLD,{
+
+    /*-----------------------------------------------------
+    Script
+    -----------------------------------------------------*/
+    mes(.npc_name$);
+    mes("Ah, a seeker of power approaches!");
+    mes("Do you wish to wield the forces of nature upon your weapon?");
+    mes("It will cost you only " + .zeny_cost + " zeny and the corresponding elemental stone.");
+    next;
+
+    if (Zeny < .zeny_cost) {
+        mes(.npc_name$);
+        mes("Tsk, tsk! Power is not for the penniless, my friend.");
+        mes("Return when you have the coin to pay for nature's blessings.");
+        close;
+    }
+
+    mes(.npc_name$);
+    mes("Tell me, which element do you seek?");
+    next;
+
+    switch (select("Blazing Fire", "Gust Wind", "Freezing Ice", "Seismic Stone")) {
+        case 1:
+            .@item_name$ = "Red Blood";
+            .@sc_id = SC_PROPERTYFIRE;
+            mes(.npc_name$);
+            mes("Fire, the very essence of chaos and destruction. A fine choice!");
+            break;
+        case 2:
+            .@item_name$ = "Wind of Verdure";
+            .@sc_id = SC_PROPERTYWIND;
+            mes(.npc_name$);
+            mes("Wind, the invisible force that bends all to its will. An excellent pick!");
+            break;
+        case 3:
+            .@item_name$ = "Crystal Blue";
+            .@sc_id = SC_PROPERTYWATER;
+            mes(.npc_name$);
+            mes("Water, the silent and relentless shaper of worlds. Wise indeed!");
+            break;
+        case 4:
+            .@item_name$ = "Green Live";
+            .@sc_id = SC_PROPERTYEARTH;
+            mes(.npc_name$);
+            mes("Earth, the unyielding foundation of life itself. A noble selection!");
+            break;
+    }
+
+    if (countitem(.@item_name$) > 0) {
+        delitem .@item_name$, 1;
+        Zeny -= .zeny_cost;
+        sc_start(.@sc_id, 1800000, 0);
+        mes(.npc_name$);
+        mes("Ah, the deed is done! May your enemies tremble before your might.");
+        mes("Go forth and bring balance... or chaos, if that suits your fancy.");
+    } else {
+        mes(.npc_name$);
+        mes("You dare to request nature's power without the proper offering?");
+        mes("Begone, and return only when you have the necessary stone!");
+    }
+    close;
+
+    /*-----------------------------------------------------
+    Configuration
+    -----------------------------------------------------*/
+    OnInit:
+        .npc_name$ = "[ ^0000FFWell Endowed Sage^000000 ]";
+        .zeny_cost = 15000; // Cost in zeny for the service
+        end;
+
+}
+
+/*-----------------------------------------------------
+Duplicates
+-----------------------------------------------------*/
+
+prontera,159,186,4	duplicate(EndowedSage)	EndowedSage#protera	2_M_SAGE_OLD
+morocc,168,106,4	duplicate(EndowedSage)	EndowedSage#morocc	2_M_SAGE_OLD
+

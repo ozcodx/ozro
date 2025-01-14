@@ -1,8 +1,8 @@
-prontera,161,185,4	script	Kessinger	4_M_ROTERT,{
+yuno,145,185,4	script	Kessinger	4_M_ROTERT,{
 
 	.@name$ = "[ ^0000FFKessinger^000000 ]";
 	.@Duration = 1200000; // Buff duration (ms)
-	.@Price = 50000; // Price in zeny
+	.@Price = 20000; // Price in zeny
 
 	mes(.@name$);
 	mesf("Hello %s, do", strcharinfo(PC_NAME));
@@ -84,3 +84,7 @@ prontera,161,185,4	script	Kessinger	4_M_ROTERT,{
 	}
 	close();
 }
+
+prontera,161,185,4	duplicate(Kessinger)	Kessinger#protera	4_M_ROTERT
+morocc,148,106,4	duplicate(Kessinger)	Kessinger#morroc	4_M_ROTERT
+comodo,182,155,4	duplicate(Kessinger)	Kessinger#comodo	4_M_ROTERT
