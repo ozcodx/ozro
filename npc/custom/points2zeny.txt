@@ -158,3 +158,5 @@ prontera,147,159,5	script	Sophie	4_F_KHELLY,{
 		end;
 
 }
+
+geffen,97,72,5	duplicate(Sophie)	Sophie#geffen	4_F_KHELLY

@@ -577,6 +577,11 @@ lhz_in02,282,20,7	script	Fulerr	4_M_LGTMAN,{
 	callfunc "refinemain","Fulerr",0;
 	end;
 }
+// Custom
+geffen_in,99,169,4	script	Darghem	4_M_TUFFOLD,{
+	callfunc "refinemain","Darghem",0;
+	end;
+}
 
 //== Main Refiner Function =================================
 // To allow auto safe refining/multiple refining set the second argument to '1'

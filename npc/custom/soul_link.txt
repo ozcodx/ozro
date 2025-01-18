@@ -88,3 +88,4 @@ yuno,145,185,4	script	Kessinger	4_M_ROTERT,{
 prontera,161,185,4	duplicate(Kessinger)	Kessinger#protera	4_M_ROTERT
 morocc,148,106,4	duplicate(Kessinger)	Kessinger#morroc	4_M_ROTERT
 comodo,182,155,4	duplicate(Kessinger)	Kessinger#comodo	4_M_ROTERT
+geffen,125,72,4	duplicate(Kessinger)	Kessinger#geffen	4_M_ROTERT

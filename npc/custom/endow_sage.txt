@@ -77,4 +77,5 @@ Duplicates
 
 prontera,159,186,4	duplicate(EndowedSage)	EndowedSage#protera	2_M_SAGE_OLD
 morocc,168,106,4	duplicate(EndowedSage)	EndowedSage#morocc	2_M_SAGE_OLD
+geffen,125,68,4	duplicate(EndowedSage)	EndowedSage#geffen	2_M_SAGE_OLD
 

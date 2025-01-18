@@ -15,9 +15,9 @@
 
 prontera,150,193,4	script	Reset Girl	4_F_TELEPORTER,{
 
-	set .@ResetStat,5000;	// Zeny for stat reset
-	set .@ResetSkill,5000;	// Zeny for skill reset
-	set .@ResetBoth,9000;	// Zeny for resetting both together
+	set .@ResetStat,50000;	// Zeny for stat reset
+	set .@ResetSkill,50000;	// Zeny for skill reset
+	set .@ResetBoth,90000;	// Zeny for resetting both together
 
 	mes "[Reset Girl]";
 	mes "I am the Reset Girl.";

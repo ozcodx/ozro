@@ -1,0 +1,10 @@
+geffen,128,68,5	trader	Tool Dealer#geffen2	4_M_01,{
+OnInit:
+	sellitem White_Potion;
+	sellitem Green_Potion;
+	sellitem Awakening_Potion;
+	sellitem Wing_Of_Fly;
+	sellitem Wing_Of_Butterfly;
+	sellitem Spectacles;
+}
+
