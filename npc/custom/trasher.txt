@@ -61,32 +61,26 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		#TRSH_DailySpend = 0;
 		
 		// Select one item from common items
-		.@rand = rand(getarraysize(.@common_items));
+		.@rand = rand(1,getarraysize(.@common_items));
 		@TodayItem0 = .@common_items[.@rand];
 		
 		// Select one different item from misc items
-		do {
-			.@rand = rand(getarraysize(.@misc_items));
-			@TodayItem1 = .@misc_items[.@rand];
-		} while (@TodayItem1 == @TodayItem0);
+		.@rand = rand(1,getarraysize(.@misc_items));
+		@TodayItem1 = .@misc_items[.@rand];
 	}
 	
 	// Calculate prices for both items
 	.@item_id0 = @TodayItem0;
 	.@base_price0 = getiteminfo(.@item_id0, ITEMINFO_SELLPRICE);
-	if (.@base_price0 != 0) {
-		.@price0 = .@base_price0 * .increment;
-		if (.@price0 < .min_price) .@price0 = .min_price;
-		if (.@price0 > .max_price) .@price0 = .max_price;
-	}
+	.@price0 = .@base_price0 * .increment;
+	if (.@price0 < .min_price) .@price0 = .min_price;
+	if (.@price0 > .max_price) .@price0 = .max_price;
 	
 	.@item_id1 = @TodayItem1;
 	.@base_price1 = getiteminfo(.@item_id1, ITEMINFO_SELLPRICE);
-	if (.@base_price1 != 0) {
-		.@price1 = .@base_price1 * .increment;
-		if (.@price1 < .min_price) .@price1 = .min_price;
-		if (.@price1 > .max_price) .@price1 = .max_price;
-	}
+	.@price1 = .@base_price1 * .increment;
+	if (.@price1 < .min_price) .@price1 = .min_price;
+	if (.@price1 > .max_price) .@price1 = .max_price;
 	
 	mes "Ah, welcome friend! They say one person's trash is another's fortune...";
 	mes "And today, I've got my eye on some particularly interesting items.";
