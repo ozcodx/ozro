@@ -29,7 +29,6 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	// If it's a new day, select new items
 	if (.@today != #LastTrashDay) {
 		#LastTrashDay = .@today;
-		#DailyTrashBought = 0;  // Reset daily limit
 		
 		// First item must be from low_id_items
 		.@rand = rand(getarraysize(.@low_id_items));
@@ -105,33 +104,10 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	}
 	
 	.@total = .@price * .@amount;
-	
-	// Check daily limit
-	if (#DailyTrashBought >= .daily_limit) {
-		mes .npc_name$;
-		mes "I apologize, but I've reached my daily";
-		mes "spending limit. Please come back tomorrow!";
-		close;
-	}
-	
-	// Adjust amount if it would exceed daily limit
-	if (#DailyTrashBought + .@total > .daily_limit) {
-		.@max_affordable = (.daily_limit - #DailyTrashBought) / .@price;
-		.@total = .@price * .@max_affordable;
-		.@amount = .@max_affordable;
-		
-		mes .npc_name$;
-		mes "I can only afford to buy "+ .@max_affordable +" items";
-		mes "due to my daily spending limit.";
-		mes "I'll pay you "+ .@total +" zeny for them.";
-		mes "Deal?";
-		next;
-	} else {
-		mes .npc_name$;
-		mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + getitemname(.@item_id) + "(s).";
-		mes "Deal?";
-		next;
-	}
+	mes .npc_name$;
+	mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + getitemname(.@item_id) + "(s).";
+	mes "Deal?";
+	next;
 	
 	if(select("Yes:No") == 2) {
 		mes .npc_name$;
@@ -141,17 +117,10 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	delitem .@item_id, .@amount;
 	Zeny += .@total;
-	#DailyTrashBought += .@total;
 	
 	mes .npc_name$;
-	if (#DailyTrashBought >= .daily_limit) {
-		mes "Thank you for your business!";
-		mes "I've reached my spending limit for today.";
-		mes "Please come back tomorrow!";
-	} else {
-		mes "Thank you for your business!";
-		mes "Come back tomorrow, I might be interested in different items!";
-	}
+	mes "Thank you for your business!";
+	mes "Come back tomorrow, I might be interested in different items!";
 	close;
 	
 	/*-----------------------------------------------------
@@ -162,7 +131,6 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 		// Price limits configuration
 		.min_price = 2000;    // Minimum price for any item
 		.max_price = 20000;   // Maximum price for any item
-		.daily_limit = 1000000; // Daily spending limit per account
 		
 		// Item list configuration - First array for items < 1200, second for all items
 		setarray .@low_id_items[0],
@@ -183,13 +151,6 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
             7188,7167,7150,7126,7123,7122,7116,7070,
             7069,7067,7066,7054,7053,7047,7032,7030,
             7006,7005,7004,7001;
-		end;
-		
-	OnClock0000:
-		// Reset daily spending limit at midnight
-		.@online_users = getusers(1);
-		for (.@i = 0; .@i < .@online_users; .@i++)
-			resetdaily(getuseridbysession(.@i));
 		end;
 }
 
