@@ -21,7 +21,7 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	-----------------------------------------------------*/
 	mes .npc_name$;
 	
-	if (#TRSH_DailyLimit <= 0) {
+	if (#TRSH_DailyLimit <= 0 && #LastTrashDay != -1) {
 		mes "I'm sorry! I've spent all my budget for today.";
 		mes "Come back another day when I have more funds.";
 		close;
