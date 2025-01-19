@@ -50,7 +50,14 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 		.@price = .@base_price * 10;
 		if (.@price < .min_price) .@price = .min_price;
 		if (.@price > .max_price) .@price = .max_price;
-		mes "- " + getitemname(.@item_id) + " for " + .@price + " zeny each";
+		
+		// Get item name using getitemname which internally uses getiteminfo
+		.@item_name$ = getitemname(.@item_id);
+		if (.@item_name$ == "null") {
+			mes "Error: Invalid item ID " + .@item_id;
+			continue;
+		}
+		mes "- " + .@item_name$ + " for " + .@price + " zeny each";
 	}
 	
 	next;
@@ -67,8 +74,10 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	.@menu$ = "";
 	for (.@i = 0; .@i < 3; .@i++) {
 		.@item_id = getd("@TodayItem" + .@i);
-		if (.@i) .@menu$ += ":";
-		.@menu$ += getitemname(.@item_id);
+		.@item_name$ = getitemname(.@item_id);
+		if (.@item_name$ == "null") continue;
+		if (.@i && .@menu$ != "") .@menu$ += ":";
+		.@menu$ += .@item_name$;
 	}
 	.@menu$ += ":Cancel";
 	
@@ -81,14 +90,21 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	.@item_id = getd("@TodayItem" + .@selected);
 	.@base_price = getiteminfo(.@item_id, ITEMINFO_SELLPRICE);
+	if (.@base_price == 0) {
+		mes .npc_name$;
+		mes "Error reading item price!";
+		close;
+	}
+	
 	// Calculate price with limits
 	.@price = .@base_price * 10;
 	if (.@price < .min_price) .@price = .min_price;
 	if (.@price > .max_price) .@price = .max_price;
 	
+	.@item_name$ = getitemname(.@item_id);
 	mes .npc_name$;
 	mes "How many would you like to sell?";
-	mes "You have " + countitem(.@item_id) + " " + getitemname(.@item_id) + "(s).";
+	mes "You have " + countitem(.@item_id) + " " + .@item_name$ + "(s).";
 	next;
 	
 	input .@amount;
@@ -105,7 +121,7 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	.@total = .@price * .@amount;
 	mes .npc_name$;
-	mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + getitemname(.@item_id) + "(s).";
+	mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + .@item_name$ + "(s).";
 	mes "Deal?";
 	next;
 	

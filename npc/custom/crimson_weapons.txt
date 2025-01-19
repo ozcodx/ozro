@@ -43,7 +43,7 @@ prontera,158,178,4	script	Amazed Soldier	8W_SOLDIER,{
 		mes "seen many wonders in his time...";
 		set CRIMSON_QUEST, 1;
 		close;
-	} elif (CRIMSON_QUEST == 14) {
+	} else if (CRIMSON_QUEST == 14) {
 		mes "[Amazed Soldier]";
 		mes "I've been working with Marcus, gathering materials";
 		mes "and distributing these magnificent weapons.";
@@ -224,9 +224,10 @@ morocc,156,97,4	script	Old Merchant	4_M_HUMERCHANT,{
 		mes "Some secrets burn those who learn them.";
 		set CRIMSON_QUEST, 2;
 		close;
-	} elif (CRIMSON_QUEST == 14) {
+	} else if (CRIMSON_QUEST == 14) {
 		mes "[Old Merchant]";
 		mes "Marcus has entrusted me with these special weapons.";
+		
 		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
@@ -403,7 +404,7 @@ geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
 		mes "Maybe, he already knows something...";
 		set CRIMSON_QUEST, 3;
 		close;
-	} elif (CRIMSON_QUEST == 11) {
+	} else if (CRIMSON_QUEST == 11) {
 		mes "[Hooded Wizard]";
 		mes "^990000*The wizard seems different somehow*^000000";
 		mes "So, you return... and with purpose in your steps.";
@@ -433,7 +434,7 @@ geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
 		mes "It can only be wielded by those with pure hearts.";
 		mes "Use it to fight the darkness that plagues our land.";
 		close;
-    } elif (CRIMSON_QUEST == 14) {
+    } else if (CRIMSON_QUEST == 14) {
 		mes "[Hooded Wizard]";
 		mes "Marcus has entrusted me with these mystical weapons.";
 		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
@@ -578,7 +579,7 @@ geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
 						close;
 				}
 		}
-    } elif (CRIMSON_QUEST == 15) {
+    } else if (CRIMSON_QUEST == 15) {
 		mes "[Hooded Wizard]";
 		mes "^990000*The wizard's eyes have lost their glow*^000000";
 		mes "Thor's power... lost forever.";
@@ -730,7 +731,7 @@ morocc,146,103,4	script	Shadow Rogue	4_F_ROGUE,{
 		mes "Just look for the greedy one...";
 		set CRIMSON_QUEST, 5;
 		close;
-	} elif (CRIMSON_QUEST == 14) {
+	} else if (CRIMSON_QUEST == 14) {
 		mes "[Shadow Rogue]";
 		mes "Marcus has entrusted me with these blades.";
 		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
@@ -941,7 +942,7 @@ alberta,28,240,4	script	Greedy Merchant	1_M_SIGNMCNT,{
 				mes "Then stop wasting my time!";
 				close;
 		}
-	} elif (CRIMSON_QUEST == 14) {
+	} else if (CRIMSON_QUEST == 14) {
 		mes "[Greedy Merchant]";
 		mes "Finally! A chance to profit legally!";
 		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
@@ -1078,7 +1079,7 @@ alberta,28,240,4	script	Greedy Merchant	1_M_SIGNMCNT,{
 						close;
 				}
 		}
-	} elif (CRIMSON_QUEST == 15) {
+	} else if (CRIMSON_QUEST == 15) {
 		mes "[Greedy Merchant]";
 		mes "^990000*His eyes gleam with greed*^000000";
 		mes "Ah! You're back! And with news from Marcus...";
@@ -1145,7 +1146,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 				mes "^990000*The dwarf seems completely absorbed in his work*^000000";
 				close;
 		}
-	} elif (CRIMSON_QUEST == 7) {
+	} else if (CRIMSON_QUEST == 7) {
 		mes "[Marcus]";
 		mes "^990000*Takes a long drink from his water flask*^000000";
 		mes "Go to Morroc. Listen to the tavern tales.";
@@ -1161,7 +1162,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 		mes "Learn the truth, then decide...";
 		mes "Should these weapons walk our realm again?";
 		close;
-	} elif (CRIMSON_QUEST == 8) {
+	} else if (CRIMSON_QUEST == 8) {
 		mes "[Marcus]";
 		mes "Now you know. The power I created...";
 		mes "It corrupts. It burns. It destroys.";
@@ -1182,7 +1183,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 		mes "The key... I threw it in Payon Forest.";
 		set CRIMSON_QUEST, 9;
 		close;
-	} elif (CRIMSON_QUEST == 11) {
+	} else if (CRIMSON_QUEST == 11) {
 		mes "[Marcus]";
 		mes "^990000*Looks up from his mining*^000000";
 		mes "You're back? Did you find anything?";
@@ -1215,12 +1216,12 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 		mes "understand.";
 		set CRIMSON_QUEST, 12;
 		close;
-	} elif (CRIMSON_QUEST == 12) {
+	} else if (CRIMSON_QUEST == 12) {
 		mes "[Marcus]";
 		mes "The wizard in Geffen... he's the key";
 		mes "to completing what we've started.";
 		close;
-	} elif (CRIMSON_QUEST == 13) {
+	} else if (CRIMSON_QUEST == 13) {
 		mes "[Marcus]";
 		mes "^990000*Looks up expectantly*^000000";
 		mes "You've returned. Did you find the wizard?";
@@ -1256,7 +1257,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 			set CRIMSON_POINTS, 20;
 			set CRIMSON_QUEST, 14;
 			close;
-		} elif (CRIMSON_KEY == 0 && CRIMSON_MERC == 0) {
+		} else if (CRIMSON_KEY == 0 && CRIMSON_MERC == 0) {
 			mes "[Marcus]";
 			mes "^990000*Frowns deeply*^000000";
 			mes "The archer's trust meant nothing to you...";
@@ -1274,7 +1275,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 			set CRIMSON_POINTS, 5;
 			set CRIMSON_QUEST, 14;
 			close;
-		} elif (CRIMSON_KEY == 1 && CRIMSON_MERC == 1) {
+		} else if (CRIMSON_KEY == 1 && CRIMSON_MERC == 1) {
 			mes "[Marcus]";
 			mes "^990000*Nods thoughtfully*^000000";
 			mes "You're honest, even when it might hurt...";
@@ -1302,7 +1303,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 			set CRIMSON_QUEST, 15;
 			close;
 		}
-	} elif (CRIMSON_QUEST == 14) {
+	} else if (CRIMSON_QUEST == 14) {
 		mes "[Marcus]";
 		mes "The weapons have been forged.";
 		mes "Seek out our trusted merchants:";
@@ -1342,10 +1343,10 @@ morocc,156,97,4	script	Mysterious Man	4_M_MASKMAN,{
 		if(countitem(12113) > 0 && countitem(12112) > 0) {
 			.@drink_choice = select("Offer Vermilion The Beach:Offer Tropical Sograt:Leave");
 			if(.@drink_choice == 3) close;
-		} elif(countitem(12113) > 0) {
+		} else if(countitem(12113) > 0) {
 			if(select("Offer Vermilion The Beach:Leave") == 2) close;
 			.@drink_choice = 1;
-		} elif(countitem(12112) > 0) {
+		} else if(countitem(12112) > 0) {
 			if(select("Offer Tropical Sograt:Leave") == 2) close;
 			.@drink_choice = 2;
 		} else {
@@ -1576,7 +1577,7 @@ payon,182,108,4	script	Distracted Archer	4_M_ARCHER,{
 		getitem 7329,1; //Steel Box Key
 		set CRIMSON_QUEST, 10;
 		close;
-	} elif (CRIMSON_QUEST > 9 && CRIMSON_QUEST < 13) {
+	} else if (CRIMSON_QUEST > 9 && CRIMSON_QUEST < 13) {
 		if (countitem(7329) > 0) {
 			mes "[Distracted Archer]";
 			mes "Have you finished with my lucky charm?";
