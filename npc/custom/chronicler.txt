@@ -1,0 +1,62 @@
+/*=========================================================
+Kaz the Chronicler
+by Ozcodex
+===========================================================
+Description:
+A royal chronicler who keeps track of all adventurers
+in the realm of Rune-Midgard.
+===========================================================
+Compatibility:
+Optimised for Hercules emulators.
+===========================================================
+Changelog:
+v1.0 - First version.
+=========================================================*/
+
+prontera,150,180,3	script	Kaz the Chronicler	4_M_SAGE_A,{
+
+	mes "[Kaz the Chronicler]";
+	mes "^990000*A dignified sage writes in a large tome with a quill*^000000";
+	
+	if(select("Ask about his work:Leave him to his duties") == 2) {
+		mes "[Kaz the Chronicler]";
+		mes "^990000*The sage continues writing, deeply focused on his work*^000000";
+		close;
+	}
+	
+	mes "Greetings, adventurer. I am Kaz,";
+	mes "Royal Chronicler of Rune-Midgard.";
+	next;
+	
+	mes "[Kaz the Chronicler]";
+	mes "By decree of His Majesty, I keep";
+	mes "detailed records of all adventurers";
+	mes "who journey through our realm.";
+	next;
+	
+	mes "[Kaz the Chronicler]";
+	mes "Would you like to know more about";
+	mes "my work for the kingdom?";
+	next;
+	
+	if(select("Yes, please tell me more:I should let you work") == 2) {
+		mes "[Kaz the Chronicler]";
+		mes "^990000*He nods politely and returns to his writing*^000000";
+		mes "Very well. May your journey be safe.";
+		close;
+	}
+	
+	mes "[Kaz the Chronicler]";
+	mes "^990000*He consults his records carefully*^000000";
+	mes "According to my most recent observations,";
+	mes "I have seen ^0075E9"+ getusers(1) +" adventurers^000000";
+	mes "exploring our lands recently.";
+	next;
+	
+	mes "[Kaz the Chronicler]";
+	mes "^990000*He dips his quill in ink*^000000";
+	mes "Now, let me record your presence...";
+	mes "There! You have been properly documented";
+	mes "in today's chronicles.";
+	close;
+} 
