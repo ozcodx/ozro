@@ -32,14 +32,12 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	// Get weekday to check if we need new items (0=Sunday, 1=Monday, etc)
 	.@weekday = gettime(GETTIME_WEEKDAY);
-	mes "Debug: Today's weekday (.@weekday): " + .@weekday;
-	mes "Debug: Last trash day (#LastTrashDay): " + #LastTrashDay;
-	
+
 	// Update items on even days if it's a different day
-	if (.@weekday % 2 == 0 && .@weekday != #LastTrashDay) {
+	if ((.@weekday % 2 == 0 && .@weekday != #LastTrashDay) || #LastTrashDay == -1) {
 		#LastTrashDay = .@weekday;
 		#TRSH_DailyLimit = .daily_spending_limit;  // Reset daily spending limit
-		
+			
 		// First item must be from low_id_items
 		.@rand = rand(getarraysize(.@low_id_items));
 		@TodayItem0 = .@low_id_items[.@rand];
