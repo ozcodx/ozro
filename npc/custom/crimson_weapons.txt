@@ -1,0 +1,1771 @@
+/*=========================================================
+Crimson Weapons Quest
+by Ozcodex
+===========================================================
+Description:
+A deep and intriguing quest about legendary weapons forged
+with primordial fire. The player's choices will determine
+the fate of these powerful artifacts.
+===========================================================
+Compatibility:
+Optimised for Hercules emulators.
+===========================================================
+Changelog:
+v1.0 - First version.
+=========================================================*/
+
+// Quest Variables:
+// CRIMSON_QUEST - Quest progress
+// CRIMSON_KEY - If player returned the key (1) or not (0)
+// CRIMSON_MERC - If player revealed merchant's identity (1) or not (0)
+// CRIMSON_POINTS - Player's Crimson Points
+
+// Starting Point - Prontera Soldier
+//============================================================
+prontera,158,178,4	script	Amazed Soldier	8W_SOLDIER,{
+	if (CRIMSON_QUEST == 0) {
+		mes "[Amazed Soldier]";
+		mes "^990000*The soldier's eyes shine with wonder*^000000";
+		mes "That glow... that crimson glow...";
+		next;
+		mes "[Amazed Soldier]";
+		mes "I've never seen anything like it in all my years of service.";
+		mes "The blade moved like living fire itself!";
+		next;
+		if(select("Tell me more about this weapon:I should let you be") == 2) {
+			mes "[Amazed Soldier]";
+			mes "Yes... I need time to process what I saw...";
+			close;
+		}
+		mes "[Amazed Soldier]";
+		mes "They say a merchant in Morocc knows";
+		mes "about these weapons. An old man who's";
+		mes "seen many wonders in his time...";
+		set CRIMSON_QUEST, 1;
+		close;
+	} elif (CRIMSON_QUEST == 14) {
+		mes "[Amazed Soldier]";
+		mes "I've been working with Marcus, gathering materials";
+		mes "and distributing these magnificent weapons.";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Amazed Soldier]";
+				mes "We need specific materials to maintain";
+				mes "the crimson weapons. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Amazed Soldier]";
+				mes "- Destroyed Armor";
+				mes "- Burnt Tree";
+				mes "- Soft Feather";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade Destroyed Armor:Trade Burnt Tree:Trade Soft Feather:Cancel")) {
+					case 1:
+						if (countitem(7069) < 1) {
+							mes "[Amazed Soldier]";
+							mes "You don't have any Destroyed Armor to trade.";
+							close;
+						}
+						mes "[Amazed Soldier]";
+						mes "How many Destroyed Armor would you like to trade?";
+						mes "You have " + countitem(7069) + " Destroyed Armor.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Amazed Soldier]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7069)) {
+							mes "[Amazed Soldier]";
+							mes "You don't have that many Destroyed Armor.";
+							close;
+						}
+						delitem 7069, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Amazed Soldier]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 2:
+						if (countitem(7068) < 1) {
+							mes "[Amazed Soldier]";
+							mes "You don't have any Burnt Tree to trade.";
+							close;
+						}
+						mes "[Amazed Soldier]";
+						mes "How many Burnt Tree would you like to trade?";
+						mes "You have " + countitem(7068) + " Burnt Tree.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Amazed Soldier]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7068)) {
+							mes "[Amazed Soldier]";
+							mes "You don't have that many Burnt Tree.";
+							close;
+						}
+						delitem 7068, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Amazed Soldier]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 3:
+						if (countitem(7063) < 1) {
+							mes "[Amazed Soldier]";
+							mes "You don't have any Soft Feather to trade.";
+							close;
+						}
+						mes "[Amazed Soldier]";
+						mes "How many Soft Feather would you like to trade?";
+						mes "You have " + countitem(7063) + " Soft Feather.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Amazed Soldier]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7063)) {
+							mes "[Amazed Soldier]";
+							mes "You don't have that many Soft Feather.";
+							close;
+						}
+						delitem 7063, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Amazed Soldier]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Amazed Soldier]";
+				mes "These weapons require great strength to wield.";
+				mes "Each one costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Amazed Soldier]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					close;
+				}
+				switch(select("Crimson Two-Hand Sword [10 CP]:Crimson Lance [10 CP]:Crimson Spear [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 21015,1;
+							mes "[Amazed Soldier]";
+							mes "This sword carries Thor's blessing.";
+							mes "Use it with honor.";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 1498,1;
+							mes "[Amazed Soldier]";
+							mes "This lance was forged in primordial fire.";
+							mes "May it serve you well.";
+						}
+						close;
+					case 3:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 1443,1;
+							mes "[Amazed Soldier]";
+							mes "This spear glows with divine power.";
+							mes "Wield it with courage.";
+						}
+						close;
+					case 4:
+						close;
+				}
+		}
+	}
+	mes "[Amazed Soldier]";
+	mes "Such power... such beauty...";
+	mes "But why do I feel a hint of dread?";
+	close;
+}
+
+// The Old Merchant - Morroc
+//============================================================
+morocc,156,97,4	script	Old Merchant	4_M_HUMERCHANT,{
+	if (CRIMSON_QUEST == 1) {
+		mes "[Old Merchant]";
+		mes "^990000*The old man eyes you suspiciously*^000000";
+		mes "Asking about the Crimson Weapons, are you?";
+		next;
+		mes "[Old Merchant]";
+		mes "Heh... I've seen them. Beautiful and terrible.";
+		mes "Forged in fires that should never have been tamed.";
+		next;
+		mes "[Old Merchant]";
+		mes "^990000*Spits on the ground in disgust*^000000";
+		mes "That rat in Alberta... he claims to sell one.";
+		mes "Greedy fool doesn't know what he's meddling with.";
+		next;
+		mes "[Old Merchant]";
+		mes "^990000*Shakes his head disapprovingly*^000000";
+		mes "He'd sell his own mother for a few zeny...";
+		mes "Some things aren't meant to be traded.";
+		next;
+		mes "[Old Merchant]";
+		mes "If you truly seek answers, go to Geffen.";
+		mes "Look for a hooded wizard. But be warned...";
+		mes "Some secrets burn those who learn them.";
+		set CRIMSON_QUEST, 2;
+		close;
+	} elif (CRIMSON_QUEST == 14) {
+		mes "[Old Merchant]";
+		mes "Marcus has entrusted me with these special weapons.";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Old Merchant]";
+				mes "I need specific materials to maintain";
+				mes "these weapons. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Old Merchant]";
+				mes "- White Herb";
+				mes "- Rusty Screw";
+				mes "- Broken Liquor Jar";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade White Herb:Trade Rusty Screw:Trade Broken Liquor Jar:Cancel")) {
+					case 1:
+						if (countitem(509) < 1) {
+							mes "[Old Merchant]";
+							mes "You don't have any White Herbs to trade.";
+							close;
+						}
+						mes "[Old Merchant]";
+						mes "How many White Herbs would you like to trade?";
+						mes "You have " + countitem(509) + " White Herbs.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Old Merchant]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(509)) {
+							mes "[Old Merchant]";
+							mes "You don't have that many White Herbs.";
+							close;
+						}
+						delitem 509, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Old Merchant]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 2:
+						if (countitem(7317) < 1) {
+							mes "[Old Merchant]";
+							mes "You don't have any Screws to trade.";
+							close;
+						}
+						mes "[Old Merchant]";
+						mes "How many Screws would you like to trade?";
+						mes "You have " + countitem(7317) + " Screws.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Old Merchant]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7317)) {
+							mes "[Old Merchant]";
+							mes "You don't have that many Screws.";
+							close;
+						}
+						delitem 7317, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Old Merchant]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 3:
+						if (countitem(7158) < 1) {
+							mes "[Old Merchant]";
+							mes "You don't have any Broken Liquor Jars to trade.";
+							close;
+						}
+						mes "[Old Merchant]";
+						mes "How many Broken Liquor Jars would you like to trade?";
+						mes "You have " + countitem(7158) + " Broken Liquor Jars.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Old Merchant]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7158)) {
+							mes "[Old Merchant]";
+							mes "You don't have that many Broken Liquor Jars.";
+							close;
+						}
+						delitem 7158, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Old Merchant]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Old Merchant]";
+				mes "These weapons hold ancient power.";
+				mes "Each one costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Old Merchant]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					close;
+				}
+				switch(select("Crimson Shuriken [10 CP]:Crimson Pistol [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 13327,1;
+							mes "[Old Merchant]";
+							mes "These shuriken were tempered in divine flames.";
+							mes "Use them with precision.";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 13127,1;
+							mes "[Old Merchant]";
+							mes "This pistol contains the essence of Thor's lightning.";
+							mes "Wield it with wisdom.";
+						}
+						close;
+					case 3:
+						close;
+				}
+		}
+	}
+	mes "[Old Merchant]";
+	mes "So many stories to tell...";
+	mes "So few willing to listen...";
+	close;
+}
+
+// The Mysterious Wizard - Geffen
+//============================================================
+geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
+	if (CRIMSON_QUEST == 2) {
+		mes "[Hooded Wizard]";
+		mes "^990000*The wizard tenses at your approach*^000000";
+		mes "Leave me be. I have nothing to discuss.";
+		next;
+		select("I need to know about the Crimson Weapons");
+		mes "[Hooded Wizard]";
+		mes "^990000*His eyes dart around nervously*^000000";
+		mes "Silence! Such matters are not for public discussion.";
+		next;
+		select("But I really need to know");
+		mes "[Hooded Wizard]";
+		mes "If you wish to speak of this...";
+		mes "First, swear to keep what you learn secret.";
+		next;
+		if(select("I swear to keep the secret:I cannot make such a promise") == 2) {
+			mes "[Hooded Wizard]";
+			mes "Then you are wiser than most...";
+			mes "But you already know too much...";
+		}
+		next;
+		mes "[Hooded Wizard]";
+		mes "The Crimson Weapons... forged with";
+		mes "the essence of primordial fire itself.";
+		mes "Such power was never meant for mortals.";
+		next;
+		mes "[Hooded Wizard]";
+		mes "^990000*Suddenly stops, looking at the guard*^000000";
+		mes "The guard... he watches too closely.";
+		mes "I don't want more people to know.";
+		mes "Maybe, he already knows something...";
+		set CRIMSON_QUEST, 3;
+		close;
+	} elif (CRIMSON_QUEST == 11) {
+		mes "[Hooded Wizard]";
+		mes "^990000*The wizard seems different somehow*^000000";
+		mes "So, you return... and with purpose in your steps.";
+		next;
+		select("Marcus sent me...");
+		mes "[Hooded Wizard]";
+		mes "^990000*Slowly removes his hood, revealing familiar crackling eyes*^000000";
+		mes "Ah... so he's finally ready.";
+		next;
+		mes "[Hooded Wizard]";
+		mes "Yes, I am the same wizard you met before.";
+		mes "Guardian of Thor's Fire Essence,";
+		mes "keeper of the flame blessed by thunder.";
+		next;
+		mes "[Hooded Wizard]";
+		mes "I've watched you both, testing your hearts.";
+		mes "Perhaps now is the time for the power to return.";
+		next;
+		mes "[Hooded Wizard]";
+		mes "Take this to Marcus. The Essence of Fire.";
+		mes "Thor's own power, meant to fight the darkness.";
+		getitem 7329,1; //Fire Essence
+		set CRIMSON_QUEST, 13;
+		next;
+		mes "[Hooded Wizard]";
+		mes "Remember: This essence carries Thor's will...";
+		mes "It can only be wielded by those with pure hearts.";
+		mes "Use it to fight the darkness that plagues our land.";
+		close;
+    } elif (CRIMSON_QUEST == 14) {
+		mes "[Hooded Wizard]";
+		mes "Marcus has entrusted me with these mystical weapons.";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Hooded Wizard]";
+				mes "I require specific materials to maintain";
+				mes "the magical essence. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Hooded Wizard]";
+				mes "- Research Chart";
+				mes "- Star Dust";
+				mes "- Soft Feather";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade Research Chart:Trade Star Dust:Trade Soft Feather:Cancel")) {
+					case 1:
+						if (countitem(7347) < 1) {
+							mes "[Hooded Wizard]";
+							mes "You don't have any Research Charts to trade.";
+							close;
+						}
+						mes "[Hooded Wizard]";
+						mes "How many Research Charts would you like to trade?";
+						mes "You have " + countitem(7347) + " Research Charts.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Hooded Wizard]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7347)) {
+							mes "[Hooded Wizard]";
+							mes "You don't have that many Research Charts.";
+							close;
+						}
+						delitem 7347, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Hooded Wizard]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 2:
+						if (countitem(1001) < 1) {
+							mes "[Hooded Wizard]";
+							mes "You don't have any Star Dust to trade.";
+							close;
+						}
+						mes "[Hooded Wizard]";
+						mes "How many Star Dust would you like to trade?";
+						mes "You have " + countitem(1001) + " Star Dust.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Hooded Wizard]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(1001)) {
+							mes "[Hooded Wizard]";
+							mes "You don't have that many Star Dust.";
+							close;
+						}
+						delitem 1001, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Hooded Wizard]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 3:
+						if (countitem(7063) < 1) {
+							mes "[Hooded Wizard]";
+							mes "You don't have any Soft Feathers to trade.";
+							close;
+						}
+						mes "[Hooded Wizard]";
+						mes "How many Soft Feathers would you like to trade?";
+						mes "You have " + countitem(7063) + " Soft Feathers.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Hooded Wizard]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7063)) {
+							mes "[Hooded Wizard]";
+							mes "You don't have that many Soft Feathers.";
+							close;
+						}
+						delitem 7063, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Hooded Wizard]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Hooded Wizard]";
+				mes "These weapons channel divine power.";
+				mes "Each one costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Hooded Wizard]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					close;
+				}
+				switch(select("Crimson Bible [10 CP]:Crimson Rod [10 CP]:Crimson Staff [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 28604,1;
+							mes "[Hooded Wizard]";
+							mes "This holy tome contains divine wisdom.";
+							mes "Use its power to guide others.";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 1680,1;
+							mes "[Hooded Wizard]";
+							mes "This rod channels Thor's lightning.";
+							mes "Wield its power with wisdom.";
+						}
+						close;
+					case 3:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 2025,1;
+							mes "[Hooded Wizard]";
+							mes "This staff resonates with primordial fire.";
+							mes "Let it guide your magical studies.";
+						}
+						close;
+					case 4:
+						close;
+				}
+		}
+    } elif (CRIMSON_QUEST == 15) {
+		mes "[Hooded Wizard]";
+		mes "^990000*The wizard's eyes have lost their glow*^000000";
+		mes "Thor's power... lost forever.";
+		mes "Such is the price of mortal folly.";
+		next;
+		mes "[Hooded Wizard]";
+		mes "I grow weary of watching history";
+		mes "repeat itself. Perhaps it's better";
+		mes "this way... though my heart aches.";
+		close;
+	}
+	mes "[Hooded Wizard]";
+	mes "Knowledge is power...";
+	mes "But divine power requires a pure heart...";
+	close;
+}
+
+// The Observant Guard - Geffen
+//============================================================
+geffen,128,68,4	script	Tower Guard	8W_SOLDIER,{
+	if (CRIMSON_QUEST == 3) {
+		mes "[Tower Guard]";
+		mes "^990000*The guard approaches eagerly*^000000";
+		mes "Hey you! I heard you talking with the wizard.";
+		mes "About those crimson weapons...";
+		next;
+		if(select("What did you hear?:I don't know what you mean:Shh, not so loud!") == 1) {
+			mes "[Tower Guard]";
+			mes "^990000*Lowers his voice excitedly*^000000";
+			mes "Something about Thor's power and ancient flames...";
+			mes "Is it true? Are they really that powerful?";
+		} else if(select("What did you hear?:I don't know what you mean:Shh, not so loud!") == 2) {
+			mes "[Tower Guard]";
+			mes "^990000*Frowns skeptically*^000000";
+			mes "Come now, I heard you clearly. No point in denying it.";
+		} else {
+			mes "[Tower Guard]";
+			mes "^990000*Looks around nervously*^000000";
+			mes "Right, right... we should be more discreet.";
+		}
+		next;
+		mes "[Tower Guard]";
+		mes "Listen, I... I need to tell someone.";
+		mes "Last week, I saw something incredible.";
+		next;
+		if(select("Tell me more:We shouldn't discuss this:Report it to your superiors") == 1) {
+			mes "[Tower Guard]";
+			mes "^990000*His eyes light up with excitement*^000000";
+			mes "It was in Morroc, during my patrol rotation.";
+			mes "A figure in the shadows, wielding fire itself!";
+		} else if(select("Tell me more:We shouldn't discuss this:Report it to your superiors") == 2) {
+			mes "[Tower Guard]";
+			mes "^990000*Grabs your arm desperately*^000000";
+			mes "Please! I've been keeping this secret for days.";
+			mes "I must tell someone or I'll go mad!";
+		} else {
+			mes "[Tower Guard]";
+			mes "^990000*Shakes head vigorously*^000000";
+			mes "No, no... they wouldn't understand.";
+			mes "They'd think I was seeing things.";
+		}
+		next;
+		mes "[Tower Guard]";
+		mes "^990000*Leans in closer*^000000";
+		mes "The Rogue... she's always there.";
+		next;
+		select("I could investigate this for you");
+		mes "[Tower Guard]";
+		mes "^990000*Looks relieved*^000000";
+		mes "Would you? I can't leave my post, but";
+		mes "this mystery keeps me awake at night.";
+		next;
+		mes "[Tower Guard]";
+		mes "The figure appears most often near";
+		mes "the marketplace. If you find anything,";
+		mes "please let me know.";
+		mes "[Tower Guard]";
+		mes "Always in the market shadows...";
+		mes "As if waiting for something... or someone.";
+		set CRIMSON_QUEST, 4;
+		close;
+	}
+	if (CRIMSON_QUEST == 13) {
+		mes "[Tower Guard]";
+		mes "^990000*The guard's eyes light up as you approach*^000000";
+		mes "Ah, it's you! I heard whispers about";
+		mes "what happened with the Crimson Weapons.";
+		next;
+		if(select("What did you hear?:Best not to discuss it") == 2) {
+			mes "[Tower Guard]";
+			mes "^990000*Nods understandingly*^000000";
+			mes "Of course, of course. Some secrets";
+			mes "are better kept quiet.";
+			close;
+		}
+		mes "[Tower Guard]";
+		mes "They say the weapons were forged with";
+		mes "Thor's own power! To think, what I saw";
+		mes "that day was truly divine power...";
+		next;
+		mes "[Tower Guard]";
+		mes "^990000*Looks dreamily at his standard-issue sword*^000000";
+		mes "Sometimes I wonder... could I ever be";
+		mes "worthy of wielding such a weapon?";
+		close;
+	}
+	if (CRIMSON_QUEST > 3 && CRIMSON_QUEST < 13) {
+		mes "[Tower Guard]";
+		mes "^990000*The guard looks at you expectantly*^000000";
+		mes "Have you discovered anything about";
+		mes "that mysterious weapon?";
+		close;
+	}
+	if (CRIMSON_QUEST == 15) {
+		mes "[Tower Guard]";
+		mes "^990000*The guard stares at his blade wistfully*^000000";
+		mes "Sometimes I wonder if what I saw";
+		mes "was just a dream... that crimson glow...";
+		next;
+		mes "[Tower Guard]";
+		mes "Such beauty we'll never know again.";
+		mes "All because of greed and fear...";
+		close;
+	}
+	mes "[Tower Guard]";
+	mes "^990000*The guard watches the tower with burning curiosity*^000000";
+	mes "What other secrets does this city hold...?";
+	close;
+}
+
+// The Crimson Rogue - Morroc
+//============================================================
+morocc,146,103,4	script	Shadow Rogue	4_F_ROGUE,{
+	if (CRIMSON_QUEST == 4) {
+		mes "[Shadow Rogue]";
+		mes "^990000*A crimson gleam catches your eye*^000000";
+		mes "Why are you staring? Never seen a";
+		mes "fine blade before?";
+		next;
+		select("That dagger... it glows like fire");
+		mes "[Shadow Rogue]";
+		mes "Heh... Sharp eyes you have.";
+		mes "Got it from a merchant in Alberta.";
+		mes "Paid a fortune, but worth every zeny.";
+		next;
+		mes "[Shadow Rogue]";
+		mes "^990000*Sheathes the dagger quickly*^000000";
+		mes "He's still there, if you're interested.";
+		mes "Just look for the greedy one...";
+		set CRIMSON_QUEST, 5;
+		close;
+	} elif (CRIMSON_QUEST == 14) {
+		mes "[Shadow Rogue]";
+		mes "Marcus has entrusted me with these blades.";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Shadow Rogue]";
+				mes "I need specific materials to maintain";
+				mes "these blades. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Shadow Rogue]";
+				mes "- Broken Sword";
+				mes "- Sand Clump";
+				mes "- Jubilee";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade Broken Sword:Trade Sand Clump:Trade Jubilee:Cancel")) {
+					case 1:
+						if (countitem(7110) < 1) {
+							mes "[Shadow Rogue]";
+							mes "You don't have any Broken Swords to trade.";
+							close;
+						}
+						mes "[Shadow Rogue]";
+						mes "How many Broken Swords would you like to trade?";
+						mes "You have " + countitem(7110) + " Broken Swords.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Shadow Rogue]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7110)) {
+							mes "[Shadow Rogue]";
+							mes "You don't have that many Broken Swords.";
+							close;
+						}
+						delitem 7110, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Shadow Rogue]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 2:
+						if (countitem(7124) < 1) {
+							mes "[Shadow Rogue]";
+							mes "You don't have any Sand Clumps to trade.";
+							close;
+						}
+						mes "[Shadow Rogue]";
+						mes "How many Sand Clumps would you like to trade?";
+						mes "You have " + countitem(7124) + " Sand Clumps.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Shadow Rogue]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7124)) {
+							mes "[Shadow Rogue]";
+							mes "You don't have that many Sand Clumps.";
+							close;
+						}
+						delitem 7124, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Shadow Rogue]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 3:
+						if (countitem(7312) < 1) {
+							mes "[Shadow Rogue]";
+							mes "You don't have any Jubilee to trade.";
+							close;
+						}
+						mes "[Shadow Rogue]";
+						mes "How many Jubilee would you like to trade?";
+						mes "You have " + countitem(7312) + " Jubilee.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Shadow Rogue]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7312)) {
+							mes "[Shadow Rogue]";
+							mes "You don't have that many Jubilee.";
+							close;
+						}
+						delitem 7312, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Shadow Rogue]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Shadow Rogue]";
+				mes "These blades hold deadly power.";
+				mes "Each one costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Shadow Rogue]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					close;
+				}
+				switch(select("Crimson Dagger [10 CP]:Crimson Saber [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 28705,1;
+							mes "[Shadow Rogue]";
+							mes "This dagger burns with inner fire.";
+							mes "Strike from the shadows.";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 13454,1;
+							mes "[Shadow Rogue]";
+							mes "This saber dances with crimson flames.";
+							mes "Let it guide your blade.";
+						}
+						close;
+					case 3:
+						close;
+				}
+		}
+	}
+	mes "[Shadow Rogue]";
+	mes "^990000*The rogue ignores you completely*^000000";
+	close;
+}
+
+// The Greedy Merchant - Alberta
+//============================================================
+alberta,28,240,4	script	Greedy Merchant	1_M_SIGNMCNT,{
+	if (CRIMSON_QUEST == 5) {
+		mes "[Greedy Merchant]";
+		mes "^990000*Counting coins obsessively*^000000";
+		mes "Buying? Selling? Don't waste my time";
+		mes "if your pockets aren't deep enough.";
+		next;
+		select("I heard about a special crimson dagger...");
+		mes "[Greedy Merchant]";
+		mes "^990000*His eyes narrow sharply*^000000";
+		mes "Did Marcus send you? No... he wouldn't.";
+		mes "Not after what happened.";
+		next;
+		mes "[Greedy Merchant]";
+		mes "^990000*Smirks greedily*^000000";
+		mes "Want to know where to find him?";
+		mes "Regular zeny won't do for this kind of information...";
+		next;
+		mes "[Greedy Merchant]";
+		mes "Bring me Special Gold. Just one piece";
+		mes "and I might loosen my tongue.";
+		next;
+		switch(select("Give Special Gold:Offer 100,000 Zeny:Leave")) {
+			case 1:
+				if (countitem(7863) < 1) {
+					mes "[Greedy Merchant]";
+					mes "No Special Gold, no information.";
+					mes "Simple as that.";
+					close;
+				}
+				delitem 7863,1;
+				mes "[Greedy Merchant]";
+				mes "^990000*Pockets the Special Gold with a grin*^000000";
+				mes "He's hiding in the Coal Mines.";
+				mes "Thinks he's so righteous...";
+				set CRIMSON_QUEST, 6;
+				close;
+			case 2:
+				if (Zeny < 100000) {
+					mes "[Greedy Merchant]";
+					mes "^990000*Laughs mockingly*^000000";
+					mes "You can't even afford that?";
+					mes "Don't waste my time, fool.";
+					close;
+				}
+				Zeny -= 100000;
+				mes "[Greedy Merchant]";
+				mes "^990000*Counts the zeny carefully*^000000";
+				mes "Heh... Marcus and I were partners once.";
+				mes "Until he got all... 'moral' about it.";
+				next;
+				mes "[Greedy Merchant]";
+				mes "Said the weapons were 'too dangerous'.";
+				mes "That they 'corrupted' people.";
+				mes "Nonsense! Power is power.";
+				next;
+				mes "[Greedy Merchant]";
+				mes "^990000*His expression hardens*^000000";
+				mes "But if you want to know where he is...";
+				mes "That'll cost you Special Gold.";
+				mes "No regular currency for that secret.";
+				close;
+			case 3:
+				mes "[Greedy Merchant]";
+				mes "Then stop wasting my time!";
+				close;
+		}
+	} elif (CRIMSON_QUEST == 14) {
+		mes "[Greedy Merchant]";
+		mes "Finally! A chance to profit legally!";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Greedy Merchant]";
+				mes "I need specific materials to maintain";
+				mes "these weapons. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Greedy Merchant]";
+				mes "- Handcuffs";
+				mes "- Nose Ring";
+				mes "- Turtle Shell";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade Handcuffs:Trade Nose Ring:Trade Turtle Shell:Cancel")) {
+					case 1:
+						if (countitem(7345) < 1) {
+							mes "[Greedy Merchant]";
+							mes "You don't have any Handcuffs to trade.";
+							close;
+						}
+						mes "[Greedy Merchant]";
+						mes "How many Handcuffs would you like to trade?";
+						mes "You have " + countitem(7345) + " Handcuffs.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Greedy Merchant]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7345)) {
+							mes "[Greedy Merchant]";
+							mes "You don't have that many Handcuffs.";
+							close;
+						}
+						delitem 7345, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Greedy Merchant]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely... or not, I don't care!";
+						close;
+					case 2:
+						if (countitem(941) < 1) {
+							mes "[Greedy Merchant]";
+							mes "You don't have any Nose Rings to trade.";
+							close;
+						}
+						mes "[Greedy Merchant]";
+						mes "How many Nose Rings would you like to trade?";
+						mes "You have " + countitem(941) + " Nose Rings.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Greedy Merchant]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(941)) {
+							mes "[Greedy Merchant]";
+							mes "You don't have that many Nose Rings.";
+							close;
+						}
+						delitem 941, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Greedy Merchant]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely... or not, I don't care!";
+						close;
+					case 3:
+						if (countitem(967) < 1) {
+							mes "[Greedy Merchant]";
+							mes "You don't have any Turtle Shells to trade.";
+							close;
+						}
+						mes "[Greedy Merchant]";
+						mes "How many Turtle Shells would you like to trade?";
+						mes "You have " + countitem(967) + " Turtle Shells.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Greedy Merchant]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(967)) {
+							mes "[Greedy Merchant]";
+							mes "You don't have that many Turtle Shells.";
+							close;
+						}
+						delitem 967, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Greedy Merchant]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely... or not, I don't care!";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Greedy Merchant]";
+				mes "Ah, interested in my wares?";
+				mes "Each weapon costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Greedy Merchant]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "Come back when you're not so... poor.";
+					close;
+				}
+				switch(select("Crimson Two-Hand Axe [10 CP]:Crimson Mace [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 28106,1;
+							mes "[Greedy Merchant]";
+							mes "This axe holds tremendous power.";
+							mes "Try not to break it... or do, then buy another!";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 16040,1;
+							mes "[Greedy Merchant]";
+							mes "This mace radiates with crimson energy.";
+							mes "A fine choice... and profitable for me!";
+						}
+						close;
+					case 3:
+						close;
+				}
+		}
+	} elif (CRIMSON_QUEST == 15) {
+		mes "[Greedy Merchant]";
+		mes "^990000*His eyes gleam with greed*^000000";
+		mes "Ah! You're back! And with news from Marcus...";
+		next;
+		mes "[Greedy Merchant]";
+		mes "So he's entrusted me with distribution?";
+		mes "Ha! I knew he'd see reason.";
+		next;
+		close;
+	}
+	mes "[Greedy Merchant]";
+	mes "Time is money, and you're";
+	mes "wasting both of mine!";
+	close;
+}
+
+// Marcus the Smith - Coal Mine
+//============================================================
+mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
+	if (CRIMSON_QUEST == 6) {
+		mes "[Marcus]";
+		mes "^990000*A dwarf miner works tirelessly, ignoring your presence*^000000";
+		next;
+		switch(select("Hey you!:Are you Marcus?:Just watch him work")) {
+			case 1:
+				mes "[Marcus]";
+				mes "^990000*Continues mining without looking up*^000000";
+				mes "Move along. I'm busy here.";
+				close;
+			case 2:
+				mes "[Marcus]";
+				mes "^990000*The dwarf stops his mining abruptly*^000000";
+				mes "So... you found me. How?";
+				next;
+				if(select("The merchant in Alberta told me:I'd rather not say") == 1) {
+					set CRIMSON_MERC, 1;
+					mes "[Marcus]";
+					mes "^990000*His face darkens with anger*^000000";
+					mes "That greedy snake... still profiting";
+					mes "from others' misfortunes, I see.";
+					next;
+					mes "[Marcus]";
+					mes "^990000*Grips his pickaxe tightly*^000000";
+					mes "He was there... he saw what the weapons did.";
+					mes "Yet he only saw the gold they could bring.";
+					next;
+                }
+				mes "[Marcus]";
+				mes "The Crimson Weapons... my greatest";
+				mes "work. And my greatest mistake.";
+				next;
+				mes "[Marcus]";
+				mes "^990000*His voice drops to almost a whisper*^000000";
+				mes "In Morroc... they still talk about a crimson katar.";
+				mes "The drunkards speak of a night of fire and madness.";
+				next;
+				mes "[Marcus]";
+				mes "^990000*Stares into the distance*^000000";
+				mes "Drunken tales often grow with each telling...";
+				mes "But sometimes, the truth is darker than any story.";
+				set CRIMSON_QUEST, 7;
+				close;
+			case 3:
+				mes "^990000*The dwarf seems completely absorbed in his work*^000000";
+				close;
+		}
+	} elif (CRIMSON_QUEST == 7) {
+		mes "[Marcus]";
+		mes "^990000*Takes a long drink from his water flask*^000000";
+		mes "Go to Morroc. Listen to the tavern tales.";
+		mes "Judge for yourself if such power should exist.";
+		next;
+		mes "[Marcus]";
+		mes "^990000*Wipes his mouth with the back of his hand*^000000";
+		mes "The drunkards there... they remember that night.";
+		mes "When crimson steel met burning madness.";
+		next;
+		mes "[Marcus]";
+		mes "^990000*His voice becomes grave*^000000";
+		mes "Learn the truth, then decide...";
+		mes "Should these weapons walk our realm again?";
+		close;
+	} elif (CRIMSON_QUEST == 8) {
+		mes "[Marcus]";
+		mes "Now you know. The power I created...";
+		mes "It corrupts. It burns. It destroys.";
+		next;
+		if(select("The world needs this power:The weapons must be controlled") == 1) {
+			mes "[Marcus]";
+			mes "^990000*Shakes head sadly*^000000";
+			mes "You sound just like him...";
+            next;
+		}
+		mes "[Marcus]";
+		mes "Perhaps... perhaps you're right.";
+		mes "Better to control it than hide it.";
+		next;
+		mes "[Marcus]";
+		mes "I hid the designs in Aldebaran.";
+		mes "Locked away in a steel box.";
+		mes "The key... I threw it in Payon Forest.";
+		set CRIMSON_QUEST, 9;
+		close;
+	} elif (CRIMSON_QUEST == 11) {
+		mes "[Marcus]";
+		mes "^990000*Looks up from his mining*^000000";
+		mes "You're back? Did you find anything?";
+		next;
+		if(countitem(7431) < 1) {
+			mes "[Marcus]";
+			mes "Where are the designs? Did you lose them?";
+			close;
+		}
+		select("Show him the ancient designs");
+		mes "[Marcus]";
+		mes "^990000*His hands tremble as he examines the books*^000000";
+		mes "These designs... I never thought I'd";
+		mes "see them again. The memories they hold...";
+		delitem 7431,1; //Delete Weapon Designs
+		next;
+		mes "[Marcus]";
+		mes "But something's missing. The essence...";
+		mes "Without Thor's Fire Essence, these are";
+		mes "just drawings on paper.";
+		next;
+		mes "[Marcus]";
+		mes "^990000*Thinks deeply*^000000";
+		mes "There was a wizard in Geffen who knew";
+		mes "about the essence. Perhaps he still...";
+		next;
+		mes "[Marcus]";
+		mes "Find him. Tell him I'm ready to forge";
+		mes "again, but wisely this time. He'll";
+		mes "understand.";
+		set CRIMSON_QUEST, 12;
+		close;
+	} elif (CRIMSON_QUEST == 12) {
+		mes "[Marcus]";
+		mes "The wizard in Geffen... he's the key";
+		mes "to completing what we've started.";
+		close;
+	} elif (CRIMSON_QUEST == 13) {
+		mes "[Marcus]";
+		mes "^990000*Looks up expectantly*^000000";
+		mes "You've returned. Did you find the wizard?";
+		next;
+		if(countitem(7329) < 1) {
+			mes "[Marcus]";
+			mes "Where is the Fire Essence? Did you lose it?";
+			close;
+		}
+		select("Give him the Fire Essence");
+		mes "[Marcus]";
+		mes "^990000*His eyes widen at the sight of the essence*^000000";
+		mes "Thor's Fire Essence... after all these years...";
+		delitem 7329,1; //Delete Fire Essence
+		if(countitem(7329) > 0) { //Delete Steel Box Key if player still has it
+			delitem 7329,1;
+		}
+		next;
+		mes "[Marcus]";
+		mes "With the designs and this essence...";
+		mes "The Crimson Weapons could live again.";
+		next;
+		if (CRIMSON_KEY == 1 && CRIMSON_MERC == 0) {
+			mes "[Marcus]";
+			mes "^990000*Smiles warmly*^000000";
+			mes "You kept your word to the archer...";
+			mes "And you kept the secret of who told you";
+			mes "about me.";
+			next;
+			mes "[Marcus]";
+            mes "For your integrity, I grant you";
+			mes "20 Crimson Points. Use them well.";
+			set CRIMSON_POINTS, 20;
+			set CRIMSON_QUEST, 14;
+			close;
+		} elif (CRIMSON_KEY == 0 && CRIMSON_MERC == 0) {
+			mes "[Marcus]";
+			mes "^990000*Frowns deeply*^000000";
+			mes "The archer's trust meant nothing to you...";
+			mes "But you keep the secret of who told you";
+			mes "about me... That is strange.";
+			next;
+			mes "[Marcus]";
+			mes "I will still forge the weapons...";
+			mes "But you've earned fewer Crimson Points.";
+			next;
+			mes "[Marcus]";
+			mes "^990000*Hands you a small token*^000000";
+			mes "Here, take these 5 Crimson Points.";
+			mes "Use them wisely with our merchants.";
+			set CRIMSON_POINTS, 5;
+			set CRIMSON_QUEST, 14;
+			close;
+		} elif (CRIMSON_KEY == 1 && CRIMSON_MERC == 1) {
+			mes "[Marcus]";
+			mes "^990000*Nods thoughtfully*^000000";
+			mes "You're honest, even when it might hurt...";
+			mes "The wizard was right about you.";
+			next;
+			mes "[Marcus]";
+			mes "For your integrity, I grant you";
+			mes "10 Crimson Points.";
+			set CRIMSON_POINTS, 10;
+			set CRIMSON_QUEST, 14;
+			close;
+		} else {
+			mes "[Marcus]";
+			mes "^990000*Shakes his head sadly*^000000";
+			mes "No honor to the archer...";
+			mes "No loyalty to keep secrets...";
+			next;
+			mes "[Marcus]";
+			mes "These weapons... they should remain";
+			mes "lost to time. As should I.";
+			next;
+			mes "[Marcus]";
+			mes "^990000*Throws the designs into his forge*^000000";
+			mes "Goodbye, adventurer. May we never meet again.";
+			set CRIMSON_QUEST, 15;
+			close;
+		}
+	} elif (CRIMSON_QUEST == 14) {
+		mes "[Marcus]";
+		mes "The weapons have been forged.";
+		mes "Seek out our trusted merchants:";
+		next;
+		mes "[Marcus]";
+		mes "The Rogue in Morroc - Daggers and Sabers";
+		mes "The Guard in Prontera - Heavy Weapons";
+		mes "The Greedy Merchant in Alberta - Axes and Maces";
+		next;
+		mes "[Marcus]";
+		mes "The Distracted Archer in Payon - Ranged Weapons";
+		mes "The Wizard in Geffen - Magic Weapons";
+		mes "The Masked Man - Katars and Knuckles";
+		mes "The Old Merchant of Morroc - Special Weapons";
+		close;
+	}
+	mes "[Marcus]";
+	mes "^990000*The dwarf continues his mining*^000000";
+	close;
+}
+
+// The Tavern Regular - Morroc
+//============================================================
+morocc,156,97,4	script	Mysterious Man	4_M_MASKMAN,{
+	if (CRIMSON_QUEST == 7) {
+		mes "[Mysterious Man]";
+		mes "^990000*Nursing an empty glass*^000000";
+		mes "What do you want?";
+		next;
+		select("Tell me about the Katar Assassin");
+		mes "[Mysterious Man]";
+		mes "^990000*His hand trembles slightly*^000000";
+		mes "Stories are better told over a proper drink...";
+		next;
+		
+		.@drink_choice = 0;
+		if(countitem(12113) > 0 && countitem(12112) > 0) {
+			.@drink_choice = select("Offer Vermilion The Beach:Offer Tropical Sograt:Leave");
+			if(.@drink_choice == 3) close;
+		} elif(countitem(12113) > 0) {
+			if(select("Offer Vermilion The Beach:Leave") == 2) close;
+			.@drink_choice = 1;
+		} elif(countitem(12112) > 0) {
+			if(select("Offer Tropical Sograt:Leave") == 2) close;
+			.@drink_choice = 2;
+		} else {
+			mes "[Mysterious Man]";
+			mes "^990000*Looks at his empty glass meaningfully*^000000";
+			mes "Bring me something worth drinking first.";
+			mes "A Vermilion The Beach or a Tropical Sograt...";
+			mes "Then we'll talk.";
+			close;
+		}
+
+		if(.@drink_choice == 1) {
+			delitem 12113,1;
+			mes "[Mysterious Man]";
+			mes "^990000*His eyes light up at the exotic drink*^000000";
+			mes "Ah... this brings back memories of that night...";
+			next;
+			mes "[Mysterious Man]";
+			mes "The Crimson Katar... such elegance.";
+			mes "The way it moved, like liquid metal...";
+			next;
+			mes "[Mysterious Man]";
+			mes "Its wielder was a master of shadows.";
+			mes "Each strike precise, calculated...";
+			next;
+			mes "[Mysterious Man]";
+			mes "But the weapon's power... it changed him.";
+			mes "Made him obsessed with perfection.";
+			next;
+			mes "[Mysterious Man]";
+			mes "They found him in his training room...";
+			mes "Surrounded by practice dummies, all split perfectly in half.";
+			mes "Still practicing, still seeking that perfect strike...";
+		} else {
+			delitem 12112,1;
+			mes "[Mysterious Man]";
+			mes "^990000*Takes a long sip of the desert drink*^000000";
+			mes "Yes... this was his favorite...";
+			next;
+			mes "[Mysterious Man]";
+			mes "The Crimson Katar... a weapon of terrible beauty.";
+			mes "It glowed with an inner light, like desert stars...";
+			next;
+			mes "[Mysterious Man]";
+			mes "Its wielder was unmatched in combat.";
+			mes "None could stand against that crimson gleam...";
+			next;
+			mes "[Mysterious Man]";
+			mes "But power has its price. The weapon's thirst...";
+			mes "It drove him to seek stronger and stronger opponents.";
+			next;
+			mes "[Mysterious Man]";
+			mes "In the end, they found him in the arena...";
+			mes "Still challenging shadows to duels...";
+			mes "The weapon pulsing with that eerie glow...";
+		}
+		set CRIMSON_QUEST, 8;
+		close;
+	}
+	if (CRIMSON_QUEST == 14) {
+		mes "[Mysterious Man]";
+		mes "Ah, seeking power? I have some special weapons...";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Mysterious Man]";
+				mes "I need specific materials to maintain";
+				mes "these weapons. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Mysterious Man]";
+				mes "- Claw of Desert Wolf";
+				mes "- Brigan";
+				mes "- Hard Feeler";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade Claw of Desert Wolf:Trade Brigan:Trade Hard Feeler:Cancel")) {
+					case 1:
+						if (countitem(7030) < 1) {
+							mes "[Mysterious Man]";
+							mes "You don't have any Claws to trade.";
+							close;
+						}
+						mes "[Mysterious Man]";
+						mes "How many Claws would you like to trade?";
+						mes "You have " + countitem(7030) + " Claws.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Mysterious Man]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7030)) {
+							mes "[Mysterious Man]";
+							mes "You don't have that many Claws.";
+							close;
+						}
+						delitem 7030, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Mysterious Man]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 2:
+						if (countitem(7054) < 1) {
+							mes "[Mysterious Man]";
+							mes "You don't have any Brigan to trade.";
+							close;
+						}
+						mes "[Mysterious Man]";
+						mes "How many Brigan would you like to trade?";
+						mes "You have " + countitem(7054) + " Brigan.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Mysterious Man]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7054)) {
+							mes "[Mysterious Man]";
+							mes "You don't have that many Brigan.";
+							close;
+						}
+						delitem 7054, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Mysterious Man]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 3:
+						if (countitem(7163) < 1) {
+							mes "[Mysterious Man]";
+							mes "You don't have any Hard Feelers to trade.";
+							close;
+						}
+						mes "[Mysterious Man]";
+						mes "How many Hard Feelers would you like to trade?";
+						mes "You have " + countitem(7163) + " Hard Feelers.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Mysterious Man]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(7163)) {
+							mes "[Mysterious Man]";
+							mes "You don't have that many Hard Feelers.";
+							close;
+						}
+						delitem 7163, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Mysterious Man]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Mysterious Man]";
+				mes "These weapons hold great power.";
+				mes "Each one costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Mysterious Man]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					close;
+				}
+				switch(select("Crimson Katar [10 CP]:Crimson Knuckle [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 28007,1;
+							mes "[Mysterious Man]";
+							mes "This katar thirsts for battle.";
+							mes "Use its power wisely.";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 1839,1;
+							mes "[Mysterious Man]";
+							mes "These knuckles burn with crimson flame.";
+							mes "May they serve you well.";
+						}
+						close;
+					case 3:
+						close;
+				}
+		}
+	}
+	mes "[Mysterious Man]";
+	mes "^990000*Stares into his empty cup*^000000";
+	close;
+}
+
+// The Distracted Archer - Payon
+//============================================================
+payon,182,108,4	script	Distracted Archer	4_M_ARCHER,{
+	if (CRIMSON_QUEST == 9) {
+		mes "[Distracted Archer]";
+		mes "^990000*Playing with a strange key*^000000";
+		mes "Oh! Hello there. Admiring my lucky charm?";
+		next;
+		mes "[Distracted Archer]";
+		mes "Found it in the forest. Brings me";
+		mes "good fortune in my hunts!";
+		next;
+		select("That key... I need it");
+		mes "[Distracted Archer]";
+		mes "This? But it's my lucky charm!";
+		mes "Although... I could lend it to you";
+		mes "if you promise to return it.";
+		next;
+		select("I promise to return it:I'll think about returning it:Of course I will!");
+		mes "[Distracted Archer]";
+		mes "^990000*Considers for a moment, then smiles trustingly*^000000";
+		mes "Well... you seem honest enough.";
+		next;
+		mes "[Distracted Archer]";
+		mes "^990000*Hands over the key reluctantly*^000000";
+		mes "Take good care of it!";
+		getitem 7329,1; //Steel Box Key
+		set CRIMSON_QUEST, 10;
+		close;
+	} elif (CRIMSON_QUEST > 9 && CRIMSON_QUEST < 13) {
+		if (countitem(7329) > 0) {
+			mes "[Distracted Archer]";
+			mes "Have you finished with my lucky charm?";
+			next;
+			if(select("Return the key:Keep it longer") == 1) {
+				delitem 7329,1;
+				mes "[Distracted Archer]";
+				mes "^990000*Beams happily*^000000";
+				mes "Thank you for keeping your word!";
+                set CRIMSON_KEY, 1;
+				close;
+			}
+			mes "[Distracted Archer]";
+			mes "Oh... okay. But please don't";
+			mes "forget about our promise!";
+			close;
+		}
+		mes "[Distracted Archer]";
+		mes "I hope you haven't lost my lucky charm...";
+		close;
+	}
+	if (CRIMSON_QUEST == 14) {
+		mes "[Distracted Archer]";
+		mes "I have some special weapons for you...";
+		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		next;
+		switch(select("Provide Materials:View Available Weapons")) {
+			case 1:
+				mes "[Distracted Archer]";
+				mes "I need specific materials to maintain";
+				mes "these weapons. I can offer you";
+				mes "Crimson Points for these items:";
+				next;
+				mes "[Distracted Archer]";
+				mes "- Blue Hair";
+				mes "- Golden Hair"; 
+				mes "- Plush Doll";
+				mes "Each one is worth 1 Crimson Point.";
+				next;
+				switch(select("Trade Blue Hair:Trade Golden Hair:Trade Plush Doll:Cancel")) {
+					case 1:
+						if (countitem(1034) < 1) {
+							mes "[Distracted Archer]";
+							mes "You don't have any Blue Hair to trade.";
+							close;
+						}
+						mes "[Distracted Archer]";
+						mes "How many Blue Hair would you like to trade?";
+						mes "You have " + countitem(1034) + " Blue Hair.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Distracted Archer]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(1034)) {
+							mes "[Distracted Archer]";
+							mes "You don't have that many Blue Hair.";
+							close;
+						}
+						delitem 1034, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Distracted Archer]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 2:
+						if (countitem(1060) < 1) {
+							mes "[Distracted Archer]";
+							mes "You don't have any Golden Hair to trade.";
+							close;
+						}
+						mes "[Distracted Archer]";
+						mes "How many Golden Hair would you like to trade?";
+						mes "You have " + countitem(1060) + " Golden Hair.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Distracted Archer]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(1060)) {
+							mes "[Distracted Archer]";
+							mes "You don't have that many Golden Hair.";
+							close;
+						}
+						delitem 1060, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Distracted Archer]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 3:
+						if (countitem(740) < 1) {
+							mes "[Distracted Archer]";
+							mes "You don't have any Plush Dolls to trade.";
+							close;
+						}
+						mes "[Distracted Archer]";
+						mes "How many Plush Dolls would you like to trade?";
+						mes "You have " + countitem(740) + " Plush Dolls.";
+						next;
+						input .@amount;
+						if (.@amount <= 0) {
+							mes "[Distracted Archer]";
+							mes "That's not a valid amount.";
+							close;
+						}
+						if (.@amount > countitem(740)) {
+							mes "[Distracted Archer]";
+							mes "You don't have that many Plush Dolls.";
+							close;
+						}
+						delitem 740, .@amount;
+						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						mes "[Distracted Archer]";
+						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Use them wisely.";
+						close;
+					case 4:
+						close;
+				}
+			case 2:
+				mes "[Distracted Archer]";
+				mes "These weapons hold special power.";
+				mes "Each one costs 10 Crimson Points.";
+				next;
+				if (CRIMSON_POINTS < 10) {
+					mes "[Distracted Archer]";
+					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					close;
+				}
+				switch(select("Crimson Bow [10 CP]:Crimson Instrument [10 CP]:Crimson Whip [10 CP]:Cancel")) {
+					case 1:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 18130,1;
+							mes "[Distracted Archer]";
+							mes "This bow pulses with crimson energy.";
+							mes "May your arrows fly true.";
+						}
+						close;
+					case 2:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 1939,1;
+							mes "[Distracted Archer]";
+							mes "This instrument resonates with power.";
+							mes "Let its melody guide you.";
+						}
+						close;
+					case 3:
+						if (CRIMSON_POINTS >= 10) {
+							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+							getitem 1995,1;
+							mes "[Distracted Archer]";
+							mes "This whip crackles with crimson lightning.";
+							mes "Use its power wisely.";
+						}
+						close;
+					case 4:
+						close;
+				}
+		}
+	}
+	mes "[Distracted Archer]";
+	mes "The forest holds many secrets...";
+	mes "And many treasures too!";
+	close;
+}
+
+// The Hidden Crate - Aldebaran
+//============================================================
+aldebaran,135,118,4	script	Steel Box	4_STEELBOX,{
+	if (CRIMSON_QUEST == 10) {
+		if (countitem(7329) > 0) {
+			mes "^990000*The key fits perfectly*^000000";
+			next;
+			mes "^990000*Inside you find ancient books with designs*^000000";
+			delitem 7329,1;
+			getitem 7431,1; //Weapon Designs
+			set CRIMSON_QUEST, 11;
+			close;
+		}
+		mes "^990000*A sturdy steel box with a keyhole*^000000";
+		close;
+	}
+	mes "^990000*A plain steel box*^000000";
+	close;
+}
