@@ -1,0 +1,128 @@
+/*=========================================================
+Trasher - The Treasure Hunter
+by Ozcodex
+===========================================================
+Description:
+A peculiar merchant who sees value in what others consider trash.
+Each day he selects 3 random misc items to buy at 10x their usual price.
+===========================================================
+Compatibility:
+Optimised for Hercules emulators.
+===========================================================
+Changelog:
+v1.0 - First version.
+=========================================================*/
+
+prontera,101,78,5	script	Trasher	1_M_SIGN1,{
+	
+	/*-----------------------------------------------------
+	Script
+	-----------------------------------------------------*/
+	mes .npc_name$;
+	mes "One man's trash is another man's treasure!";
+	mes "Today I'm particularly interested in these items:";
+	
+	// Get today's date to check if we need new items
+	.@today = gettime(DT_YYYYMMDD);
+	
+	// If it's a new day, select new items
+	if (.@today != #LastTrashDay) {
+		#LastTrashDay = .@today;
+		// Select 3 random items from the misc array
+		for (.@i = 0; .@i < 3; .@i++) {
+			.@rand = rand(getarraysize(.@misc_items));
+			setd "@TodayItem" + .@i, .@misc_items[.@rand];
+		}
+	}
+	
+	next;
+	mes .npc_name$;
+	for (.@i = 0; .@i < 3; .@i++) {
+		.@item_id = getd("@TodayItem" + .@i);
+		.@price = getiteminfo(.@item_id, ITEMINFO_SELLPRICE) * 10;
+		mes "- " + getitemname(.@item_id) + " for " + .@price + " zeny each";
+	}
+	
+	next;
+	if(select("Sell items:Cancel") == 2) {
+		mes .npc_name$;
+		mes "Come back tomorrow, I might be interested in different items!";
+		close;
+	}
+	
+	mes .npc_name$;
+	mes "Which item would you like to sell?";
+	next;
+	
+	.@menu$ = "";
+	for (.@i = 0; .@i < 3; .@i++) {
+		.@item_id = getd("@TodayItem" + .@i);
+		if (.@i) .@menu$ += ":";
+		.@menu$ += getitemname(.@item_id);
+	}
+	.@menu$ += ":Cancel";
+	
+	.@selected = select(.@menu$) - 1;
+	if (.@selected == 3) {
+		mes .npc_name$;
+		mes "Maybe next time then!";
+		close;
+	}
+	
+	.@item_id = getd("@TodayItem" + .@selected);
+	.@price = getiteminfo(.@item_id, ITEMINFO_SELLPRICE) * 10;
+	
+	mes .npc_name$;
+	mes "How many would you like to sell?";
+	mes "You have " + countitem(.@item_id) + " " + getitemname(.@item_id) + "(s).";
+	next;
+	
+	input .@amount;
+	if (.@amount <= 0) {
+		mes .npc_name$;
+		mes "That's not a valid amount!";
+		close;
+	}
+	if (countitem(.@item_id) < .@amount) {
+		mes .npc_name$;
+		mes "You don't have that many items!";
+		close;
+	}
+	
+	.@total = .@price * .@amount;
+	mes .npc_name$;
+	mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + getitemname(.@item_id) + "(s).";
+	mes "Deal?";
+	next;
+	
+	if(select("Yes:No") == 2) {
+		mes .npc_name$;
+		mes "No problem, come back when you're ready!";
+		close;
+	}
+	
+	delitem .@item_id, .@amount;
+	Zeny += .@total;
+	
+	mes .npc_name$;
+	mes "Thank you for your business!";
+	mes "Come back tomorrow, I might be interested in different items!";
+	close;
+	
+	/*-----------------------------------------------------
+	Configuration
+	-----------------------------------------------------*/
+	OnInit:
+		.npc_name$ = "[ ^0000FFTrasher^000000 ]";
+		setarray .@misc_items[0],
+			501,502,503,504,505,506,507,508,509,510,  // Basic misc items
+			511,512,513,514,515,516,517,518,519,520,  // Add more misc item IDs here
+			521,522,523,524,525,526,527,528,529,530;  // Add as many as needed
+		end;
+}
+
+/*-----------------------------------------------------
+Duplicates
+-----------------------------------------------------*/
+morocc,81,100,7	duplicate(Trasher)	Trasher#morocc	1_M_SIGN1
+geffen,143,70,3	duplicate(Trasher)	Trasher#geffen	1_M_SIGN1 
