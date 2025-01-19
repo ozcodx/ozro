@@ -12,6 +12,15 @@ Optimised for Hercules emulators.
 Changelog:
 v1.0 - First version.
 v1.1 - Added price limits to maintain game economy
+v2.0 - Major refactor:
+       - Changed to 2 items (1 common, 1 misc) instead of 3
+       - Improved item selection to avoid duplicates
+       - Added daily spending tracking and limits
+       - Added historical spending tracking
+       - Improved price calculation with configurable increment
+       - Enhanced user interface and item display
+       - Added option to check total historical spending
+       - Better handling of insufficient items case
 =========================================================*/
 
 prontera,101,78,5	script	Trasher	1_M_SIGN1,{
@@ -21,128 +30,160 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	-----------------------------------------------------*/
 	mes .npc_name$;
 	
-	if (#TRSH_DailyLimit <= 0 && #LastTrashDay != -1) {
+	// Check if we have reached the daily spending limit
+	if (#TRSH_DailySpend >= .daily_spending_limit && #LastTrashDay != -1) {
 		mes "I'm sorry! I've spent all my budget for today.";
 		mes "Come back another day when I have more funds.";
 		close;
 	}
 	
+	// Get weekday and check if we need to update
+	.@weekday = gettime(GETTIME_WEEKDAY);
+	
+	// Update items if:
+	// - It's a different day than last update
+	// - LastTrashDay is invalid (not 0-6)
+	// - Any selected item is invalid (id = 0)
+	if (.@weekday != #LastTrashDay || 
+		#LastTrashDay < 0 || #LastTrashDay > 6 ||
+		@TodayItem0 == 0 || 
+		@TodayItem1 == 0) {
+		
+		// Reset daily spending and update last day
+		#LastTrashDay = .@weekday;
+		#TRSH_DailySpend = 0;
+		
+		// Select one item from common items
+		.@rand = rand(getarraysize(.@common_items));
+		@TodayItem0 = .@common_items[.@rand];
+		
+		// Select one different item from misc items
+		do {
+			.@rand = rand(getarraysize(.@misc_items));
+			@TodayItem1 = .@misc_items[.@rand];
+		} while (@TodayItem1 == @TodayItem0);
+	}
+	
+	// Calculate prices for both items
+	.@item_id0 = @TodayItem0;
+	.@base_price0 = getiteminfo(.@item_id0, ITEMINFO_SELLPRICE);
+	if (.@base_price0 != 0) {
+		.@price0 = .@base_price0 * .increment;
+		if (.@price0 < .min_price) .@price0 = .min_price;
+		if (.@price0 > .max_price) .@price0 = .max_price;
+	}
+	
+	.@item_id1 = @TodayItem1;
+	.@base_price1 = getiteminfo(.@item_id1, ITEMINFO_SELLPRICE);
+	if (.@base_price1 != 0) {
+		.@price1 = .@base_price1 * .increment;
+		if (.@price1 < .min_price) .@price1 = .min_price;
+		if (.@price1 > .max_price) .@price1 = .max_price;
+	}
+	
 	mes "One man's trash is another man's treasure!";
 	mes "Today I'm particularly interested in these items:";
+	next;
 	
-	// Get weekday to check if we need new items (0=Sunday, 1=Monday, etc)
-	.@weekday = gettime(GETTIME_WEEKDAY);
-
-	// Update items on even days if it's a different day
-	if ((.@weekday % 2 == 0 && .@weekday != #LastTrashDay) || #LastTrashDay == -1) {
-		#LastTrashDay = .@weekday;
-		#TRSH_DailyLimit = .daily_spending_limit;  // Reset daily spending limit
+	mes .npc_name$;
+	mes "My remaining budget for today: " + (.daily_spending_limit - #TRSH_DailySpend) + " zeny";
+	next;
+	
+	mes .npc_name$;
+	mes "I'm interested in these items:";
+	mes "- " + getitemname(@TodayItem0) + " for " + .@price0 + " zeny each";
+	mes "- " + getitemname(@TodayItem1) + " for " + .@price1 + " zeny each";
+	
+	next;
+	switch(select("Sell items:Check total spending:Cancel")) {
+		case 1:
+			mes .npc_name$;
+			mes "Which item would you like to sell?";
+			next;
 			
-		// First item must be from low_id_items
-		.@rand = rand(getarraysize(.@low_id_items));
-		@TodayItem0 = .@low_id_items[.@rand];
-
-		// second item from misc_items
-		.@rand = rand(getarraysize(.@misc_items));
-		@TodayItem1 = .@misc_items[.@rand];
-		
-		//third item from misc_items
-		.@rand = rand(getarraysize(.@misc_items));
-		@TodayItem2 = .@misc_items[.@rand];
-	}
-	
-	next;
-	mes .npc_name$;
-	mes "My remaining budget for today: " + #TRSH_DailyLimit + " zeny";
-	mes "Total historical spending with you: " + #TRSH_TotalSpent + " zeny";
-	next;
-	mes .npc_name$;
-	for (.@i = 0; .@i < 3; .@i++) {
-		.@item_id = getd("@TodayItem" + .@i);
-		.@base_price = getiteminfo(.@item_id, ITEMINFO_SELLPRICE);
-		if (.@base_price == 0) {
-			mes "Error reading item " + .@item_id;
-			continue;
-		}
-		// Calculate price with limits
-		.@price = .@base_price * 10;
-		if (.@price < .min_price) .@price = .min_price;
-		if (.@price > .max_price) .@price = .max_price;
-		
-		mes "- Item ID: " + .@item_id + " for " + .@price + " zeny each";
-		mesf("Item name: %s, Original price: %d zeny", getitemname(.@item_id), .@base_price);
-	}
-	
-	next;
-	if(select("Sell items:Cancel") == 2) {
-		mes .npc_name$;
-		mes "Come back tomorrow, I might be interested in different items!";
-		close;
-	}
-	
-	mes .npc_name$;
-	mes "Which item would you like to sell?";
-	next;
-	
-	.@menu$ = "";
-	for (.@i = 0; .@i < 3; .@i++) {
-		.@item_id = getd("@TodayItem" + .@i);
-		if (.@i && .@menu$ != "") .@menu$ += ":";
-		.@menu$ += "Item ID: " + .@item_id;
-	}
-	.@menu$ += ":Cancel";
-	
-	.@selected = select(.@menu$) - 1;
-	if (.@selected == 3) {
-		mes .npc_name$;
-		mes "Maybe next time then!";
-		close;
-	}
-	
-	.@item_id = getd("@TodayItem" + .@selected);
-	.@base_price = getiteminfo(.@item_id, ITEMINFO_SELLPRICE);
-	if (.@base_price == 0) {
-		mes .npc_name$;
-		mes "Error reading item price!";
-		close;
-	}
-	
-	// Calculate price with limits
-	.@price = .@base_price * 10;
-	if (.@price < .min_price) .@price = .min_price;
-	if (.@price > .max_price) .@price = .max_price;
-	
-	.@total = .@price * .@amount;
-	if (.@total > #TRSH_DailyLimit) {
-		mes .npc_name$;
-		mes "I'm sorry! I don't have enough budget for that amount.";
-		mes "I can only spend " + #TRSH_DailyLimit + " zeny more today.";
-		close;
-	}
-	
-	mes .npc_name$;
-	mes "I'll pay you " + .@total + " zeny for " + .@amount + " Item ID: " + .@item_id + "(s).";
-	mes "Deal?";
-	next;
-	
-	if(select("Yes:No") == 2) {
-		mes .npc_name$;
-		mes "No problem, come back when you're ready!";
-		close;
-	}
-	
-	delitem .@item_id, .@amount;
-	Zeny += .@total;
-	#TRSH_DailyLimit -= .@total;
-	#TRSH_TotalSpent += .@total;
-	
-	mes .npc_name$;
-	mes "Thank you for your business!";
-	if (#TRSH_DailyLimit <= 0) {
-		mes "You've depleted my budget for today!";
-		mes "Come back other day when I have more funds.";
-	} else {
-		mes "Come back other day, I might be interested in different items!";
+			.@menu$ = getitemname(@TodayItem0);
+			.@menu$ += ":" + getitemname(@TodayItem1);
+			.@menu$ += ":Cancel";
+			
+			.@selected = select(.@menu$) - 1;
+			if (.@selected == 2) {
+				mes .npc_name$;
+				mes "Maybe next time then!";
+				close;
+			}
+			
+			.@item_id = getd("@TodayItem" + .@selected);
+			.@price = getd(".@price" + .@selected);
+			
+			mes .npc_name$;
+			mes "How many would you like to sell?";
+			mes "You have " + countitem(.@item_id) + " " + getitemname(.@item_id) + "(s).";
+			next;
+			
+			input .@amount;
+			if (.@amount <= 0) {
+				mes .npc_name$;
+				mes "I guess you're not really serious about doing business...";
+				close;
+			}
+			if (countitem(.@item_id) < .@amount) {
+				mes .npc_name$;
+				mes "You don't have that many items!";
+				mes "You only have " + countitem(.@item_id) + " " + getitemname(.@item_id) + "(s).";
+				mes "Would you like to sell all of them instead?";
+				next;
+				if(select("Yes:No") == 1) {
+					.@amount = countitem(.@item_id);
+				} else {
+					mes .npc_name$;
+					mes "Come back when you have more items!";
+					close;
+				}
+			}
+			
+			.@total = .@price * .@amount;
+			if (#TRSH_DailySpend + .@total > .daily_spending_limit) {
+				mes .npc_name$;
+				mes "I'm sorry! I don't have enough budget for that amount.";
+				mes "I can only spend " + (.daily_spending_limit - #TRSH_DailySpend) + " zeny more today.";
+				close;
+			}
+			
+			mes .npc_name$;
+			mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + getitemname(.@item_id) + "(s).";
+			mes "Deal?";
+			next;
+			
+			if(select("Yes:No") == 2) {
+				mes .npc_name$;
+				mes "No problem, come back when you're ready!";
+				close;
+			}
+			
+			delitem .@item_id, .@amount;
+			Zeny += .@total;
+			#TRSH_DailySpend += .@total;
+			#TRSH_TotalSpent += .@total;
+			
+			mes .npc_name$;
+			mes "Thank you for your business!";
+			if (#TRSH_DailySpend >= .daily_spending_limit) {
+				mes "You've depleted my budget for today!";
+				mes "Come back another day when I have more funds.";
+			} else {
+				mes "Come back another day, I might be interested in different items!";
+			}
+			break;
+			
+		case 2:
+			mes .npc_name$;
+			mes "I have spent a total of " + #TRSH_TotalSpent + " zeny buying items from adventurers.";
+			break;
+			
+		case 3:
+			mes .npc_name$;
+			mes "Come back another day, I might be interested in different items!";
+			break;
 	}
 	close;
 	
@@ -152,29 +193,34 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	OnInit:
 		.npc_name$ = "[ ^0000FFTrasher^000000 ]";
 		// Price limits configuration
+		.increment = 10;     // Price multiplier
 		.min_price = 100;    // Minimum price for any item
 		.max_price = 2000;   // Maximum price for any item
 		.daily_spending_limit = 1000000; // 1M zeny daily limit
 		
-		// Item list configuration - First array for items < 1200, second for all items
-		setarray .@low_id_items[0],
-			967,962,960,959,955,951,948,943,941,938,
-            937,936,935,934,932,932,930,928,926,924,
-            920,919,918,916,915,913,909,908,907,746,
-            1099,1098,1096,1095,1057,1056,1055,1054,
-            1052,1045,1043,1042,1037,1035,1034,1033,
-            1028,1024,1023,1022,1020,1019,1018,1001;
+		// Initialize account variables if they don't exist
+		if (#TRSH_DailySpend <= 0) #TRSH_DailySpend = 0;  // Start with 0 zeny spent
+		if (#TRSH_TotalSpent <= 0) #TRSH_TotalSpent = 0;
+		// LastTrashDay will be validated and set on first interaction
+		
+		// Item list configuration - Common items and misc items
+		setarray .@common_items[0],
+			511,  609,  512,  967,  962,  960,  959,  955,  951,  948,
+			943,  941,  938,  937,  936,  935,  934,  932,  932,  930,
+			928,  926,  924,  920,  919,  918,  916,  915,  913,  909,
+			908,  907,  746, 1099, 1098, 1096, 1095, 1057, 1056, 1055,
+			1054, 1052, 1045, 1043, 1042, 1037, 1035, 1034, 1033, 1028,
+			1024, 1023, 1022, 1020, 1019, 1018, 1001;
 		setarray .@misc_items[0],
-			967,962,960,959,955,951,948,943,941,938,
-            937,936,935,934,932,932,930,928,926,924,
-            920,919,918,916,915,913,909,908,907,746,
-            1099,1098,1096,1095,1057,1056,1055,1054,
-            1052,1045,1043,1042,1037,1035,1034,1033,
-            1028,1024,1023,1022,1020,1019,1018,1001,
-            7568,7507,7347,7345,7319,7317,7262,7197,
-            7188,7167,7150,7126,7123,7122,7116,7070,
-            7069,7067,7066,7054,7053,7047,7032,7030,
-            7006,7005,7004,7001;
+			511,  609,  512,  967,  962,  960,  959,  955,  951,  948,
+			943,  941,  938,  937,  936,  935,  934,  932,  932,  930,
+			928,  926,  924,  920,  919,  918,  916,  915,  913,  909,
+			908,  907,  746, 1099, 1098, 1096, 1095, 1057, 1056, 1055,
+			1054, 1052, 1045, 1043, 1042, 1037, 1035, 1034, 1033, 1028,
+			1024, 1023, 1022, 1020, 1019, 1018, 1001, 7568, 7507, 7347,
+			7345, 7319, 7317, 7262, 7197, 7188, 7167, 7150, 7126, 7123,
+			7122, 7116, 7070, 7069, 7067, 7066, 7054, 7053, 7047, 7032,
+			7030, 7006, 7005, 7004, 7001;
 		end;
 }
 
