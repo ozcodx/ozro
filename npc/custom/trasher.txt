@@ -65,6 +65,8 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		@TodayItem0 = .@common_items[.@rand];
 
 		mes "dbg: random index: " + .@rand;
+		mes "array size: " + getarraysize(.@common_items);
+		mes "the 5th commonitem id: " + .@common_items[5];
 		mes "dbg: item id: " + @TodayItem0;
 		
 		// Select one different item from misc items
@@ -72,6 +74,8 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		@TodayItem1 = .@misc_items[.@rand];
 
 		mes "dbg: random index: " + .@rand;
+		mes "array size: " + getarraysize(.@misc_items);
+		mes "the 5th misc item id: " + .@misc_items[5];
 		mes "dbg: item id: " + @TodayItem1;
 		
 
