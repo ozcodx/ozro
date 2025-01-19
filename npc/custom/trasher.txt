@@ -57,7 +57,8 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 		if (.@price < .min_price) .@price = .min_price;
 		if (.@price > .max_price) .@price = .max_price;
 		
-		mesf("- ^nItemID^%d for %d zeny each", .@item_id, .@price);
+		mes "- Item ID: " + .@item_id + " for " + .@price + " zeny each";
+		mesf("Item name: %s, Original price: %d zeny", getitemname(.@item_id), .@base_price);
 	}
 	
 	next;
@@ -75,7 +76,7 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	for (.@i = 0; .@i < 3; .@i++) {
 		.@item_id = getd("@TodayItem" + .@i);
 		if (.@i && .@menu$ != "") .@menu$ += ":";
-		.@menu$ += "^nItemID^" + .@item_id;
+		.@menu$ += "Item ID: " + .@item_id;
 	}
 	.@menu$ += ":Cancel";
 	
@@ -101,7 +102,7 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	mes .npc_name$;
 	mes "How many would you like to sell?";
-	mesf("You have %d ^nItemID^%d(s).", countitem(.@item_id), .@item_id);
+	mes "You have " + countitem(.@item_id) + " Item ID: " + .@item_id + "(s).";
 	next;
 	
 	input .@amount;
@@ -118,7 +119,7 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	.@total = .@price * .@amount;
 	mes .npc_name$;
-	mesf("I'll pay you %d zeny for %d ^nItemID^%d(s).", .@total, .@amount, .@item_id);
+	mes "I'll pay you " + .@total + " zeny for " + .@amount + " Item ID: " + .@item_id + "(s).";
 	mes "Deal?";
 	next;
 	
