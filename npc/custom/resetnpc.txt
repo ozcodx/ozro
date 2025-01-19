@@ -1,66 +1,114 @@
 //===== Hercules Script ======================================
-//= Reset NPC
+//= Reset Mystic
 //===== By: ==================================================
-//= Hercules Dev Team
+//= Original: Hercules Dev Team
+//= Improved: Ozcodex
 //===== Current Version: =====================================
-//= 1.3
+//= 1.4
 //===== Description: =========================================
-//= Resets skills, stats, or both.
+//= A mysterious mystic who can rechannel your knowledge and abilities,
+//= but the process is dangerous and can only be done once in a lifetime.
 //===== Additional Comments: =================================
 //= 1.0 First Version
 //= 1.1 Optimized for the greater good. [Kisuka]
 //= 1.2 Cleaning [Euphy]
 //= 1.3 All statuses removed upon skill reset. [Euphy]
+//= 1.4 Added one-time use, lore and death chance [Ozcodex]
 //============================================================
 
-prontera,150,193,4	script	Reset Girl	4_F_TELEPORTER,{
+prontera,150,186,5	script	Mystic Channeler	4_GEFFEN_09,{
 
-	set .@ResetStat,50000;	// Zeny for stat reset
-	set .@ResetSkill,50000;	// Zeny for skill reset
-	set .@ResetBoth,90000;	// Zeny for resetting both together
+	set .@price,100000;	// Zeny required for reset
+	set .@death_chance,10;	// Percentage chance of death
 
-	mes "[Reset Girl]";
-	mes "I am the Reset Girl.";
-	mes "Reset Stats: "+ .@ResetStat +"z";
-	mes "Reset Skills: "+ .@ResetSkill +"z";
-	mes "Reset Both: "+ .@ResetBoth +"z";
-	mes "Please select the service you want:";
-	next;
-	switch(select("^FF3355Reset Skills", "Reset Stats", "Reset Both^000000", "Cancel")) {
-	case 1:
-		mes "[Reset Girl]";
-		if (Zeny < .@ResetSkill) {
-			mes "Sorry, you don't have enough Zeny.";
-			close;
-		}
-		Zeny -= .@ResetSkill;
-		sc_end SC_ALL;
-		resetskill;
-		mes "There you go!";
-		close;
-	case 2:
-		mes "[Reset Girl]";
-		if (Zeny < .@ResetStat) {
-			mes "Sorry, you don't have enough Zeny.";
-			close;
-		}
-		Zeny -= .@ResetStat;
-		resetstatus;
-		mes "There you go!";
-		close;
-	case 3:
-		mes "[Reset Girl]";
-		if (Zeny < .@ResetBoth) {
-			mes "Sorry, you don't have enough Zeny.";
-			close;
-		}
-		Zeny -= .@ResetBoth;
-		sc_end SC_ALL;
-		resetskill;
-		resetstatus;
-		mes "There you go!";
-		close;
-	case 4:
+	if (RESET_USED) {
+		mes "[Mystic Channeler]";
+		mes "^990000*The mysterious woman looks at you with knowing eyes*^000000";
+		mes "Your life force... I can see that you have already";
+		mes "undergone the ritual of rechanneling.";
+		mes "Such a dangerous process can only be";
+		mes "attempted once in a lifetime.";
 		close;
 	}
+
+	mes "[Mystic Channeler]";
+	mes "^990000*A mysterious woman in dark robes studies you carefully*^000000";
+	mes "I sense... potential within you.";
+	mes "I possess the forbidden knowledge to rechannel";
+	mes "your abilities and reshape your very essence.";
+	next;
+	
+	mes "[Mystic Channeler]";
+	mes "But be warned, this ancient ritual is";
+	mes "^FF0000extremely dangerous^000000. There is a chance that";
+	mes "your body will not survive the process.";
+	mes "And even if you survive, this can only";
+	mes "be attempted once in your lifetime.";
+	next;
+	
+	mes "[Mystic Channeler]";
+	mes "The ritual requires rare materials and";
+	mes "extensive preparation. My fee is";
+	mes .@price +" zeny. Keep in mind there is a";
+	mes .@death_chance +"% chance of ^FF0000fatal failure^000000.";
+	mes "Do you wish to proceed?";
+	next;
+	
+	if(select("Yes, I accept the risks:No, I'll keep my life") == 2) {
+		mes "[Mystic Channeler]";
+		mes "^990000*The woman nods slowly*^000000";
+		mes "A wise choice perhaps. Return if you";
+		mes "ever feel the need to risk everything";
+		mes "for a new beginning.";
+		close;
+	}
+	
+	if (Zeny < .@price) {
+		mes "[Mystic Channeler]";
+		mes "^990000*She shakes her head disapprovingly*^000000";
+		mes "You cannot afford my services and";
+		mes "the required materials. Return when";
+		mes "you have "+ .@price +" zeny.";
+		close;
+	}
+	
+	mes "[Mystic Channeler]";
+	mes "^990000*Her eyes begin to glow with an eerie light*^000000";
+	mes "Very well. The ritual will begin.";
+	mes "Are you absolutely certain?";
+	mes "^FF0000There is no turning back after this point.^000000";
+	next;
+	
+	if(select("Begin the ritual:Wait, I'm not ready") == 2) {
+		mes "[Mystic Channeler]";
+		mes "^990000*The glow in her eyes fades*^000000";
+		mes "Return when your resolve is stronger.";
+		close;
+	}
+	
+	// Take payment first
+	Zeny -= .@price;
+	
+	// Roll for death chance
+	if (rand(100) < .@death_chance) {
+		mes "[Mystic Channeler]";
+		mes "^990000*The air crackles with dark energy*^000000";
+		mes "^FF0000Something... something has gone terribly wrong!^000000";
+		next;
+		percentheal -100,-100;
+		mes "^FF0000You have died in the ritual...^000000";
+		close;
+	}
+	
+	resetstatus;
+	resetskill;
+	sc_end SC_ALL;
+	set RESET_USED, 1;
+	
+	mes "[Mystic Channeler]";
+	mes "^990000*Energy swirls around you as your essence is reshaped*^000000";
+	mes "The ritual... is complete.";
+	mes "You have been reborn, but remember:";
+	mes "this path can never be walked again.";
+	close;
 }
