@@ -20,39 +20,43 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	Script
 	-----------------------------------------------------*/
 	mes .npc_name$;
+	
+	if (#TRSH_DailyLimit <= 0) {
+		mes "I'm sorry! I've spent all my budget for today.";
+		mes "Come back another day when I have more funds.";
+		close;
+	}
+	
 	mes "One man's trash is another man's treasure!";
 	mes "Today I'm particularly interested in these items:";
 	
-	// Get today's date to check if we need new items
-	.@today = gettime(DT_YYYYMMDD);
-	mes "Debug: Today's date (.@today): " + .@today;
+	// Get weekday to check if we need new items (0=Sunday, 1=Monday, etc)
+	.@weekday = gettime(GETTIME_WEEKDAY);
+	mes "Debug: Today's weekday (.@weekday): " + .@weekday;
 	mes "Debug: Last trash day (#LastTrashDay): " + #LastTrashDay;
 	
-	// If it's a new day, select new items
-	if (.@today != #LastTrashDay) {
-		#LastTrashDay = .@today;
+	// Update items on even days if it's a different day
+	if (.@weekday % 2 == 0 && .@weekday != #LastTrashDay) {
+		#LastTrashDay = .@weekday;
+		#TRSH_DailyLimit = .daily_spending_limit;  // Reset daily spending limit
 		
 		// First item must be from low_id_items
 		.@rand = rand(getarraysize(.@low_id_items));
-		mes "Debug: Array size (low_id_items): " + getarraysize(.@low_id_items);
-		mes "Debug: Random index selected: " + .@rand;
 		@TodayItem0 = .@low_id_items[.@rand];
-		mes "Debug: Selected item ID: " + @TodayItem0;
 
 		// second item from misc_items
 		.@rand = rand(getarraysize(.@misc_items));
-		mes "Debug: Array size (misc_items): " + getarraysize(.@misc_items);
-		mes "Debug: Random index selected: " + .@rand;
 		@TodayItem1 = .@misc_items[.@rand];
-		mes "Debug: Selected item ID: " + @TodayItem1;
 		
 		//third item from misc_items
 		.@rand = rand(getarraysize(.@misc_items));
-		mes "Debug: Random index selected: " + .@rand;
 		@TodayItem2 = .@misc_items[.@rand];
-		mes "Debug: Selected item ID: " + @TodayItem2;
 	}
 	
+	next;
+	mes .npc_name$;
+	mes "My remaining budget for today: " + #TRSH_DailyLimit + " zeny";
+	mes "Total historical spending with you: " + #TRSH_TotalSpent + " zeny";
 	next;
 	mes .npc_name$;
 	for (.@i = 0; .@i < 3; .@i++) {
@@ -110,24 +114,14 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	if (.@price < .min_price) .@price = .min_price;
 	if (.@price > .max_price) .@price = .max_price;
 	
-	mes .npc_name$;
-	mes "How many would you like to sell?";
-	mes "You have " + countitem(.@item_id) + " Item ID: " + .@item_id + "(s).";
-	next;
-	
-	input .@amount;
-	if (.@amount <= 0) {
-		mes .npc_name$;
-		mes "That's not a valid amount!";
-		close;
-	}
-	if (countitem(.@item_id) < .@amount) {
-		mes .npc_name$;
-		mes "You don't have that many items!";
-		close;
-	}
-	
 	.@total = .@price * .@amount;
+	if (.@total > #TRSH_DailyLimit) {
+		mes .npc_name$;
+		mes "I'm sorry! I don't have enough budget for that amount.";
+		mes "I can only spend " + #TRSH_DailyLimit + " zeny more today.";
+		close;
+	}
+	
 	mes .npc_name$;
 	mes "I'll pay you " + .@total + " zeny for " + .@amount + " Item ID: " + .@item_id + "(s).";
 	mes "Deal?";
@@ -141,10 +135,17 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	delitem .@item_id, .@amount;
 	Zeny += .@total;
+	#TRSH_DailyLimit -= .@total;
+	#TRSH_TotalSpent += .@total;
 	
 	mes .npc_name$;
 	mes "Thank you for your business!";
-	mes "Come back tomorrow, I might be interested in different items!";
+	if (#TRSH_DailyLimit <= 0) {
+		mes "You've depleted my budget for today!";
+		mes "Come back other day when I have more funds.";
+	} else {
+		mes "Come back other day, I might be interested in different items!";
+	}
 	close;
 	
 	/*-----------------------------------------------------
@@ -153,8 +154,9 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	OnInit:
 		.npc_name$ = "[ ^0000FFTrasher^000000 ]";
 		// Price limits configuration
-		.min_price = 2000;    // Minimum price for any item
-		.max_price = 20000;   // Maximum price for any item
+		.min_price = 100;    // Minimum price for any item
+		.max_price = 2000;   // Maximum price for any item
+		.daily_spending_limit = 1000000; // 1M zeny daily limit
 		
 		// Item list configuration - First array for items < 1200, second for all items
 		setarray .@low_id_items[0],
