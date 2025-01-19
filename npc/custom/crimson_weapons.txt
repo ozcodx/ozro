@@ -22,7 +22,7 @@ v1.0 - First version.
 
 // Starting Point - Prontera Soldier
 //============================================================
-prontera,158,178,4	script	Amazed Soldier	8W_SOLDIER,{
+prontera,149,266,4	script	Amazed Soldier	8W_SOLDIER,{
 	if (CRIMSON_QUEST == 0) {
 		mes "[Amazed Soldier]";
 		mes "^990000*The soldier's eyes shine with wonder*^000000";
@@ -198,7 +198,7 @@ prontera,158,178,4	script	Amazed Soldier	8W_SOLDIER,{
 
 // The Old Merchant - Morroc
 //============================================================
-morocc,156,97,4	script	Old Merchant	4_M_HUMERCHANT,{
+morocc,172,74,3	script	Old Merchant	4_M_HUMERCHANT,{
 	if (CRIMSON_QUEST == 1) {
 		mes "[Old Merchant]";
 		mes "^990000*The old man eyes you suspiciously*^000000";
@@ -219,10 +219,15 @@ morocc,156,97,4	script	Old Merchant	4_M_HUMERCHANT,{
 		mes "Some things aren't meant to be traded.";
 		next;
 		mes "[Old Merchant]";
-		mes "If you truly seek answers, go to Geffen.";
+		mes "If you truly seek answers, go to Geffen Tower.";
 		mes "Look for a hooded wizard. But be warned...";
 		mes "Some secrets burn those who learn them.";
 		set CRIMSON_QUEST, 2;
+		close;
+	} else if (CRIMSON_QUEST == 2) {
+		mes "[Old Merchant]";
+		mes "The wizard in Geffen Tower... he knows more";
+		mes "than he lets on. Be careful with your questions.";
 		close;
 	} else if (CRIMSON_QUEST == 14) {
 		mes "[Old Merchant]";
@@ -370,7 +375,7 @@ morocc,156,97,4	script	Old Merchant	4_M_HUMERCHANT,{
 
 // The Mysterious Wizard - Geffen
 //============================================================
-geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
+gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 	if (CRIMSON_QUEST == 2) {
 		mes "[Hooded Wizard]";
 		mes "^990000*The wizard tenses at your approach*^000000";
@@ -426,7 +431,7 @@ geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
 		mes "[Hooded Wizard]";
 		mes "Take this to Marcus. The Essence of Fire.";
 		mes "Thor's own power, meant to fight the darkness.";
-		getitem 7329,1; //Fire Essence
+		getitem 6001,1; //Fire Essence
 		set CRIMSON_QUEST, 13;
 		next;
 		mes "[Hooded Wizard]";
@@ -599,26 +604,27 @@ geffen,119,37,4	script	Hooded Wizard	4_M_DEBON,{
 
 // The Observant Guard - Geffen
 //============================================================
-geffen,128,68,4	script	Tower Guard	8W_SOLDIER,{
+gef_tower,58,174,4	script	Tower Guard	8W_SOLDIER,{
 	if (CRIMSON_QUEST == 3) {
 		mes "[Tower Guard]";
 		mes "^990000*The guard approaches eagerly*^000000";
 		mes "Hey you! I heard you talking with the wizard.";
-		mes "About those crimson weapons...";
+		mes "These tower walls hold many secrets...";
 		next;
 		if(select("What did you hear?:I don't know what you mean:Shh, not so loud!") == 1) {
-			mes "[Tower Guard]";
-			mes "^990000*Lowers his voice excitedly*^000000";
-			mes "Something about Thor's power and ancient flames...";
-			mes "Is it true? Are they really that powerful?";
+				mes "[Tower Guard]";
+				mes "^990000*Lowers his voice, glancing at the stone walls*^000000";
+				mes "Something about Thor's power and ancient flames...";
+				mes "Even the shadows here seem to whisper of it.";
 		} else if(select("What did you hear?:I don't know what you mean:Shh, not so loud!") == 2) {
-			mes "[Tower Guard]";
-			mes "^990000*Frowns skeptically*^000000";
-			mes "Come now, I heard you clearly. No point in denying it.";
+				mes "[Tower Guard]";
+				mes "^990000*Frowns skeptically*^000000";
+				mes "Come now, these tower walls echo every word.";
+				mes "No point in denying what I heard clearly.";
 		} else {
-			mes "[Tower Guard]";
-			mes "^990000*Looks around nervously*^000000";
-			mes "Right, right... we should be more discreet.";
+				mes "[Tower Guard]";
+				mes "^990000*Looks around at the tower interior*^000000";
+				mes "Right, right... even the stones have ears here.";
 		}
 		next;
 		mes "[Tower Guard]";
@@ -705,14 +711,14 @@ geffen,128,68,4	script	Tower Guard	8W_SOLDIER,{
 		close;
 	}
 	mes "[Tower Guard]";
-	mes "^990000*The guard watches the tower with burning curiosity*^000000";
+	mes "^990000*The guard watches the tower walls with burning curiosity*^000000";
 	mes "What other secrets does this city hold...?";
 	close;
 }
 
 // The Crimson Rogue - Morroc
 //============================================================
-morocc,146,103,4	script	Shadow Rogue	4_F_ROGUE,{
+morocc,107,87,6	script	Shadow Rogue	4_F_ROGUE,{
 	if (CRIMSON_QUEST == 4) {
 		mes "[Shadow Rogue]";
 		mes "^990000*A crimson gleam catches your eye*^000000";
@@ -875,7 +881,7 @@ morocc,146,103,4	script	Shadow Rogue	4_F_ROGUE,{
 
 // The Greedy Merchant - Alberta
 //============================================================
-alberta,28,240,4	script	Greedy Merchant	1_M_SIGNMCNT,{
+alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 	if (CRIMSON_QUEST == 5) {
 		mes "[Greedy Merchant]";
 		mes "^990000*Counting coins obsessively*^000000";
@@ -1098,7 +1104,7 @@ alberta,28,240,4	script	Greedy Merchant	1_M_SIGNMCNT,{
 
 // Marcus the Smith - Coal Mine
 //============================================================
-mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
+mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 	if (CRIMSON_QUEST == 6) {
 		mes "[Marcus]";
 		mes "^990000*A dwarf miner works tirelessly, ignoring your presence*^000000";
@@ -1178,10 +1184,21 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 		mes "Better to control it than hide it.";
 		next;
 		mes "[Marcus]";
-		mes "I hid the designs in Aldebaran.";
-		mes "Locked away in a steel box.";
+		mes "I hid the designs in Aldebaran's Inn.";
+		mes "In a steel box, where travelers rest.";
 		mes "The key... I threw it in Payon Forest.";
 		set CRIMSON_QUEST, 9;
+		close;
+	} else if (CRIMSON_QUEST == 9) {
+		mes "[Marcus]";
+		mes "The box... I hid it well.";
+		mes "In Aldebaran's inn, where travelers rest,";
+		mes "secrets often go unnoticed.";
+		next;
+		mes "[Marcus]";
+		mes "^990000*His voice drops to a whisper*^000000";
+		mes "Look for it inside... among the shadows";
+		mes "where weary adventurers seek their rest.";
 		close;
 	} else if (CRIMSON_QUEST == 11) {
 		mes "[Marcus]";
@@ -1226,7 +1243,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 		mes "^990000*Looks up expectantly*^000000";
 		mes "You've returned. Did you find the wizard?";
 		next;
-		if(countitem(7329) < 1) {
+		if(countitem(6001) < 1) {
 			mes "[Marcus]";
 			mes "Where is the Fire Essence? Did you lose it?";
 			close;
@@ -1235,7 +1252,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 		mes "[Marcus]";
 		mes "^990000*His eyes widen at the sight of the essence*^000000";
 		mes "Thor's Fire Essence... after all these years...";
-		delitem 7329,1; //Delete Fire Essence
+		delitem 6001,1; //Delete Fire Essence
 		if(countitem(7329) > 0) { //Delete Steel Box Key if player still has it
 			delitem 7329,1;
 		}
@@ -1327,7 +1344,7 @@ mjolnir_02,85,364,4	script	Marcus	4_M_DWARF,{
 
 // The Tavern Regular - Morroc
 //============================================================
-morocc,156,97,4	script	Mysterious Man	4_M_MASKMAN,{
+morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 	if (CRIMSON_QUEST == 7) {
 		mes "[Mysterious Man]";
 		mes "^990000*Nursing an empty glass*^000000";
@@ -1550,7 +1567,7 @@ morocc,156,97,4	script	Mysterious Man	4_M_MASKMAN,{
 
 // The Distracted Archer - Payon
 //============================================================
-payon,182,108,4	script	Distracted Archer	4_M_ARCHER,{
+payon,242,104,4	script	Distracted Archer	4_M_ARCHER,{
 	if (CRIMSON_QUEST == 9) {
 		mes "[Distracted Archer]";
 		mes "^990000*Playing with a strange key*^000000";
@@ -1578,6 +1595,13 @@ payon,182,108,4	script	Distracted Archer	4_M_ARCHER,{
 		set CRIMSON_QUEST, 10;
 		close;
 	} else if (CRIMSON_QUEST > 9 && CRIMSON_QUEST < 13) {
+		if (CRIMSON_KEY == 1) {
+			mes "[Distracted Archer]";
+			mes "^990000*Smiles while admiring his lucky charm*^000000";
+			mes "Thank you again for returning my charm!";
+			mes "My hunts have been especially lucky since then.";
+			close;
+		}
 		if (countitem(7329) > 0) {
 			mes "[Distracted Archer]";
 			mes "Have you finished with my lucky charm?";
@@ -1587,7 +1611,7 @@ payon,182,108,4	script	Distracted Archer	4_M_ARCHER,{
 				mes "[Distracted Archer]";
 				mes "^990000*Beams happily*^000000";
 				mes "Thank you for keeping your word!";
-                set CRIMSON_KEY, 1;
+				set CRIMSON_KEY, 1;
 				close;
 			}
 			mes "[Distracted Archer]";
@@ -1753,13 +1777,12 @@ payon,182,108,4	script	Distracted Archer	4_M_ARCHER,{
 
 // The Hidden Crate - Aldebaran
 //============================================================
-aldebaran,135,118,4	script	Steel Box	4_STEELBOX,{
+aldeba_in,99,117,6	script	Steel Box	4_STEELBOX,{
 	if (CRIMSON_QUEST == 10) {
 		if (countitem(7329) > 0) {
 			mes "^990000*The key fits perfectly*^000000";
 			next;
 			mes "^990000*Inside you find ancient books with designs*^000000";
-			delitem 7329,1;
 			getitem 7431,1; //Weapon Designs
 			set CRIMSON_QUEST, 11;
 			close;

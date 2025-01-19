@@ -33,12 +33,14 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 		// First item must be from low_id_items
 		.@rand = rand(getarraysize(.@low_id_items));
 		@TodayItem0 = .@low_id_items[.@rand];
+
+		// second item from misc_items
+		.@rand = rand(getarraysize(.@misc_items));
+		@TodayItem1 = .@misc_items[.@rand];
 		
-		// Other two items from the complete list
-		for (.@i = 1; .@i < 3; .@i++) {
-			.@rand = rand(getarraysize(.@misc_items));
-			setd "@TodayItem" + .@i, .@misc_items[.@rand];
-		}
+		//third item from misc_items
+		.@rand = rand(getarraysize(.@misc_items));
+		@TodayItem2 = .@misc_items[.@rand];
 	}
 	
 	next;
@@ -46,18 +48,16 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	for (.@i = 0; .@i < 3; .@i++) {
 		.@item_id = getd("@TodayItem" + .@i);
 		.@base_price = getiteminfo(.@item_id, ITEMINFO_SELLPRICE);
+		if (.@base_price == 0) {
+			mes "Error reading item " + .@item_id;
+			continue;
+		}
 		// Calculate price with limits
 		.@price = .@base_price * 10;
 		if (.@price < .min_price) .@price = .min_price;
 		if (.@price > .max_price) .@price = .max_price;
 		
-		// Get item name using getitemname which internally uses getiteminfo
-		.@item_name$ = getitemname(.@item_id);
-		if (.@item_name$ == "null") {
-			mes "Error: Invalid item ID " + .@item_id;
-			continue;
-		}
-		mes "- " + .@item_name$ + " for " + .@price + " zeny each";
+		mesf("- ^nItemID^%d for %d zeny each", .@item_id, .@price);
 	}
 	
 	next;
@@ -74,10 +74,8 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	.@menu$ = "";
 	for (.@i = 0; .@i < 3; .@i++) {
 		.@item_id = getd("@TodayItem" + .@i);
-		.@item_name$ = getitemname(.@item_id);
-		if (.@item_name$ == "null") continue;
 		if (.@i && .@menu$ != "") .@menu$ += ":";
-		.@menu$ += .@item_name$;
+		.@menu$ += "^nItemID^" + .@item_id;
 	}
 	.@menu$ += ":Cancel";
 	
@@ -101,10 +99,9 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	if (.@price < .min_price) .@price = .min_price;
 	if (.@price > .max_price) .@price = .max_price;
 	
-	.@item_name$ = getitemname(.@item_id);
 	mes .npc_name$;
 	mes "How many would you like to sell?";
-	mes "You have " + countitem(.@item_id) + " " + .@item_name$ + "(s).";
+	mesf("You have %d ^nItemID^%d(s).", countitem(.@item_id), .@item_id);
 	next;
 	
 	input .@amount;
@@ -121,7 +118,7 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	.@total = .@price * .@amount;
 	mes .npc_name$;
-	mes "I'll pay you " + .@total + " zeny for " + .@amount + " " + .@item_name$ + "(s).";
+	mesf("I'll pay you %d zeny for %d ^nItemID^%d(s).", .@total, .@amount, .@item_id);
 	mes "Deal?";
 	next;
 	
