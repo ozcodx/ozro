@@ -25,6 +25,8 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 	
 	// Get today's date to check if we need new items
 	.@today = gettime(DT_YYYYMMDD);
+	mes "Debug: Today's date (.@today): " + .@today;
+	mes "Debug: Last trash day (#LastTrashDay): " + #LastTrashDay;
 	
 	// If it's a new day, select new items
 	if (.@today != #LastTrashDay) {
