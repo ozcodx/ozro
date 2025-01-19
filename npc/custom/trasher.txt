@@ -32,15 +32,23 @@ prontera,101,78,5	script	Trasher	1_M_SIGN1,{
 		
 		// First item must be from low_id_items
 		.@rand = rand(getarraysize(.@low_id_items));
+		mes "Debug: Array size (low_id_items): " + getarraysize(.@low_id_items);
+		mes "Debug: Random index selected: " + .@rand;
 		@TodayItem0 = .@low_id_items[.@rand];
+		mes "Debug: Selected item ID: " + @TodayItem0;
 
 		// second item from misc_items
 		.@rand = rand(getarraysize(.@misc_items));
+		mes "Debug: Array size (misc_items): " + getarraysize(.@misc_items);
+		mes "Debug: Random index selected: " + .@rand;
 		@TodayItem1 = .@misc_items[.@rand];
+		mes "Debug: Selected item ID: " + @TodayItem1;
 		
 		//third item from misc_items
 		.@rand = rand(getarraysize(.@misc_items));
+		mes "Debug: Random index selected: " + .@rand;
 		@TodayItem2 = .@misc_items[.@rand];
+		mes "Debug: Selected item ID: " + @TodayItem2;
 	}
 	
 	next;
