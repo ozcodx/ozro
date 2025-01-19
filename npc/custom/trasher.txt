@@ -63,10 +63,18 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		// Select one item from common items
 		.@rand = rand(1,getarraysize(.@common_items));
 		@TodayItem0 = .@common_items[.@rand];
+
+		mes "dbg: random index: " + .@rand;
+		mes "dbg: item id: " + @TodayItem0;
 		
 		// Select one different item from misc items
 		.@rand = rand(1,getarraysize(.@misc_items));
 		@TodayItem1 = .@misc_items[.@rand];
+
+		mes "dbg: random index: " + .@rand;
+		mes "dbg: item id: " + @TodayItem1;
+		
+
 	}
 	
 	// Calculate prices for both items
