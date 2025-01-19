@@ -409,7 +409,7 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 		mes "Maybe, he already knows something...";
 		set CRIMSON_QUEST, 3;
 		close;
-	} else if (CRIMSON_QUEST == 11) {
+	} else if (CRIMSON_QUEST == 12) {
 		mes "[Hooded Wizard]";
 		mes "^990000*The wizard seems different somehow*^000000";
 		mes "So, you return... and with purpose in your steps.";
