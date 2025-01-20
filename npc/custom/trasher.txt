@@ -29,11 +29,15 @@ v2.1 - Character enhancement:
        - Improved item inspection narrative
 =========================================================*/
 
-prontera,101,78,5	script	Garrett	1_M_SIGN1,{
+geffen,143,70,3	script	Garrett	1_M_SIGN1,{
 	
 	/*-----------------------------------------------------
 	Script
 	-----------------------------------------------------*/
+	// Initialize account variables if they don't exist (only when player interacts)
+	if (#TRSH_DailySpend <= 0) #TRSH_DailySpend = 0;
+	if (#TRSH_TotalSpent <= 0) #TRSH_TotalSpent = 0;
+	
 	mes .npc_name$;
 	
 	// Check if we have reached the daily spending limit
@@ -71,7 +75,7 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		mes "the price of the specified id: " + getiteminfo(920, ITEMINFO_SELLPRICE);
 		mes "dbg: item id: " + @TodayItem0;
 		
-		// Select one different item from misc items
+		// Select one item from misc items
 		.@rand = rand(1,getarraysize(.@misc_items));
 		@TodayItem1 = .@misc_items[.@rand];
 
@@ -81,8 +85,6 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		mes "a specified id: " + getitemname(7150);
 		mes "the price of the specified id: " + getiteminfo(7150, ITEMINFO_SELLPRICE);
 		mes "dbg: item id: " + @TodayItem1;
-		
-
 	}
 	
 	// Calculate prices for both items
@@ -218,18 +220,24 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		.max_price = 2000;   // Maximum price for any item
 		.daily_spending_limit = 1000000; // 1M zeny daily limit
 		
-		// Initialize account variables if they don't exist
-		if (#TRSH_DailySpend <= 0) #TRSH_DailySpend = 0;  // Start with 0 zeny spent
-		if (#TRSH_TotalSpent <= 0) #TRSH_TotalSpent = 0;
-		
 		// Item list configuration - Common items and misc items
-		setarray .common_items[0], 511,  609,  512,  967,  962,  960,  959,  955,  951,  948,  943,  941,  938,  937,  936,  935,  934,  932,  932,  930,  928,  926,  924,  920,  919,  918,  916,  915,  913,  909,  908,  907,  746;
-		setarray .misc_items[0], 511,  609,  512,  967,  962,  960,  959,  955,  951,  948, 943,  941,  938,  937,  936,  935,  934,  932,  932,  930, 928,  926,  924,  920,  919,  918,  916,  915,  913,  909, 908,  907,  746,  7030, 7006, 7005, 7054, 7053, 7047, 7032,  1099, 1098, 1096, 1095, 1057, 1056, 1055, 1054, 1052, 1045, 1043, 1042, 1037, 1035, 1034, 1033, 1028, 1024, 1023, 1022, 1020, 1019, 1018, 1001, 7568, 7507, 7347, 7345, 7319, 7317, 7262, 7197, 7188, 7167, 7150, 7126, 7123, 7122, 7116, 7070, 7069, 7067, 7066, 7004, 7001;
+		setarray(.common_items[0],
+			511, 609, 512, 967, 962, 960, 959, 955, 951, 948,
+			943, 941, 938, 937, 936, 935, 934, 932, 930, 928,
+			926, 924, 920, 919, 918, 916, 915, 913, 909, 908,
+			907, 746);
+			
+		setarray(.misc_items[0],
+			511, 609, 512, 967, 962, 960, 959, 955, 951, 948,
+			943, 941, 938, 937, 936, 935, 934, 932, 930, 928,
+			926, 924, 920, 919, 918, 916, 915, 913, 909, 908,
+			907, 746,
+			1099, 1098, 1096, 1095, 1057, 1056, 1055, 1054,
+			1052, 1045, 1043, 1042, 1037, 1035, 1034, 1033,
+			1028, 1024, 1023, 1022, 1020, 1019, 1018, 1001,
+			7568, 7507, 7347, 7345, 7319, 7317, 7262, 7197,
+			7188, 7167, 7150, 7126, 7123, 7122, 7116, 7070,
+			7069, 7067, 7066, 7054, 7053, 7047, 7032, 7030,
+			7006, 7005, 7004, 7001);
 		end;
 }
-
-/*-----------------------------------------------------
-Duplicates
------------------------------------------------------*/
-morocc,81,100,7	duplicate(Garrett)	Garrett#morocc	1_M_SIGN1
-geffen,143,70,3	duplicate(Garrett)	Garrett#geffen	1_M_SIGN1 
