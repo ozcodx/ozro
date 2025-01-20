@@ -662,6 +662,7 @@ gef_tower,58,174,4	script	Tower Guard	8W_SOLDIER,{
 		mes "The figure appears most often near";
 		mes "the marketplace. If you find anything,";
 		mes "please let me know.";
+		next;
 		mes "[Tower Guard]";
 		mes "Always in the market shadows...";
 		mes "As if waiting for something... or someone.";
