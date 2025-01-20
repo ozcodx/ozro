@@ -70,10 +70,8 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		mes "dbg: item id: " + @TodayItem0;
 		
 		// Select one different item from misc items
-		do {
-			.@rand = rand(getarraysize(.misc_items));
-			@TodayItem1 = .misc_items[.@rand];
-		} while (@TodayItem1 == @TodayItem0);
+		.@rand = rand(1,getarraysize(.@misc_items));
+		@TodayItem1 = .@misc_items[.@rand];
 
 		mes "dbg: random index: " + .@rand;
 		mes "array size: " + getarraysize(.misc_items);
