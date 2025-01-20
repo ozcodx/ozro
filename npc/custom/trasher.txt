@@ -61,21 +61,23 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		#TRSH_DailySpend = 0;
 		
 		// Select one item from common items
-		.@rand = rand(1,getarraysize(.@common_items));
-		@TodayItem0 = .@common_items[.@rand];
-
+		.@rand = rand(getarraysize(.common_items));
+		@TodayItem0 = .common_items[.@rand];
+		
 		mes "dbg: random index: " + .@rand;
-		mes "array size: " + getarraysize(.@common_items);
-		mes "the 5th commonitem id: " + .@common_items[5];
+		mes "array size: " + getarraysize(.common_items);
+		mes "the 5th commonitem id: " + .common_items[5];
 		mes "dbg: item id: " + @TodayItem0;
 		
 		// Select one different item from misc items
-		.@rand = rand(1,getarraysize(.@misc_items));
-		@TodayItem1 = .@misc_items[.@rand];
+		do {
+			.@rand = rand(getarraysize(.misc_items));
+			@TodayItem1 = .misc_items[.@rand];
+		} while (@TodayItem1 == @TodayItem0);
 
 		mes "dbg: random index: " + .@rand;
-		mes "array size: " + getarraysize(.@misc_items);
-		mes "the 5th misc item id: " + .@misc_items[5];
+		mes "array size: " + getarraysize(.misc_items);
+		mes "the 5th misc item id: " + .misc_items[5];
 		mes "dbg: item id: " + @TodayItem1;
 		
 
@@ -220,23 +222,19 @@ prontera,101,78,5	script	Garrett	1_M_SIGN1,{
 		// LastTrashDay will be validated and set on first interaction
 		
 		// Item list configuration - Common items and misc items
-		setarray .@common_items[0],
+		setarray .common_items[0],
 			511,  609,  512,  967,  962,  960,  959,  955,  951,  948,
 			943,  941,  938,  937,  936,  935,  934,  932,  932,  930,
 			928,  926,  924,  920,  919,  918,  916,  915,  913,  909,
-			908,  907,  746, 1099, 1098, 1096, 1095, 1057, 1056, 1055,
-			1054, 1052, 1045, 1043, 1042, 1037, 1035, 1034, 1033, 1028,
-			1024, 1023, 1022, 1020, 1019, 1018, 1001;
-		setarray .@misc_items[0],
-			511,  609,  512,  967,  962,  960,  959,  955,  951,  948,
-			943,  941,  938,  937,  936,  935,  934,  932,  932,  930,
-			928,  926,  924,  920,  919,  918,  916,  915,  913,  909,
-			908,  907,  746, 1099, 1098, 1096, 1095, 1057, 1056, 1055,
-			1054, 1052, 1045, 1043, 1042, 1037, 1035, 1034, 1033, 1028,
-			1024, 1023, 1022, 1020, 1019, 1018, 1001, 7568, 7507, 7347,
-			7345, 7319, 7317, 7262, 7197, 7188, 7167, 7150, 7126, 7123,
-			7122, 7116, 7070, 7069, 7067, 7066, 7054, 7053, 7047, 7032,
-			7030, 7006, 7005, 7004, 7001;
+			908,  907,  746;
+			
+		setarray .misc_items[0],
+			1099, 1098, 1096, 1095, 1057, 1056, 1055, 1054, 1052, 1045,
+			1043, 1042, 1037, 1035, 1034, 1033, 1028, 1024, 1023, 1022,
+			1020, 1019, 1018, 1001, 7568, 7507, 7347, 7345, 7319, 7317,
+			7262, 7197, 7188, 7167, 7150, 7126, 7123, 7122, 7116, 7070,
+			7069, 7067, 7066, 7054, 7053, 7047, 7032, 7030, 7006, 7005,
+			7004, 7001;
 		end;
 }
 
