@@ -204,7 +204,7 @@ geffen,143,70,3	script	Garrett	1_M_SIGN1,{
 		.increment = 10;     // Price multiplier
 		.min_price = 100;    // Minimum price for any item
 		.max_price = 2000;   // Maximum price for any item
-		.daily_spending_limit = 1000000; // 1M zeny daily limit
+		.daily_spending_limit = 1243000; // 1M zeny daily limit
 		
 		// Item list configuration - Common items and misc items
 		setarray(.common_items[0],
