@@ -70,8 +70,8 @@ prontera,164,169,3	script	Gilbert	1_M_SMITH,{
 		.npc_name$ = "[^0000FFGambler^000000]";
 		.pod_id = 7863;
 		.pod_name$ = getitemname(.pod_id) +"(s)";
-		setarray .rewards_class_d[0],7067,733,7575,7049; // 15%
-		setarray .rewards_class_c[0],756,757,730,731,732; // 50%
+		setarray .rewards_class_d[0],756,757,7067,733,7575,7049; // 15%
+		setarray .rewards_class_c[0],730,731,732,984,985; // 50%
 		setarray .rewards_class_b[0],969,7444,6635; // 15%
 		setarray .rewards_class_a[0],6457,6456,6231,6235,6635; // 10%
 		setarray .rewards_class_s[0],6234,6230,6233,6229,6635; // 8%
@@ -106,10 +106,13 @@ prontera,164,169,3	script	Gilbert	1_M_SMITH,{
 		730: 1carat Diamond (Crystal_Jewel)
 		731: 2carat Diamond (Crystal_Jewel_)
 		732: 3carat Diamond (Crystal_Jewel__)
-		756: Rough Oridecon (Oridecon_Stone) 
-		757: Rough Elunium (Elunium_Stone)
+		984: Oridecon (Oridecon)
+		985: Elunium (Elunium)
+		6635: Blacksmith Blessing (Blacksmith_Blessing)
 
 	Class D (15%)
+		756: Rough Oridecon (Oridecon_Stone) 
+		757: Rough Elunium (Elunium_Stone)
 		7067: Stone Fragment (Stone_Piece)
 		733: Cracked Diamond (Crystal_Jewel___)
 		7575: Red Jewel (Red_Jewel_)
