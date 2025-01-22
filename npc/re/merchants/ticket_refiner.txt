@@ -124,7 +124,7 @@ prontera,184,177,6	script	Refine Master	4_M_REPAIR,{
 	next;
 	.@menu$ = "";
 	for(.@i = 0; .@i<getarraysize(.@tickets); ++.@i)
-		.@menu$ += "Safe to "+(.@levels[.@i])+" Certificate":";
+		.@menu$ += "Safe to "+(.@levels[.@i])+" Certificate:";
 	.@select = select(.@menu$)-1;
 	.@ticket_lv = .@levels[.@select];
 	.@ticket_id = .@tickets[.@select];
