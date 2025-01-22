@@ -102,6 +102,8 @@ prontera,150,186,5	script	Mystic Channeler	4_GEFFEN_09,{
 	
 	resetskill;
 	resetstatus;
+	resetfeel;
+	resethate;
 	sc_end SC_ALL;
 	set RESET_USED, 1;
 	
