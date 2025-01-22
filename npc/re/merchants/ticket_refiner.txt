@@ -143,8 +143,8 @@ prontera,184,177,6	script	Refine Master	4_M_REPAIR,{
 		mes "Please come along with an item refined less than your ticket.";
 		close;
 	}
-	mes "[Refine Master]";
-	mes "I'm going to refine ^006400"+getequipname(.@part)+"^8B4513 up to the +"+.@ticket_lv+" level^000000 with ^006400"+getitemname(.@ticket_id)+"^000000.";
+	mes "[Refine Master]";	
+	mes "I'm going to refine ^006400"+getequipname(.@part)+"^8B4513 up to the +"+.@ticket_lv+" level^000000";
 	mes "May I proceed?";
 	next;
 	if(select("No.", "Yes.") == 1) {
