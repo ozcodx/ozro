@@ -32,14 +32,15 @@
 //================= Additional Comments ===================================
 //= NOTE: This NPC is currently disabled on official servers.
 //================= Current Version =======================================
-//= 1.0
+//= 1.0 Initial Release
+//= 2.0 Remove +11 Refine Tickets
 //=========================================================================
 
 prontera,184,177,6	script	Refine Master	4_M_REPAIR,{
 	disable_items;
-	if (countitem(Guarantee_Weapon_11Up) || countitem(Guarantee_Weapon_9Up) || countitem(Guarantee_Weapon_8Up) || countitem(Guarantee_Weapon_7Up) || countitem(Guarantee_Weapon_6Up) || countitem(Guarantee_Weapon_5Up))
+	if (countitem(Guarantee_Weapon_9Up) || countitem(Guarantee_Weapon_8Up) || countitem(Guarantee_Weapon_7Up) || countitem(Guarantee_Weapon_6Up) || countitem(Guarantee_Weapon_5Up))
 		.@bWeaponUp = 1;
-	if (countitem(Guarantee_Armor_11Up) || countitem(Guarantee_Armor_9Up) || countitem(Guarantee_Armor_8Up) || countitem(Guarantee_Armor_7Up) || countitem(Guarantee_Armor_6Up) || countitem(Guarantee_Armor_5Up))
+	if (countitem(Guarantee_Armor_9Up) || countitem(Guarantee_Armor_8Up) || countitem(Guarantee_Armor_7Up) || countitem(Guarantee_Armor_6Up) || countitem(Guarantee_Armor_5Up))
 		.@bArmorUp = 1;
 	if (!.@bWeaponUp && !.@bArmorUp) {
 		mes "[Refine Master]";
@@ -96,8 +97,8 @@ prontera,184,177,6	script	Refine Master	4_M_REPAIR,{
 	switch(getequipweaponlv(.@part)) {
 	default:
 	case 0:
-		setarray .@tickets[0],6457,6235,6234,6233,6232,6239;
-		setarray .@levels[0],5,6,7,8,9,11;
+		setarray .@tickets[0],6457,6235,6234,6233,6232;
+		setarray .@levels[0],5,6,7,8,9;
 		.@type$ = "Armor";
 		.@check = .@bArmorUp;
 		break;
@@ -105,8 +106,8 @@ prontera,184,177,6	script	Refine Master	4_M_REPAIR,{
 	case 2:
 	case 3:
 	case 4:
-		setarray .@tickets[0],6456,6231,6230,6229,6228,6238;
-		setarray .@levels[0],5,6,7,8,9,11;
+		setarray .@tickets[0],6456,6231,6230,6229,6228;
+		setarray .@levels[0],5,6,7,8,9;
 		.@type$ = "Weapon";
 		.@check = .@bWeaponUp;
 		break;
@@ -123,7 +124,7 @@ prontera,184,177,6	script	Refine Master	4_M_REPAIR,{
 	next;
 	.@menu$ = "";
 	for(.@i = 0; .@i<getarraysize(.@tickets); ++.@i)
-		.@menu$ += getitemname(.@tickets[.@i])+":";
+		.@menu$ += "Safe to "+(.@levels[.@i])+" Certificate":";
 	.@select = select(.@menu$)-1;
 	.@ticket_lv = .@levels[.@select];
 	.@ticket_id = .@tickets[.@select];

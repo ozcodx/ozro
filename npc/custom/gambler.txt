@@ -10,6 +10,7 @@ Optimised for Hercules emulators.
 ===========================================================
 Changelog:
 v1.0 - First version.
+v2.0 - Refined script with more items and better rewards.
 =========================================================*/
 
 prontera,164,169,3	script	Gilbert	1_M_SMITH,{
@@ -33,14 +34,19 @@ prontera,164,169,3	script	Gilbert	1_M_SMITH,{
 			}
 			.@chance = rand(1,100);
 			.@reward = .pod_id;
-			if (.@chance <= 70){
-				.@reward = .rewards_class_c[(rand(5))];
-			}else if(.@chance<85){
-				.@reward = .rewards_class_b[(rand(5))];
-			}else if(.@chance<95){
-				.@reward = .rewards_class_a[(rand(5))];
+
+			if (.@chance <= 15){
+				.@reward = .rewards_class_d[(rand(getarraysize(.rewards_class_d)))];
+			}else if(.@chance <= 65){
+				.@reward = .rewards_class_c[(rand(getarraysize(.rewards_class_c)))];
+			}else if(.@chance <= 80){
+				.@reward = .rewards_class_b[(rand(getarraysize(.rewards_class_b)))];
+			}else if(.@chance <= 90){
+				.@reward = .rewards_class_a[(rand(getarraysize(.rewards_class_a)))];
+			}else if(.@chance <= 98){
+				.@reward = .rewards_class_s[(rand(getarraysize(.rewards_class_s)))];
 			}else{
-				.@reward = .rewards_class_s[(rand(5))];
+				.@reward = .rewards_class_splus[(rand(getarraysize(.rewards_class_splus)))];
 			}
 			delitem .pod_id, 1;
 			getitem .@reward,1;
@@ -64,10 +70,49 @@ prontera,164,169,3	script	Gilbert	1_M_SMITH,{
 		.npc_name$ = "[^0000FFGambler^000000]";
 		.pod_id = 7863;
 		.pod_name$ = getitemname(.pod_id) +"(s)";
-		setarray .rewards_class_c[0],756,757,756,757,7049;
-		setarray .rewards_class_b[0],969,969,7444,6635,6635;
-		setarray .rewards_class_a[0],6457,6456,6231,6235,6635;
-		setarray .rewards_class_s[0],6234,6230,6233,6229,6635;
+		setarray .rewards_class_d[0],7067,733,7575,7049; // 15%
+		setarray .rewards_class_c[0],756,757,730,731,732; // 50%
+		setarray .rewards_class_b[0],969,7444,6635; // 15%
+		setarray .rewards_class_a[0],6457,6456,6231,6235,6635; // 10%
+		setarray .rewards_class_s[0],6234,6230,6233,6229,6635; // 8%
+		setarray .rewards_class_splus[0],6993,6994,6232,6228; // 2%
 		end;
-	
+	/*---------- IDS ------------------------------
+
+	Class S+ (2%)
+		6232: +9 Armor (Guarantee_Armor_9Up)
+		6228: +9 Weapon (Guarantee_Weapon_9Up)
+
+	Class S (8%)
+		6230: +7 Weapon (Guarantee_Weapon_7Up)
+		6234: +7 Armor (Guarantee_Armor_7Up)
+		6233: +8 Armor (Guarantee_Armor_8Up)
+		6229: +8 Weapon (Guarantee_Weapon_8Up)
+		6635: Blacksmith Blessing (Blacksmith_Blessing)
+
+	Class A (10%)
+		6457: +5 Armor (Guarantee_Armor_5Up)
+		6456: +5 Weapon (Guarantee_Weapon_5Up)
+		6231: +6 Weapon (Guarantee_Weapon_6Up)
+		6235: +6 Armor (Guarantee_Armor_6Up)
+		6635: Blacksmith Blessing (Blacksmith_Blessing)
+		
+	Class B (15%)
+		969: Gold (Gold)
+		7444: Treasure Box (Treasure_Box)
+		6635: Blacksmith Blessing (Blacksmith_Blessing)
+
+	Class C (50%)
+		730: 1carat Diamond (Crystal_Jewel)
+		731: 2carat Diamond (Crystal_Jewel_)
+		732: 3carat Diamond (Crystal_Jewel__)
+		756: Rough Oridecon (Oridecon_Stone) 
+		757: Rough Elunium (Elunium_Stone)
+
+	Class D (15%)
+		7067: Stone Fragment (Stone_Piece)
+		733: Cracked Diamond (Crystal_Jewel___)
+		7575: Red Jewel (Red_Jewel_)
+		7049: Stone (Stone)
+	 ---------------------------------------------*/
 }
