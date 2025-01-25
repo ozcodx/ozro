@@ -49,7 +49,7 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 		mes "[Amazed Soldier]";
 		mes "I've been working with Marcus, gathering materials";
 		mes "and distributing these magnificent weapons.";
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + IZLUDE_CRIMSON_POINTS + "^000000 Izlude Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
@@ -87,9 +87,9 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 							close;
 						}
 						delitem 7069, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS + .@amount;
 						mes "[Amazed Soldier]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Izlude Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 2:
@@ -114,9 +114,9 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 							close;
 						}
 						delitem 7068, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS + .@amount;
 						mes "[Amazed Soldier]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " IzludeCrimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 3:
@@ -141,9 +141,9 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 							close;
 						}
 						delitem 7063, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS + .@amount;
 						mes "[Amazed Soldier]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Izlude Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 4:
@@ -152,17 +152,17 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 			case 2:
 				mes "[Amazed Soldier]";
 				mes "These weapons require great strength to wield.";
-				mes "Each one costs 10 Crimson Points.";
+				mes "Each one costs 10 Izlude Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (IZLUDE_CRIMSON_POINTS < 10) {
 					mes "[Amazed Soldier]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Izlude Crimson Points to purchase any weapon.";
 					close;
 				}
 				switch(select("Crimson Two-Hand Sword [10 CP]:Crimson Lance [10 CP]:Crimson Spear [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (IZLUDE_CRIMSON_POINTS >= 10) {
+							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 10;
 							getitem 21015,1;
 							mes "[Amazed Soldier]";
 							mes "This sword carries Thor's blessing.";
@@ -170,8 +170,8 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (IZLUDE_CRIMSON_POINTS >= 10) {
+							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 10;
 							getitem 1498,1;
 							mes "[Amazed Soldier]";
 							mes "This lance was forged in primordial fire.";
@@ -179,8 +179,8 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 						}
 						close;
 					case 3:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (IZLUDE_CRIMSON_POINTS >= 10) {
+							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 10;
 							getitem 1443,1;
 							mes "[Amazed Soldier]";
 							mes "This spear glows with divine power.";
@@ -1152,7 +1152,7 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 				next;
 				mes "[Marcus]";
 				mes "^990000*His voice drops to almost a whisper*^000000";
-				mes "In Morroc... they still talk about a crimson katar.";
+				mes "In Morocc... they still talk about a crimson katar.";
 				mes "The drunkards speak of a night of fire and madness.";
 				next;
 				mes "[Marcus]";
@@ -1168,7 +1168,7 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 	} else if (CRIMSON_QUEST == 7) {
 		mes "[Marcus]";
 		mes "^990000*Takes a long drink from his water flask*^000000";
-		mes "Go to Morroc. Listen to the tavern tales.";
+		mes "Go to Morocc. Listen to the tavern tales.";
 		mes "Judge for yourself if such power should exist.";
 		next;
 		mes "[Marcus]";
@@ -1297,8 +1297,8 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 			next;
 			mes "[Marcus]";
             mes "For your integrity, I grant you";
-			mes "20 Crimson Points. Use them well.";
-			set CRIMSON_POINTS, 20;
+            mes "these rare materials. Use them well.";
+            getitem 6292,3; // Give 3 Enriched Oridecon
 			set CRIMSON_QUEST, 14;
 			close;
 		} else if (CRIMSON_KEY == 0 && CRIMSON_MERC == 0) {
@@ -1310,13 +1310,13 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 			next;
 			mes "[Marcus]";
 			mes "I will still forge the weapons...";
-			mes "But you've earned fewer Crimson Points.";
+			mes "But you'll need these to strengthen them.";
 			next;
 			mes "[Marcus]";
-			mes "^990000*Hands you a small token*^000000";
-			mes "Here, take these 5 Crimson Points.";
-			mes "Use them wisely with our merchants.";
-			set CRIMSON_POINTS, 5;
+			mes "^990000*Hands you some Oridecon*^000000";
+			mes "Here, take these 5 Oridecon.";
+			mes "Use them to reinforce the weapons.";
+			getitem 984,5;
 			set CRIMSON_QUEST, 14;
 			close;
 		} else if (CRIMSON_KEY == 1 && CRIMSON_MERC == 1) {
@@ -1359,7 +1359,7 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 		
 		mes "The Distracted Archer in Payon - Ranged Weapons";
 		mes "The Wizard in Geffen - Magic Weapons";
-		mes "The Masked Man - Katars and Knuckles";
+		mes "The Masked Man in Morocc- Katars and Knuckles";
 		mes "The Old Merchant of Comodo - Special Weapons";
 		close;
 	}
@@ -1368,7 +1368,7 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 	close;
 }
 
-// The Tavern Regular - Morroc
+// The Tavern Regular - Morocc
 //============================================================
 morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 	if (CRIMSON_QUEST == 7) {
