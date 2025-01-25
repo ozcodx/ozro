@@ -13,6 +13,7 @@ Optimised for Hercules emulators.
 Changelog:
 v1.0 - First version.
 v1.1 - Changed tradable materials.
+v1.2 - Changed NPC locations.
 =========================================================*/
 
 // Quest Variables:
@@ -39,7 +40,7 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 			close;
 		}
 		mes "[Amazed Soldier]";
-		mes "They say a merchant in Morocc knows";
+		mes "They say a merchant in Comodo knows";
 		mes "about these weapons. An old man who's";
 		mes "seen many wonders in his time...";
 		set CRIMSON_QUEST, 1;
@@ -197,9 +198,9 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 	close;
 }
 
-// The Old Merchant - Morroc
+// The Old Merchant - Comodo
 //============================================================
-morocc,172,74,3	script	Old Merchant	4_M_HUMERCHANT,{
+cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 	if (CRIMSON_QUEST == 1) {
 		mes "[Old Merchant]";
 		mes "^990000*The old man eyes you suspiciously*^000000";
@@ -635,7 +636,7 @@ gef_tower,58,174,4	script	Tower Guard	8W_SOLDIER,{
 		if(select("Tell me more:We shouldn't discuss this:Report it to your superiors") == 1) {
 			mes "[Tower Guard]";
 			mes "^990000*His eyes light up with excitement*^000000";
-			mes "It was in Morroc, during my patrol rotation.";
+			mes "It was in Prontera, during my patrol rotation.";
 			mes "A figure in the shadows, wielding fire itself!";
 		} else if(select("Tell me more:We shouldn't discuss this:Report it to your superiors") == 2) {
 			mes "[Tower Guard]";
@@ -661,11 +662,11 @@ gef_tower,58,174,4	script	Tower Guard	8W_SOLDIER,{
 		next;
 		mes "[Tower Guard]";
 		mes "The figure appears most often near";
-		mes "the marketplace. If you find anything,";
+		mes "the Prontera marketplace. If you find anything,";
 		mes "please let me know.";
 		next;
 		mes "[Tower Guard]";
-		mes "Always in the Morocc market, in the shadows...";
+		mes "Always in the Prontera market, in the shadows...";
 		mes "As if waiting for something... or someone.";
 		set CRIMSON_QUEST, 4;
 		close;
@@ -718,9 +719,9 @@ gef_tower,58,174,4	script	Tower Guard	8W_SOLDIER,{
 	close;
 }
 
-// The Crimson Rogue - Morroc
+// The Crimson Rogue - Prontera
 //============================================================
-morocc,107,87,6	script	Shadow Rogue	4_F_ROGUE,{
+prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 	if (CRIMSON_QUEST == 4) {
 		mes "[Shadow Rogue]";
 		mes "^990000*A crimson gleam catches your eye*^000000";
@@ -1328,15 +1329,14 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 		mes "Seek out our trusted merchants:";
 		next;
 		mes "[Marcus]";
-		mes "The Rogue in Morroc - Daggers and Sabers";
+		mes "The Rogue in Prontera - Daggers and Sabers";
 		mes "The Guard in Izlude - Heavy Weapons";
 		mes "The Greedy Merchant in Alberta - Axes and Maces";
-		next;
-		mes "[Marcus]";
+		
 		mes "The Distracted Archer in Payon - Ranged Weapons";
 		mes "The Wizard in Geffen - Magic Weapons";
 		mes "The Masked Man - Katars and Knuckles";
-		mes "The Old Merchant of Morroc - Special Weapons";
+		mes "The Old Merchant of Comodo - Special Weapons";
 		close;
 	}
 	mes "[Marcus]";
