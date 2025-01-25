@@ -23,6 +23,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
   	mes "* more monkey gibberish *";
 	next;
 	select("ooh?","uuh!");
+	mes .npc_name$;
 	mes "uuh uuh uuh uuh";
 	next;
 
@@ -32,7 +33,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 		case 1:
 			mes .npc_name$;
 			mes "ooh ooh ah ah eeek!";
-			select("Macaco, você gosta de banana?", "uuh uuh!","ah ah ah!");
+			select("Macaco, voce gosta de banana?", "uuh uuh!","ah ah ah!");
 			mes "* Looks your Banana *";
 			if (countitem("Banana") >= 20) {
 				delitem "Banana", 20;
