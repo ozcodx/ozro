@@ -38,6 +38,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 			if (countitem("Banana") >= 20) {
 				delitem "Banana", 20;
 			} else {
+				next;
 				mes "* sad monkey noises *";
 				close;
 			}
@@ -51,6 +52,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 			if (countitem("Cacao") >= 20) {
 				delitem "Cacao", 20;
 			} else {
+				next;
 				mes "* sad monkey noises *";
 				close;
 			}
