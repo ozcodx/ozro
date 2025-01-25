@@ -165,17 +165,17 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 			case 2:
 				mes "[Amazed Soldier]";
 				mes "These weapons require great strength to wield.";
-				mes "Each one costs 10 Izlude Crimson Points.";
+				mes "Each one costs 25 Izlude Crimson Points.";
 				next;
-				if (IZLUDE_CRIMSON_POINTS < 10) {
+				if (IZLUDE_CRIMSON_POINTS < 25) {
 					mes "[Amazed Soldier]";
-					mes "You need at least 10 Izlude Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Izlude Crimson Points to purchase any weapon.";
 					close;
 				}
-				switch(select("Crimson Two-Hand Sword [10 CP]:Crimson Lance [10 CP]:Crimson Spear [10 CP]:Cancel")) {
+				switch(select("Crimson Two-Hand Sword [25 CP]:Crimson Lance [25 CP]:Crimson Spear [25 CP]:Cancel")) {
 					case 1:
-						if (IZLUDE_CRIMSON_POINTS >= 10) {
-							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 10;
+						if (IZLUDE_CRIMSON_POINTS >= 25) {
+							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 25;
 							getitem 21015,1;
 							mes "[Amazed Soldier]";
 							mes "This sword carries Thor's blessing.";
@@ -183,8 +183,8 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 						}
 						close;
 					case 2:
-						if (IZLUDE_CRIMSON_POINTS >= 10) {
-							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 10;
+						if (IZLUDE_CRIMSON_POINTS >= 25) {
+							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 25;
 							getitem 1498,1;
 							mes "[Amazed Soldier]";
 							mes "This lance was forged in primordial fire.";
@@ -192,8 +192,8 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 						}
 						close;
 					case 3:
-						if (IZLUDE_CRIMSON_POINTS >= 10) {
-							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 10;
+						if (IZLUDE_CRIMSON_POINTS >= 25) {
+							set IZLUDE_CRIMSON_POINTS, IZLUDE_CRIMSON_POINTS - 25;
 							getitem 1443,1;
 							mes "[Amazed Soldier]";
 							mes "This spear glows with divine power.";
@@ -351,17 +351,17 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 			case 2:
 				mes "[Old Merchant]";
 				mes "These weapons hold ancient power.";
-				mes "Each one costs 10 Comodo Crimson Points.";
+				mes "Each one costs 25 Comodo Crimson Points.";
 				next;
-				if (COMODO_CRIMSON_POINTS < 10) {
+				if (COMODO_CRIMSON_POINTS < 25) {
 					mes "[Old Merchant]";
-					mes "You need at least 10 Comodo Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Comodo Crimson Points to purchase any weapon.";
 					close;
 				}
-				switch(select("Crimson Shuriken [10 CP]:Crimson Pistol [10 CP]:Cancel")) {
+				switch(select("Crimson Shuriken [25 CP]:Crimson Pistol [25 CP]:Cancel")) {
 					case 1:
-						if (COMODO_CRIMSON_POINTS >= 10) {
-							set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS - 10;
+						if (COMODO_CRIMSON_POINTS >= 25) {
+							set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS - 25;
 							getitem 13327,1;
 							mes "[Old Merchant]";
 							mes "These shuriken were tempered in divine flames.";
@@ -369,8 +369,8 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 						}
 						close;
 					case 2:
-						if (COMODO_CRIMSON_POINTS >= 10) {
-							set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS - 10;
+						if (COMODO_CRIMSON_POINTS >= 25) {
+							set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS - 25;
 							getitem 13127,1;
 							mes "[Old Merchant]";
 							mes "This pistol contains the essence of Thor's lightning.";
@@ -560,17 +560,17 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 			case 2:
 				mes "[Hooded Wizard]";
 				mes "These weapons channel divine power.";
-				mes "Each one costs 10 Geffen Crimson Points.";
+				mes "Each one costs 25 Geffen Crimson Points.";
 				next;
-				if (GEFFEN_CRIMSON_POINTS < 10) {
+				if (GEFFEN_CRIMSON_POINTS < 25) {
 					mes "[Hooded Wizard]";
-					mes "You need at least 10 Geffen Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Geffen Crimson Points to purchase any weapon.";
 					close;
 				}
-				switch(select("Crimson Bible [10 CP]:Crimson Rod [10 CP]:Crimson Staff [10 CP]:Cancel")) {
+				switch(select("Crimson Bible [25 CP]:Crimson Rod [25 CP]:Crimson Staff [25 CP]:Cancel")) {
 					case 1:
-						if (GEFFEN_CRIMSON_POINTS >= 10) {
-							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 10;
+						if (GEFFEN_CRIMSON_POINTS >= 25) {
+							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 25;
 							getitem 28604,1;
 							mes "[Hooded Wizard]";
 							mes "This holy tome contains divine wisdom.";
@@ -578,8 +578,8 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 						}
 						close;
 					case 2:
-						if (GEFFEN_CRIMSON_POINTS >= 10) {
-							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 10;
+						if (GEFFEN_CRIMSON_POINTS >= 25) {
+							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 25;
 							getitem 1680,1;
 							mes "[Hooded Wizard]";
 							mes "This rod channels Thor's lightning.";
@@ -587,8 +587,8 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 						}
 						close;
 					case 3:
-						if (GEFFEN_CRIMSON_POINTS >= 10) {
-							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 10;
+						if (GEFFEN_CRIMSON_POINTS >= 25) {
+							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 25;
 							getitem 2025,1;
 							mes "[Hooded Wizard]";
 							mes "This staff resonates with primordial fire.";
@@ -859,17 +859,17 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 			case 2:
 				mes "[Shadow Rogue]";
 				mes "These blades hold deadly power.";
-				mes "Each one costs 10 Prontera Crimson Points.";
+				mes "Each one costs 25 Prontera Crimson Points.";
 				next;
-				if (PRONTERA_CRIMSON_POINTS < 10) {
+				if (PRONTERA_CRIMSON_POINTS < 25) {
 					mes "[Shadow Rogue]";
-					mes "You need at least 10 Prontera Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Prontera Crimson Points to purchase any weapon.";
 					close;
 				}
-				switch(select("Crimson Dagger [10 CP]:Crimson Saber [10 CP]:Cancel")) {
+				switch(select("Crimson Dagger [25 CP]:Crimson Saber [25 CP]:Cancel")) {
 					case 1:
-						if (PRONTERA_CRIMSON_POINTS >= 10) {
-							set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS - 10;
+						if (PRONTERA_CRIMSON_POINTS >= 25) {
+							set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS - 25;
 							getitem 28705,1;
 							mes "[Shadow Rogue]";
 							mes "This dagger burns with inner fire.";
@@ -877,8 +877,8 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 						}
 						close;
 					case 2:
-						if (PRONTERA_CRIMSON_POINTS >= 10) {
-							set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS - 10;
+						if (PRONTERA_CRIMSON_POINTS >= 25) {
+							set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS - 25;
 							getitem 13454,1;
 							mes "[Shadow Rogue]";
 							mes "This saber dances with crimson flames.";
@@ -1080,18 +1080,18 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 			case 2:
 				mes "[Greedy Merchant]";
 				mes "Ah, interested in my wares?";
-				mes "Each weapon costs 10 Crimson Points.";
+				mes "Each weapon costs 25 Crimson Points.";
 				next;
-				if (ALBERTA_CRIMSON_POINTS < 10) {
+				if (ALBERTA_CRIMSON_POINTS < 25) {
 					mes "[Greedy Merchant]";
-					mes "You need at least 10 Alberta Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Alberta Crimson Points to purchase any weapon.";
 					mes "Come back when you're not so... poor.";
 					close;
 				}
-				switch(select("Crimson Two-Hand Axe [10 CP]:Crimson Mace [10 CP]:Cancel")) {
+				switch(select("Crimson Two-Hand Axe [25 CP]:Crimson Mace [25 CP]:Cancel")) {
 					case 1:
-						if (ALBERTA_CRIMSON_POINTS >= 10) {
-							set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS - 10;
+						if (ALBERTA_CRIMSON_POINTS >= 25) {
+							set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS - 25;
 							getitem 28106,1;
 							mes "[Greedy Merchant]";
 							mes "This axe holds tremendous power.";
@@ -1099,8 +1099,8 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 						}
 						close;
 					case 2:
-						if (ALBERTA_CRIMSON_POINTS >= 10) {
-							set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS - 10;
+						if (ALBERTA_CRIMSON_POINTS >= 25) {
+							set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS - 25;
 							getitem 16040,1;
 							mes "[Greedy Merchant]";
 							mes "This mace radiates with crimson energy.";
@@ -1130,7 +1130,7 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 
 // Marcus the Smith - Coal Mine
 //============================================================
-mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
+mjolnir_02,88,359,4	script	Marcus	4_M_DWARF,{
 	if (CRIMSON_QUEST == 6) {
 		mes "[Marcus]";
 		mes "^990000*A dwarf miner works tirelessly, ignoring your presence*^000000";
@@ -1568,17 +1568,17 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 			case 2:
 				mes "[Mysterious Man]";
 				mes "These weapons hold great power.";
-				mes "Each one costs 10 Crimson Points.";
+				mes "Each one costs 25 Crimson Points.";
 				next;
-				if (MOROCC_CRIMSON_POINTS < 10) {
+				if (MOROCC_CRIMSON_POINTS < 25) {
 					mes "[Mysterious Man]";
-					mes "You need at least 10 Morocc Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Morocc Crimson Points to purchase any weapon.";
 					close;
 				}
-				switch(select("Crimson Katar [10 CP]:Crimson Knuckle [10 CP]:Cancel")) {
+				switch(select("Crimson Katar [25 CP]:Crimson Knuckle [25 CP]:Cancel")) {
 					case 1:
-						if (MOROCC_CRIMSON_POINTS >= 10) {
-							set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS - 10;
+						if (MOROCC_CRIMSON_POINTS >= 25) {
+							set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS - 25;
 							getitem 28007,1;
 							mes "[Mysterious Man]";
 							mes "This katar thirsts for battle.";
@@ -1586,8 +1586,8 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 						}
 						close;
 					case 2:
-						if (MOROCC_CRIMSON_POINTS >= 10) {
-							set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS - 10;
+						if (MOROCC_CRIMSON_POINTS >= 25) {
+							set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS - 25;
 							getitem 1839,1;
 							mes "[Mysterious Man]";
 							mes "These knuckles burn with crimson flame.";
@@ -1783,17 +1783,17 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 			case 2:
 				mes "[Distracted Archer]";
 				mes "These weapons hold special power.";
-				mes "Each one costs 10 Crimson Points.";
+				mes "Each one costs 25 Crimson Points.";
 				next;
-				if (PAYON_CRIMSON_POINTS < 10) {
+				if (PAYON_CRIMSON_POINTS < 25) {
 					mes "[Distracted Archer]";
-					mes "You need at least 10 Payon Crimson Points to purchase any weapon.";
+					mes "You need at least 25 Payon Crimson Points to purchase any weapon.";
 					close;
 				}
-				switch(select("Crimson Bow [10 CP]:Crimson Instrument [10 CP]:Crimson Whip [10 CP]:Cancel")) {
+				switch(select("Crimson Bow [25 CP]:Crimson Instrument [25 CP]:Crimson Whip [25 CP]:Cancel")) {
 					case 1:
-						if (PAYON_CRIMSON_POINTS >= 10) {
-							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 10;
+						if (PAYON_CRIMSON_POINTS >= 25) {
+							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 25;
 							getitem 18130,1;
 							mes "[Distracted Archer]";
 							mes "This bow pulses with crimson energy.";
@@ -1801,8 +1801,8 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 						}
 						close;
 					case 2:
-						if (PAYON_CRIMSON_POINTS >= 10) {
-							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 10;
+						if (PAYON_CRIMSON_POINTS >= 25) {
+							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 25;
 							getitem 1939,1;
 							mes "[Distracted Archer]";
 							mes "This instrument resonates with power.";
@@ -1810,8 +1810,8 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 						}
 						close;
 					case 3:
-						if (PAYON_CRIMSON_POINTS >= 10) {
-							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 10;
+						if (PAYON_CRIMSON_POINTS >= 25) {
+							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 25;
 							getitem 1995,1;
 							mes "[Distracted Archer]";
 							mes "This whip crackles with crimson lightning.";
