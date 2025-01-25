@@ -919,6 +919,16 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 				mes "^990000*Pockets the Special Gold with a grin*^000000";
 				mes "He's hiding in the Coal Mines.";
 				mes "Thinks he's so righteous...";
+				next;
+				mes "[Greedy Merchant]";
+				mes "^990000*Suddenly looks nervous*^000000";
+				mes "But listen... don't tell Marcus I told you.";
+				mes "He... he might never trust anyone again.";
+				next;
+				mes "[Greedy Merchant]";
+				mes "^990000*Whispers anxiously*^000000";
+				mes "Our past is... complicated. Just say you";
+				mes "found him by chance, will you?";
 				set CRIMSON_QUEST, 6;
 				close;
 			case 2:
@@ -1189,8 +1199,13 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 		mes "[Marcus]";
 		mes "I hid the designs in Aldebaran's Inn.";
 		mes "In a steel box, where travelers rest.";
-		mes "The key... I threw it in Payon Forest.";
+		mes "The key... I threw it in the forest of Payon.";
 		set CRIMSON_QUEST, 9;
+		next;
+		mes "[Marcus]";
+		mes "The forest of Payon...";
+		mes "The east of the forest...";
+		mes "I think should be there.";
 		close;
 	} else if (CRIMSON_QUEST == 9) {
 		mes "[Marcus]";
@@ -1220,9 +1235,18 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 		mes "see them again. The memories they hold...";
 		delitem 7431,1; //Delete Weapon Designs
 		next;
+		if (countitem(7329) > 0) {
+			mes "[Marcus]";
+			mes "^990000*Looks at you thoughtfully*^000000";
+			mes "I see you still have the archer's key.";
+			mes "Remember your promise... trust is a rare";
+			mes "commodity in these dark times.";
+			next;
+		}
 		mes "[Marcus]";
 		mes "But something's missing. The essence...";
 		mes "Without Thor's Fire Essence, these are";
+		
 		mes "just drawings on paper.";
 		next;
 		mes "[Marcus]";
@@ -1569,7 +1593,7 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 
 // The Distracted Archer - Payon
 //============================================================
-payon,242,104,4	script	Distracted Archer	4_M_ARCHER,{
+payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 	if (CRIMSON_QUEST == 9) {
 		mes "[Distracted Archer]";
 		mes "^990000*Playing with a strange key*^000000";
@@ -1779,7 +1803,7 @@ payon,242,104,4	script	Distracted Archer	4_M_ARCHER,{
 
 // The Hidden Crate - Aldebaran
 //============================================================
-aldeba_in,99,117,6	script	Steel Box	4_STEELBOX,{
+aldeba_in,99,117,3	script	Steel Box	4_STEELBOX,{  // Cambié el 6 por 3 para que mire al suroeste
 	if (CRIMSON_QUEST == 10) {
 		if (countitem(7329) > 0) {
 			mes "^990000*The key fits perfectly*^000000";
