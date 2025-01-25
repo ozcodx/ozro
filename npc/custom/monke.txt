@@ -39,6 +39,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 				delitem "Banana", 20;
 			} else {
 				mes "* sad monkey noises *";
+				close;
 			}
 			break;
 
@@ -51,6 +52,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 				delitem "Cacao", 20;
 			} else {
 				mes "* sad monkey noises *";
+				close;
 			}
 			break;
 
@@ -58,7 +60,6 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 			mes .npc_name$;
 			mes "* Ignores you friendly *";
 			close;
-			return;
 	}
 	next;
 	// Segunda etapa de probabilidad
