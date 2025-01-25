@@ -1650,22 +1650,37 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 		close;
 	}
 	if (CRIMSON_QUEST == 14) {
+		if (CRIMSON_KEY == 0) {
+			mes "[Distracted Archer]";
+			mes "^990000*Looks at you with contempt*^000000";
+			mes "You... the one who never returned my charm...";
+			next;
+			mes "[Distracted Archer]";
+			mes "I shouldn't sell you a single weapon.";
+			mes "But I gave my word to Marcus...";
+			next;
+			mes "[Distracted Archer]";
+			mes "^990000*Sighs with resignation*^000000";
+			mes "And unlike some people, I DO keep";
+			mes "my promises.";
+			next;
+		}
 		mes "[Distracted Archer]";
 		mes "I have some special weapons for you...";
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + PAYON_CRIMSON_POINTS + "^000000 Payon Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
 				mes "[Distracted Archer]";
 				mes "I need specific materials to maintain";
 				mes "these weapons. I can offer you";
-				mes "Crimson Points for these items:";
+				mes "Payon Crimson Points for these items:";
 				next;
 				mes "[Distracted Archer]";
 				mes "- Blue Hair";
 				mes "- Golden Hair"; 
 				mes "- Plush Doll";
-				mes "Each one is worth 1 Crimson Point.";
+				mes "Each one is worth 1 Payon Crimson Point.";
 				next;
 				switch(select("Trade Blue Hair:Trade Golden Hair:Trade Plush Doll:Cancel")) {
 					case 1:
@@ -1690,9 +1705,9 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 							close;
 						}
 						delitem 1034, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS + .@amount;
 						mes "[Distracted Archer]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Payon Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 2:
@@ -1717,9 +1732,9 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 							close;
 						}
 						delitem 1060, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS + .@amount;
 						mes "[Distracted Archer]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Payon Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 3:
@@ -1744,9 +1759,9 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 							close;
 						}
 						delitem 740, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS + .@amount;
 						mes "[Distracted Archer]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Payon Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 4:
@@ -1757,15 +1772,15 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 				mes "These weapons hold special power.";
 				mes "Each one costs 10 Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (PAYON_CRIMSON_POINTS < 10) {
 					mes "[Distracted Archer]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Payon Crimson Points to purchase any weapon.";
 					close;
 				}
 				switch(select("Crimson Bow [10 CP]:Crimson Instrument [10 CP]:Crimson Whip [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (PAYON_CRIMSON_POINTS >= 10) {
+							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 10;
 							getitem 18130,1;
 							mes "[Distracted Archer]";
 							mes "This bow pulses with crimson energy.";
@@ -1773,8 +1788,8 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (PAYON_CRIMSON_POINTS >= 10) {
+							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 10;
 							getitem 1939,1;
 							mes "[Distracted Archer]";
 							mes "This instrument resonates with power.";
@@ -1782,8 +1797,8 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 						}
 						close;
 					case 3:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (PAYON_CRIMSON_POINTS >= 10) {
+							set PAYON_CRIMSON_POINTS, PAYON_CRIMSON_POINTS - 10;
 							getitem 1995,1;
 							mes "[Distracted Archer]";
 							mes "This whip crackles with crimson lightning.";
