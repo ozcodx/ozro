@@ -444,20 +444,20 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
     } else if (CRIMSON_QUEST == 14) {
 		mes "[Hooded Wizard]";
 		mes "Marcus has entrusted me with these mystical weapons.";
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + GEFFEN_CRIMSON_POINTS + "^000000 Geffen Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
 				mes "[Hooded Wizard]";
 				mes "I require specific materials to maintain";
 				mes "the magical essence. I can offer you";
-				mes "Crimson Points for these items:";
+				mes "Geffen Crimson Points for these items:";
 				next;
 				mes "[Hooded Wizard]";
 				mes "- Research Chart";
 				mes "- Star Dust";
 				mes "- Soft Feather";
-				mes "Each one is worth 1 Crimson Point.";
+				mes "Each one is worth 1 Geffen Crimson Point.";
 				next;
 				switch(select("Trade Research Chart:Trade Star Dust:Trade Soft Feather:Cancel")) {
 					case 1:
@@ -482,9 +482,9 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 							close;
 						}
 						delitem 7347, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS + .@amount;
 						mes "[Hooded Wizard]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Geffen Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 2:
@@ -509,9 +509,9 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 							close;
 						}
 						delitem 1001, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS + .@amount;
 						mes "[Hooded Wizard]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Geffen Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 3:
@@ -536,9 +536,9 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 							close;
 						}
 						delitem 7063, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS + .@amount;
 						mes "[Hooded Wizard]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Geffen Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 4:
@@ -547,17 +547,17 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 			case 2:
 				mes "[Hooded Wizard]";
 				mes "These weapons channel divine power.";
-				mes "Each one costs 10 Crimson Points.";
+				mes "Each one costs 10 Geffen Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (GEFFEN_CRIMSON_POINTS < 10) {
 					mes "[Hooded Wizard]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Geffen Crimson Points to purchase any weapon.";
 					close;
 				}
 				switch(select("Crimson Bible [10 CP]:Crimson Rod [10 CP]:Crimson Staff [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (GEFFEN_CRIMSON_POINTS >= 10) {
+							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 10;
 							getitem 28604,1;
 							mes "[Hooded Wizard]";
 							mes "This holy tome contains divine wisdom.";
@@ -565,8 +565,8 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (GEFFEN_CRIMSON_POINTS >= 10) {
+							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 10;
 							getitem 1680,1;
 							mes "[Hooded Wizard]";
 							mes "This rod channels Thor's lightning.";
@@ -574,8 +574,8 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 						}
 						close;
 					case 3:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (GEFFEN_CRIMSON_POINTS >= 10) {
+							set GEFFEN_CRIMSON_POINTS, GEFFEN_CRIMSON_POINTS - 10;
 							getitem 2025,1;
 							mes "[Hooded Wizard]";
 							mes "This staff resonates with primordial fire.";
