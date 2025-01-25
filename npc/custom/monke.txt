@@ -62,7 +62,7 @@ prt_fild03,203,41,3	script	Macaco	YOYO,{
 	}
 	next;
 	// Segunda etapa de probabilidad
-	.@amount = (rand(1,2) == 1) ? 10 : 40; // 50% de probabilidad para 10 o 40
+	.@amount = (rand(1,2) == 1) ? 15 : 25; // 50% de probabilidad para 15 o 25
 	if (.@amount == 10) {
 		mes "* angry monkey noises *";
 		mes "EEEK EEEK AAAH AAAH!";
