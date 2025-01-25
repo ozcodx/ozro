@@ -1452,20 +1452,20 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 	if (CRIMSON_QUEST == 14) {
 		mes "[Mysterious Man]";
 		mes "Ah, seeking power? I have some special weapons...";
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + MOROCC_CRIMSON_POINTS + "^000000 Morocc Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
 				mes "[Mysterious Man]";
 				mes "I need specific materials to maintain";
 				mes "these weapons. I can offer you";
-				mes "Crimson Points for these items:";
+				mes "Morocc Crimson Points for these items:";
 				next;
 				mes "[Mysterious Man]";
 				mes "- Claw of Desert Wolf";
 				mes "- Brigan";
 				mes "- Hard Feeler";
-				mes "Each one is worth 1 Crimson Point.";
+				mes "Each one is worth 1 Morocc Crimson Point.";
 				next;
 				switch(select("Trade Claw of Desert Wolf:Trade Brigan:Trade Hard Feeler:Cancel")) {
 					case 1:
@@ -1490,9 +1490,9 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 							close;
 						}
 						delitem 7030, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS + .@amount;
 						mes "[Mysterious Man]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Morocc Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 2:
@@ -1517,9 +1517,9 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 							close;
 						}
 						delitem 7054, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS + .@amount;
 						mes "[Mysterious Man]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Morocc Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 3:
@@ -1544,9 +1544,9 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 							close;
 						}
 						delitem 7163, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS + .@amount;
 						mes "[Mysterious Man]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Morocc Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 4:
@@ -1557,15 +1557,15 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 				mes "These weapons hold great power.";
 				mes "Each one costs 10 Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (MOROCC_CRIMSON_POINTS < 10) {
 					mes "[Mysterious Man]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Morocc Crimson Points to purchase any weapon.";
 					close;
 				}
 				switch(select("Crimson Katar [10 CP]:Crimson Knuckle [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (MOROCC_CRIMSON_POINTS >= 10) {
+							set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS - 10;
 							getitem 28007,1;
 							mes "[Mysterious Man]";
 							mes "This katar thirsts for battle.";
@@ -1573,8 +1573,8 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (MOROCC_CRIMSON_POINTS >= 10) {
+							set MOROCC_CRIMSON_POINTS, MOROCC_CRIMSON_POINTS - 10;
 							getitem 1839,1;
 							mes "[Mysterious Man]";
 							mes "These knuckles burn with crimson flame.";
