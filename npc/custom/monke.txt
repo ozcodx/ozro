@@ -12,58 +12,85 @@ Changelog:
 v1.0 - First version.
 =========================================================*/
 
-prt_fild03,203,41,3	script	Monke	YOYO,{
+prt_fild03,203,41,3	script	Macaco	YOYO,{
 	
 	/*-----------------------------------------------------
 	Script
 	-----------------------------------------------------*/
 	mes .npc_name$;
-  mes "hoo hoo uuh uuh";
-  mes "uuh ooh huu oo uuh";
-  mes "* more monkey gibber*";
+  	mes "hoo hoo uuh uuh";
+  	mes "uuh ooh huu oo uuh";
+  	mes "* more monkey gibberish *";
 	next;
-	
-	switch (select("ooh?","uuh!")) {
+	select("ooh?","uuh!");
+	mes "uuh uuh uuh uuh";
+	next;
+
+	// Primera etapa de probabilidad
+	.@first_choice = rand(1,3);
+	switch (.@first_choice) {
 		case 1:
 			mes .npc_name$;
-			.@price = rand(1,15);
-			// Check total against inventory
-			if (countitem("Banana") < .@price) {
-				mes "* angry monkey noise *";
-        break;
+			mes "ooh ooh ah ah eeek!";
+			select("Macaco, você gosta de banana?", "uuh uuh!","ah ah ah!");
+			mes "* Looks your Banana *";
+			if (countitem("Banana") >= 20) {
+				delitem "Banana", 20;
+			} else {
+				mes "* sad monkey noises *";
 			}
-			.@amount = rand(1,.@price);
-			delitem "Banana", .@price;
-			.@chance = rand(1,100);
-			if (.@chance <= 40){
-				mes "* happy monkey noise *";
-			}else if(.@chance<70){
-				mes "* happy monkey noise *";
-			  getitem "Banana",.@amount;
-			}else if(.@chance<90){
-				mes "* happy monkey noise *";
-			  getitem "Strawberry",.@amount;
-			}else{
-			  getitem "Grape",.@amount;
-			}
-			mes "ooh uuh hoo oo ";
-			mes "*more monkey gibberish*";
-			break;	
+			break;
 
 		case 2:
 			mes .npc_name$;
-			mes "* angry monkey noise *";
-			break;	
-		}
-		
-		close;
+			mes "uuh uuh uuh uuh";
+			select("Macaco, macaco!","eek eek!","ooh ooh!");
+			mes "* Looks your Cacao *";
+			if (countitem("Cacao") >= 20) {
+				delitem "Cacao", 20;
+			} else {
+				mes "* sad monkey noises *";
+			}
+			break;
+
+		case 3:
+			mes .npc_name$;
+			mes "* Ignores you friendly *";
+			close;
+			return;
+	}
+	next;
+	// Segunda etapa de probabilidad
+	.@amount = (rand(1,2) == 1) ? 10 : 40; // 50% de probabilidad para 10 o 40
+	if (.@amount == 10) {
+		mes "* angry monkey noises *";
+		mes "EEEK EEEK AAAH AAAH!";
+	} else {
+		mes "* happy monkey noises *";
+		mes "OOH OOH UUH UUH WAAH WAAH!";
+	}
+
+	// Tercera etapa de probabilidad para definir el ítem
+	.@item_choice = rand(1,100);
+	if (.@item_choice <= 20) {
+		getitem "Lemon", .@amount;
+	} else if (.@item_choice <= 50) {
+		getitem "Grape", .@amount;
+	} else {
+		getitem "Strawberry", .@amount;
+	}
+
+	mes "ooh uuh hoo oo ";
+	mes "ook eek aah ooh";
+	mes "*more monkey gibberish*";
+	close;
 	
 	
 	/*-----------------------------------------------------
 	Configuration
 	-----------------------------------------------------*/
 	OnInit:
-		.npc_name$ = "[^0000FFMonke^000000]";
+		.npc_name$ = "[^0000FFMacaco^000000]";
 		end;
 	
 }
