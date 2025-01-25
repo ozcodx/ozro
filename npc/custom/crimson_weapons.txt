@@ -235,7 +235,7 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 		mes "[Old Merchant]";
 		mes "Marcus has entrusted me with these special weapons.";
 		
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + COMODO_CRIMSON_POINTS + "^000000 Comodo Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
@@ -245,12 +245,12 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 				mes "Crimson Points for these items:";
 				next;
 				mes "[Old Merchant]";
-				mes "- White Herb";
+				mes "- Large Jellopy";
 				mes "- Rusty Screw";
 				mes "- Broken Liquor Jar";
-				mes "Each one is worth 1 Crimson Point.";
+				mes "Each one is worth 1 Comodo Crimson Point.";
 				next;
-				switch(select("Trade White Herb:Trade Rusty Screw:Trade Broken Liquor Jar:Cancel")) {
+				switch(select("Trade Large Jellopy:Trade Rusty Screw:Trade Broken Liquor Jar:Cancel")) {
 					case 1:
 						if (countitem(7126) < 1) {
 							mes "[Old Merchant]";
@@ -273,9 +273,9 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 							close;
 						}
 						delitem 7126, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS + .@amount;
 						mes "[Old Merchant]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Comodo Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 2:
@@ -285,7 +285,7 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 							close;
 						}
 						mes "[Old Merchant]";
-						mes "How many Screws would you like to trade?";
+						mes "How many Rusty Screws would you like to trade?";
 						mes "You have " + countitem(7317) + " Screws.";
 						next;
 						input .@amount;
@@ -300,9 +300,9 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 							close;
 						}
 						delitem 7317, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS + .@amount;
 						mes "[Old Merchant]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Comodo Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 3:
@@ -327,9 +327,9 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 							close;
 						}
 						delitem 7158, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS + .@amount;
 						mes "[Old Merchant]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Comodo Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 4:
@@ -338,17 +338,17 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 			case 2:
 				mes "[Old Merchant]";
 				mes "These weapons hold ancient power.";
-				mes "Each one costs 10 Crimson Points.";
+				mes "Each one costs 10 Comodo Crimson Points.";
 				next;
 				if (CRIMSON_POINTS < 10) {
 					mes "[Old Merchant]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Comodo Crimson Points to purchase any weapon.";
 					close;
 				}
 				switch(select("Crimson Shuriken [10 CP]:Crimson Pistol [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (COMODO_CRIMSON_POINTS >= 10) {
+							set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS - 10;
 							getitem 13327,1;
 							mes "[Old Merchant]";
 							mes "These shuriken were tempered in divine flames.";
@@ -356,8 +356,8 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (COMODO_CRIMSON_POINTS >= 10) {
+							set COMODO_CRIMSON_POINTS, COMODO_CRIMSON_POINTS - 10;
 							getitem 13127,1;
 							mes "[Old Merchant]";
 							mes "This pistol contains the essence of Thor's lightning.";
