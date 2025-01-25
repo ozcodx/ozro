@@ -12,6 +12,7 @@ Optimised for Hercules emulators.
 ===========================================================
 Changelog:
 v1.0 - First version.
+v1.1 - Changed tradable materials.
 =========================================================*/
 
 // Quest Variables:
@@ -250,14 +251,14 @@ morocc,172,74,3	script	Old Merchant	4_M_HUMERCHANT,{
 				next;
 				switch(select("Trade White Herb:Trade Rusty Screw:Trade Broken Liquor Jar:Cancel")) {
 					case 1:
-						if (countitem(509) < 1) {
+						if (countitem(7126) < 1) {
 							mes "[Old Merchant]";
-							mes "You don't have any White Herbs to trade.";
+							mes "You don't have any Large Jellopy to trade.";
 							close;
 						}
 						mes "[Old Merchant]";
-						mes "How many White Herbs would you like to trade?";
-						mes "You have " + countitem(509) + " White Herbs.";
+						mes "How many Large Jellopy would you like to trade?";
+						mes "You have " + countitem(7126) + " Large Jellopy.";
 						next;
 						input .@amount;
 						if (.@amount <= 0) {
@@ -265,12 +266,12 @@ morocc,172,74,3	script	Old Merchant	4_M_HUMERCHANT,{
 							mes "That's not a valid amount.";
 							close;
 						}
-						if (.@amount > countitem(509)) {
+						if (.@amount > countitem(7126)) {
 							mes "[Old Merchant]";
-							mes "You don't have that many White Herbs.";
+							mes "You don't have that many Large Jellopy.";
 							close;
 						}
-						delitem 509, .@amount;
+						delitem 7126, .@amount;
 						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
 						mes "[Old Merchant]";
 						mes "Here are your " + .@amount + " Crimson Points.";
