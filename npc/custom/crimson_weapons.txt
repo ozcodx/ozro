@@ -21,9 +21,9 @@ v1.1 - Changed tradable materials.
 // CRIMSON_MERC - If player revealed merchant's identity (1) or not (0)
 // CRIMSON_POINTS - Player's Crimson Points
 
-// Starting Point - Prontera Soldier
+// Starting Point - Izlude Soldier
 //============================================================
-prontera,149,266,4	script	Amazed Soldier	8W_SOLDIER,{
+izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 	if (CRIMSON_QUEST == 0) {
 		mes "[Amazed Soldier]";
 		mes "^990000*The soldier's eyes shine with wonder*^000000";
@@ -665,7 +665,7 @@ gef_tower,58,174,4	script	Tower Guard	8W_SOLDIER,{
 		mes "please let me know.";
 		next;
 		mes "[Tower Guard]";
-		mes "Always in the market shadows...";
+		mes "Always in the Morocc market, in the shadows...";
 		mes "As if waiting for something... or someone.";
 		set CRIMSON_QUEST, 4;
 		close;
@@ -1329,7 +1329,7 @@ mjolnir_02,99,352,4	script	Marcus	4_M_DWARF,{
 		next;
 		mes "[Marcus]";
 		mes "The Rogue in Morroc - Daggers and Sabers";
-		mes "The Guard in Prontera - Heavy Weapons";
+		mes "The Guard in Izlude - Heavy Weapons";
 		mes "The Greedy Merchant in Alberta - Axes and Maces";
 		next;
 		mes "[Marcus]";
