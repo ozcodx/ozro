@@ -340,7 +340,7 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 				mes "These weapons hold ancient power.";
 				mes "Each one costs 10 Comodo Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (COMODO_CRIMSON_POINTS < 10) {
 					mes "[Old Merchant]";
 					mes "You need at least 10 Comodo Crimson Points to purchase any weapon.";
 					close;
@@ -743,7 +743,7 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 	} else if (CRIMSON_QUEST == 14) {
 		mes "[Shadow Rogue]";
 		mes "Marcus has entrusted me with these blades.";
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + PRONTERA_CRIMSON_POINTS + "^000000 Prontera Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
@@ -756,7 +756,7 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 				mes "- Broken Sword";
 				mes "- Sand Clump";
 				mes "- Jubilee";
-				mes "Each one is worth 1 Crimson Point.";
+				mes "Each one is worth 1 Prontera Crimson Point.";
 				next;
 				switch(select("Trade Broken Sword:Trade Sand Clump:Trade Jubilee:Cancel")) {
 					case 1:
@@ -781,9 +781,9 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 							close;
 						}
 						delitem 7110, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS + .@amount;
 						mes "[Shadow Rogue]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Prontera Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 2:
@@ -808,9 +808,9 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 							close;
 						}
 						delitem 7124, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS + .@amount;
 						mes "[Shadow Rogue]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Prontera Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 3:
@@ -835,9 +835,9 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 							close;
 						}
 						delitem 7312, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS + .@amount;
 						mes "[Shadow Rogue]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Prontera Crimson Points.";
 						mes "Use them wisely.";
 						close;
 					case 4:
@@ -846,17 +846,17 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 			case 2:
 				mes "[Shadow Rogue]";
 				mes "These blades hold deadly power.";
-				mes "Each one costs 10 Crimson Points.";
+				mes "Each one costs 10 Prontera Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (PRONTERA_CRIMSON_POINTS < 10) {
 					mes "[Shadow Rogue]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Prontera Crimson Points to purchase any weapon.";
 					close;
 				}
 				switch(select("Crimson Dagger [10 CP]:Crimson Saber [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (PRONTERA_CRIMSON_POINTS >= 10) {
+							set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS - 10;
 							getitem 28705,1;
 							mes "[Shadow Rogue]";
 							mes "This dagger burns with inner fire.";
@@ -864,8 +864,8 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (PRONTERA_CRIMSON_POINTS >= 10) {
+							set PRONTERA_CRIMSON_POINTS, PRONTERA_CRIMSON_POINTS - 10;
 							getitem 13454,1;
 							mes "[Shadow Rogue]";
 							mes "This saber dances with crimson flames.";
@@ -964,20 +964,20 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 	} else if (CRIMSON_QUEST == 14) {
 		mes "[Greedy Merchant]";
 		mes "Finally! A chance to profit legally!";
-		mes "You currently have ^FF0000" + CRIMSON_POINTS + "^000000 Crimson Points.";
+		mes "You currently have ^FF0000" + ALBERTA_CRIMSON_POINTS + "^000000 Alberta Crimson Points.";
 		next;
 		switch(select("Provide Materials:View Available Weapons")) {
 			case 1:
 				mes "[Greedy Merchant]";
 				mes "I need specific materials to maintain";
 				mes "these weapons. I can offer you";
-				mes "Crimson Points for these items:";
+				mes "Alberta Crimson Points for these items:";
 				next;
 				mes "[Greedy Merchant]";
 				mes "- Handcuffs";
 				mes "- Nose Ring";
 				mes "- Turtle Shell";
-				mes "Each one is worth 1 Crimson Point.";
+				mes "Each one is worth 1 Alberta Crimson Point.";
 				next;
 				switch(select("Trade Handcuffs:Trade Nose Ring:Trade Turtle Shell:Cancel")) {
 					case 1:
@@ -1002,9 +1002,9 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 							close;
 						}
 						delitem 7345, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS + .@amount;
 						mes "[Greedy Merchant]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Alberta Crimson Points.";
 						mes "Use them wisely... or not, I don't care!";
 						close;
 					case 2:
@@ -1029,9 +1029,9 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 							close;
 						}
 						delitem 941, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS + .@amount;
 						mes "[Greedy Merchant]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Alberta Crimson Points.";
 						mes "Use them wisely... or not, I don't care!";
 						close;
 					case 3:
@@ -1056,9 +1056,9 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 							close;
 						}
 						delitem 967, .@amount;
-						set CRIMSON_POINTS, CRIMSON_POINTS + .@amount;
+						set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS + .@amount;
 						mes "[Greedy Merchant]";
-						mes "Here are your " + .@amount + " Crimson Points.";
+						mes "Here are your " + .@amount + " Alberta Crimson Points.";
 						mes "Use them wisely... or not, I don't care!";
 						close;
 					case 4:
@@ -1069,16 +1069,16 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 				mes "Ah, interested in my wares?";
 				mes "Each weapon costs 10 Crimson Points.";
 				next;
-				if (CRIMSON_POINTS < 10) {
+				if (ALBERTA_CRIMSON_POINTS < 10) {
 					mes "[Greedy Merchant]";
-					mes "You need at least 10 Crimson Points to purchase any weapon.";
+					mes "You need at least 10 Alberta Crimson Points to purchase any weapon.";
 					mes "Come back when you're not so... poor.";
 					close;
 				}
 				switch(select("Crimson Two-Hand Axe [10 CP]:Crimson Mace [10 CP]:Cancel")) {
 					case 1:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (ALBERTA_CRIMSON_POINTS >= 10) {
+							set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS - 10;
 							getitem 28106,1;
 							mes "[Greedy Merchant]";
 							mes "This axe holds tremendous power.";
@@ -1086,8 +1086,8 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 						}
 						close;
 					case 2:
-						if (CRIMSON_POINTS >= 10) {
-							set CRIMSON_POINTS, CRIMSON_POINTS - 10;
+						if (ALBERTA_CRIMSON_POINTS >= 10) {
+							set ALBERTA_CRIMSON_POINTS, ALBERTA_CRIMSON_POINTS - 10;
 							getitem 16040,1;
 							mes "[Greedy Merchant]";
 							mes "This mace radiates with crimson energy.";
