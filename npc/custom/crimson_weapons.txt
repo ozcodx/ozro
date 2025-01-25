@@ -14,13 +14,20 @@ Changelog:
 v1.0 - First version.
 v1.1 - Changed tradable materials.
 v1.2 - Changed NPC locations.
+v2.0 - Changed system to use Crimson Points for each city.
 =========================================================*/
 
 // Quest Variables:
 // CRIMSON_QUEST - Quest progress
 // CRIMSON_KEY - If player returned the key (1) or not (0)
 // CRIMSON_MERC - If player revealed merchant's identity (1) or not (0)
-// CRIMSON_POINTS - Player's Crimson Points
+// CRIMSON_POINTS - Player's Crimson Points (Old System)
+// IZLUDE_CRIMSON_POINTS - Player's Izlude Crimson Points
+// COMODO_CRIMSON_POINTS - Player's Comodo Crimson Points
+// PAYON_CRIMSON_POINTS - Player's Payon Crimson Points
+// GEFFEN_CRIMSON_POINTS - Player's Geffen Crimson Points
+// MOROCC_CRIMSON_POINTS - Player's Morocc Crimson Points
+// ALBERTA_CRIMSON_POINTS - Player's Alberta Crimson Points
 
 // Starting Point - Izlude Soldier
 //============================================================
@@ -44,6 +51,12 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 		mes "about these weapons. An old man who's";
 		mes "seen many wonders in his time...";
 		set CRIMSON_QUEST, 1;
+		next;
+		mes "[Amazed Soldier]";
+		mes "^990000*Lowers his voice*^000000";
+		mes "I hear he spends most of his time";
+		mes "at the casino in Comodo. Gambling";
+		mes "seems to be his weakness.";
 		close;
 	} else if (CRIMSON_QUEST == 14) {
 		mes "[Amazed Soldier]";
