@@ -46,7 +46,7 @@ izlude,131,142,4	script	EndowedSage	2_M_SAGE_OLD,{
             mes("Earth, the unyielding foundation of life itself. A noble selection!");
             break;
     }
-
+    next;
     if (countitem(.@item_name$) > 0) {
         delitem .@item_name$, 1;
         Zeny -= .zeny_cost;
