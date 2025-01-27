@@ -41,7 +41,7 @@ izlude,131,142,4	script	EndowedSage	2_M_SAGE_OLD,{
             break;
         case 4:
             .@item_name$ = "Green Live";
-            .@sc_id = SC_PROPERTYEARTH;
+            .@sc_id = SC_PROPERTYGROUND;
             mes(.npc_name$);
             mes("Earth, the unyielding foundation of life itself. A noble selection!");
             break;
