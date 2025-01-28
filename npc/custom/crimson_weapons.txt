@@ -165,6 +165,8 @@ izlude,149,195,4	script	Amazed Soldier	8W_SOLDIER,{
 			case 2:
 				mes "[Amazed Soldier]";
 				mes "These weapons require great strength to wield.";
+				mes "Don't forget: Two Handed Swords, Two Handed Lances,";
+				mes "and One Handed Spears are my specialty.";
 				mes "Each one costs 25 Izlude Crimson Points.";
 				next;
 				if (IZLUDE_CRIMSON_POINTS < 25) {
@@ -351,6 +353,7 @@ cmd_in02,184,105,5	script	Old Merchant	4_M_HUMERCHANT,{
 			case 2:
 				mes "[Old Merchant]";
 				mes "These weapons hold ancient power.";
+				mes "I have Shurikens, and Pistols.";
 				mes "Each one costs 25 Comodo Crimson Points.";
 				next;
 				if (COMODO_CRIMSON_POINTS < 25) {
@@ -560,6 +563,7 @@ gef_tower,69,171,4	script	Hooded Wizard	4_M_DEBON,{
 			case 2:
 				mes "[Hooded Wizard]";
 				mes "These weapons channel divine power.";
+				mes "I have Books, One Hand Rods and Two Hand Staffs available.";
 				mes "Each one costs 25 Geffen Crimson Points.";
 				next;
 				if (GEFFEN_CRIMSON_POINTS < 25) {
@@ -859,6 +863,7 @@ prontera,96,69,6	script	Shadow Rogue	4_F_ROGUE,{
 			case 2:
 				mes "[Shadow Rogue]";
 				mes "These blades hold deadly power.";
+				mes "Daggers and One Handed Swords are my specialty.";
 				mes "Each one costs 25 Prontera Crimson Points.";
 				next;
 				if (PRONTERA_CRIMSON_POINTS < 25) {
@@ -1080,6 +1085,7 @@ alberta,46,194,3	script	Greedy Merchant	1_M_SIGNMCNT,{
 			case 2:
 				mes "[Greedy Merchant]";
 				mes "Ah, interested in my wares?";
+				mes "Axes and Maces are my specialty.";
 				mes "Each weapon costs 25 Crimson Points.";
 				next;
 				if (ALBERTA_CRIMSON_POINTS < 25) {
@@ -1568,6 +1574,7 @@ morocc_in,179,60,2	script	Mysterious Man	4_M_MASKMAN,{
 			case 2:
 				mes "[Mysterious Man]";
 				mes "These weapons hold great power.";
+				mes "Katars and Knuckles are available.";
 				mes "Each one costs 25 Crimson Points.";
 				next;
 				if (MOROCC_CRIMSON_POINTS < 25) {
@@ -1783,6 +1790,7 @@ payon,237,95,4	script	Distracted Archer	4_M_ARCHER,{
 			case 2:
 				mes "[Distracted Archer]";
 				mes "These weapons hold special power.";
+				mes "Bows, Instruments, and Whips are available.";
 				mes "Each one costs 25 Crimson Points.";
 				next;
 				if (PAYON_CRIMSON_POINTS < 25) {
