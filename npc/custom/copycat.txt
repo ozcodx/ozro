@@ -75,7 +75,7 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	mes "Now... pay attention! *crack*";
 	
 	// Asegurar que los hits conecten
-	sc_start 1, 3000, 1;     // Congelar al jugador
+	sc_start SC_FREEZE, 3000, 0;     // Congelar al jugador
 
 	next;
 	
