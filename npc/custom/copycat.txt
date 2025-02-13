@@ -10,7 +10,7 @@
 =========================================================*/
 
 geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
-	.@cost = 20000;	// Zeny cost per skill copy
+	.@cost = 10;	// Zeny cost per skill copy
 	
 	mes "[^FF0000Mistress Mimi^000000]";
 	if (BaseJob != Job_Rogue) {
@@ -73,10 +73,14 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	misceffect EF_HIT5;
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Now... pay attention! *crack*";
-	sc_start SC_FLEE, 3000, -100; // Disminuir flee por 3 segundos
+	
+	// Asegurar que los hits conecten
+	sc_start SC_FREEZE, 3000, 1;     // Congelar al jugador
+
 	next;
 	
-	npcskill .skill_id[.@selected], .skill_lv[.@selected], 50, 50;
+	// Usar la habilidad con delay pequeno
+	npcskill .skill_id[.@selected], .skill_lv[.@selected], 20, 20;
 	skill .skill_id[.@selected], 1, 0;
 	
 	mes "[^FF0000Mistress Mimi^000000]";
@@ -85,9 +89,6 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	close;
 	
 	OnInit:
-		// Aumentar atributos del NPC
-		set .npc_dexterity, 250; // Aumentar Destreza
-
 		// Aumentar atributos del NPC
 		setarray .skill_id[0],
 			14,     // Cold Bolt
