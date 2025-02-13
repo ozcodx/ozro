@@ -13,7 +13,8 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	.@cost = 20000;
 
 	// Guardar posición original del NPC
-	getmapxy(.@map$, .@x, .@y, BL_NPC);
+	.@x = getnpcx();
+	.@y = getnpcy();
 
 	mes "[^FF0000Mistress Mimi^000000]";
 	if (BaseJob != Job_Rogue) {
@@ -60,7 +61,7 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 		mes "Hmph! Coward.";
 		mes "Come back when you're ready to commit to your training.";
 		close;
-	}	
+	}
 
 	Zeny -= .@cost;
 	misceffect EF_HIT5;
@@ -72,14 +73,18 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	npcskill .skill_id[.@selected], .skill_lv[.@selected], 99, 99;
 	//skill .skill_id[.@selected], .skill_lv[.@selected], 0;
 
-	// Volver a la posición original
-	sleep 500;
+	// Volver a la posición original después de un breve delay
+	sleep2 1000;
 	movenpc "Mistress Mimi", .@x, .@y;
 
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Good pet... you took that well.";
 	mes "The knowledge is now yours. Use it wisely... or face my displeasure.";
 	close;
+	
+	// Asegurar que el NPC vuelva a su posición
+	movenpc "Mistress Mimi", .@x, .@y;
+	end;
 
 	OnInit:
 		setarray .skill_id[0],
@@ -130,18 +135,18 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 			10,10,5,10,5,10,10,5,10,10,10,5,10,5,10,10,5,10,5,10,
 			5,5,5,3,5,5,5,5,10,10,10,10,5,10,5,10,5,5,10,5,5;
 
-		setarray .skill_name$[0],
-			"Triple Attack","Bash","Provoke","Magnum Break","Napalm Beat",
-			"Soul Strike","Cold Bolt","Frost Diver","Fire Ball","Fire Bolt",
-			"Lightning Bolt","Thunderstorm","Mammonite","Double Strafe",
-			"Arrow Shower","Brandish Spear","Spear Stab","Spear Boomerang",
-			"Bowling Bash","Magnus Exorcismus","Meteor Storm","Jupitel Thunder",
-			"Lord of Vermilion","Water Ball","Frost Nova","Storm Gust",
-			"Earth Spike","Heaven's Drive","Sonic Blow","Holy Light",
-			"Holy Cross","Grand Cross","Occult Impaction","Throw Spirit Sphere",
-			"Asura Strike","Raging Quadruple Blow","Flying Kick",
-			"Crimson Fire Petal","Raging Fire Dragon","Spear of Ice",
-			"Wind Blade","Kamaitachi";
+	setarray .skill_name$[0],
+		"Triple Attack","Bash","Provoke","Magnum Break","Napalm Beat",
+		"Soul Strike","Cold Bolt","Frost Diver","Fire Ball","Fire Bolt",
+		"Lightning Bolt","Thunderstorm","Mammonite","Double Strafe",
+		"Arrow Shower","Brandish Spear","Spear Stab","Spear Boomerang",
+		"Bowling Bash","Magnus Exorcismus","Meteor Storm","Jupitel Thunder",
+		"Lord of Vermilion","Water Ball","Frost Nova","Storm Gust",
+		"Earth Spike","Heaven's Drive","Sonic Blow","Holy Light",
+		"Holy Cross","Grand Cross","Occult Impaction","Throw Spirit Sphere",
+		"Asura Strike","Raging Quadruple Blow","Flying Kick",
+		"Crimson Fire Petal","Raging Fire Dragon","Spear of Ice",
+		"Wind Blade","Kamaitachi";
 
-		end;
+	end;
 }
