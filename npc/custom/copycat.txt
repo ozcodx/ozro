@@ -10,16 +10,16 @@
 =========================================================*/
 
 geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
-	.@cost = 10;	// Zeny cost per skill copy
-	
+	.@cost = 20000;
+
 	mes "[^FF0000Mistress Mimi^000000]";
 	if (BaseJob != Job_Rogue) {
 		mes "Nyaa~ A lost little lamb?";
-		mes "Sorry dear, but my... special training... is only for Stalkers.";
+		mes "Sorry dear, but my... special training... is only for Rogues and Stalkers.";
 		mes "Run along now... *shows claws*";
 		close;
 	}
-	
+
 	// Check if wearing any equipment
 	if (getequipid(EQI_HEAD_TOP) > 0 || getequipid(EQI_ARMOR) > 0 || getequipid(EQI_HAND_L) > 0 || 
 		getequipid(EQI_HAND_R) > 0 || getequipid(EQI_GARMENT) > 0 || getequipid(EQI_SHOES) > 0) {
@@ -28,110 +28,118 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 		mes "That's the only way to truly... learn. *smirks*";
 		close;
 	}
-	
-	mes "Well, well... A Stalker seeking knowledge?";
-	mes "I've lived for centuries, learning the most... intimate secrets of combat.";
-	mes "Are you prepared to submit to my teaching methods? *twirls whip*";
-	next;
-	
-	mes "[^FF0000Mistress Mimi^000000]";
-	mes "The price is " + .@cost + " zeny, but the real cost...";
-	mes "Is your complete submission to my training. *evil grin*";
-	next;
-	
-	.@skill_menu$ = implode(.skill_name$, ":");
-	.@selected = select(.@skill_menu$) - 1;
-	
-	if (getskilllv(.skill_id[.@selected])) {
-		mes "[^FF0000Mistress Mimi^000000]";
-		mes "You already know this skill, you naughty thing!";
-		mes "Are you just looking for punishment? *raises eyebrow*";
-		close;
-	}
-	
+
 	if (Zeny < .@cost) {
-		mes "[^FF0000Mistress Mimi^000000]";
 		mes "No money? How... disappointing.";
 		mes "Come back when you can afford my attention, pet.";
 		close;
 	}
+
+	// Construir menú dinámicamente
+	.@menu$ = "";
+	for (.@i = 0; .@i < getarraysize(.skill_name$); .@i++)
+		.@menu$ += .skill_name$[.@i] + ":";
 	
-	mes "[^FF0000Mistress Mimi^000000]";
+	mes "Which skill interests you, my pet?";
+	.@selected = select(.@menu$) - 1;
+
+	if (getskilllv(.skill_id[.@selected])) {
+		mes "You already know this skill, you naughty thing!";
+		mes "Are you just looking for punishment? *raises eyebrow*";
+		close;
+	}
+
 	mes "Ready to learn " + .skill_name$[.@selected] + "?";
 	mes "This will hurt... and you'll thank me for it. Won't you?";
 	next;
-	
+
 	if (select("Yes, Mistress...:I'm not ready!") == 2) {
-		mes "[^FF0000Mistress Mimi^000000]";
 		mes "Hmph! Coward.";
 		mes "Come back when you're ready to commit to your training.";
 		close;
 	}
-	
-	Zeny -= .@cost;
-	sc_start SC_SLEEP,3000,1;
-	misceffect EF_HIT5;
-	mes "[^FF0000Mistress Mimi^000000]";
-	mes "Now... pay attention! *crack*";
-	
-	// Asegurar que los hits conecten
-	sc_start SC_FREEZE, 3000, 0;     // Congelar al jugador
 
+	// Preparar NPC
+	setunitdata(getnpcid(0), UDT_STR, 999);
+	setunitdata(getnpcid(0), UDT_DEX, 999);
+	setunitdata(getnpcid(0), UDT_HIT, 999);
+	setunitdata(getnpcid(0), UDT_LEVEL, 999);
+
+	Zeny -= .@cost;
+	misceffect EF_HIT5;
+	mes "Now... pay attention! *crack*";
 	next;
-	
-	// Usar la habilidad con delay pequeno
-	npcskill .skill_id[.@selected], .skill_lv[.@selected], 20, 20;
+
+	// Usar la habilidad y enseñarla
+	npcskill .skill_id[.@selected], .skill_lv[.@selected], 1, 1;
 	skill .skill_id[.@selected], 1, 0;
 	
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Good pet... you took that well.";
 	mes "The knowledge is now yours. Use it wisely... or face my displeasure.";
 	close;
-	
+
 	OnInit:
-		// Aumentar atributos del NPC
 		setarray .skill_id[0],
+			263,    // Triple Attack
+			5,      // Bash
+			6,      // Provoke
+			7,      // Magnum Break
+			11,     // Napalm Beat
+			13,     // Soul Strike
 			14,     // Cold Bolt
+			15,     // Frost Diver
+			17,     // Fire Ball
 			19,     // Fire Bolt
 			20,     // Lightning Bolt
-			2006,   // Ignition Break
-			2204,   // Jack Frost
-			2213,   // Comet
-			2214,   // Chain Lightning
-			2022,   // Cross Impact
-			263,    // Triple Attack
-			2054,   // Duple Light
+			21,     // Thunderstorm
+			42,     // Mammonite
+			46,     // Double Strafe
+			47,     // Arrow Shower
+			57,     // Brandish Spear
+			58,     // Spear Stab
+			59,     // Spear Boomerang
+			62,     // Bowling Bash
+			79,     // Magnus Exorcismus
+			83,     // Meteor Storm
+			84,     // Jupitel Thunder
+			85,     // Lord of Vermilion
+			86,     // Water Ball
+			88,     // Frost Nova
 			89,     // Storm Gust
-			2002;   // Sonic Wave
-			
+			90,     // Earth Spike
+			91,     // Heaven's Drive
+			136,    // Sonic Blow
+			156,    // Holy Light
+			253,    // Holy Cross
+			254,    // Grand Cross
+			266,    // Occult Impaction
+			267,    // Throw Spirit Sphere
+			271,    // Asura Strike
+			272,    // Raging Quadruple Blow
+			421,    // Flying Kick
+			534,    // Crimson Fire Petal
+			536,    // Raging Fire Dragon
+			537,    // Spear of Ice
+			540,    // Wind Blade
+			542;    // Kamaitachi
+
 		setarray .skill_lv[0],
-			10,     // Cold Bolt level
-			10,     // Fire Bolt level
-			10,     // Lightning Bolt level
-			5,      // Ignition Break level
-			5,      // Jack Frost level
-			5,      // Comet level
-			5,      // Chain Lightning level
-			5,      // Cross Impact level
-			10,     // Triple Attack level
-			5,      // Duple Light level
-			10,     // Storm Gust level
-			5;      // Sonic Wave level
-			
+			10,10,5,10,5,10,10,5,10,10,10,5,10,5,10,10,5,10,5,10,
+			5,5,5,3,5,5,5,5,10,10,10,10,5,10,5,10,5,5,10,5,5;
+
 		setarray .skill_name$[0],
-			"Cold Bolt",
-			"Fire Bolt",
-			"Lightning Bolt",
-			"Ignition Break",
-			"Jack Frost",
-			"Comet",
-			"Chain Lightning",
-			"Cross Impact",
-			"Triple Attack",
-			"Duple Light",
-			"Storm Gust",
-			"Sonic Wave";
-			
-		.npc_name$ = "[^FF0000Mistress Mimi^000000]";
+			"Triple Attack","Bash","Provoke","Magnum Break","Napalm Beat",
+			"Soul Strike","Cold Bolt","Frost Diver","Fire Ball","Fire Bolt",
+			"Lightning Bolt","Thunderstorm","Mammonite","Double Strafe",
+			"Arrow Shower","Brandish Spear","Spear Stab","Spear Boomerang",
+			"Bowling Bash","Magnus Exorcismus","Meteor Storm","Jupitel Thunder",
+			"Lord of Vermilion","Water Ball","Frost Nova","Storm Gust",
+			"Earth Spike","Heaven's Drive","Sonic Blow","Holy Light",
+			"Holy Cross","Grand Cross","Occult Impaction","Throw Spirit Sphere",
+			"Asura Strike","Raging Quadruple Blow","Flying Kick",
+			"Crimson Fire Petal","Raging Fire Dragon","Spear of Ice",
+			"Wind Blade","Kamaitachi";
+
 		end;
 }
