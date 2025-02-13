@@ -9,7 +9,7 @@
  Hercules only
 =========================================================*/
 
-geffen,55,53,4	script	Mistress Mimi	4_F_CAT,{
+geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	.@cost = 20000;	// Zeny cost per skill copy
 	
 	mes "[^FF0000Mistress Mimi^000000]";
@@ -70,7 +70,7 @@ geffen,55,53,4	script	Mistress Mimi	4_F_CAT,{
 	
 	Zeny -= .@cost;
 	sc_start SC_SLEEP,3000,1;
-	specialeffect2 EF_HIT5;
+	misceffect EF_HIT5;
 	soundeffect "effect/si_whip.wav",1;
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Now... pay attention! *crack*";
