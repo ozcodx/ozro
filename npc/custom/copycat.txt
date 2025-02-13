@@ -73,6 +73,7 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	misceffect EF_HIT5;
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Now... pay attention! *crack*";
+	sc_start SC_FLEE, 3000, -100; // Disminuir flee por 3 segundos
 	next;
 	
 	npcskill .skill_id[.@selected], .skill_lv[.@selected], 50, 50;
@@ -86,9 +87,6 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	OnInit:
 		// Aumentar atributos del NPC
 		set .npc_dexterity, 250; // Aumentar Destreza
-
-		// Aplicar un efecto que aumente el hit
-		sc_start SC_HITUP, 10000, 100; // Aumentar hit por 10 segundos
 
 		// Aumentar atributos del NPC
 		setarray .skill_id[0],
