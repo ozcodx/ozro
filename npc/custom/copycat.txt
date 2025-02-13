@@ -12,6 +12,9 @@
 geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	.@cost = 20000;
 
+	// Guardar posición original del NPC
+	getmapxy(.@map$, .@x, .@y, BL_NPC);
+
 	mes "[^FF0000Mistress Mimi^000000]";
 	if (BaseJob != Job_Rogue) {
 		mes "Nyaa~ A lost little lamb?";
@@ -57,23 +60,22 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 		mes "Hmph! Coward.";
 		mes "Come back when you're ready to commit to your training.";
 		close;
-	}
-
-	// Preparar NPC
-	setunitdata(getnpcid(0), UDT_STR, 999);
-	setunitdata(getnpcid(0), UDT_DEX, 999);
-	setunitdata(getnpcid(0), UDT_HIT, 999);
-	setunitdata(getnpcid(0), UDT_LEVEL, 999);
+	}	
 
 	Zeny -= .@cost;
 	misceffect EF_HIT5;
+	sc_start SC_SLEEP, 3000, 1; 
 	mes "Now... pay attention! *crack*";
 	next;
 
 	// Usar la habilidad y enseñarla
-	npcskill .skill_id[.@selected], .skill_lv[.@selected], 1, 1;
-	skill .skill_id[.@selected], 1, 0;
-	
+	npcskill .skill_id[.@selected], .skill_lv[.@selected], 99, 99;
+	//skill .skill_id[.@selected], .skill_lv[.@selected], 0;
+
+	// Volver a la posición original
+	sleep 500;
+	movenpc "Mistress Mimi", .@x, .@y;
+
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Good pet... you took that well.";
 	mes "The knowledge is now yours. Use it wisely... or face my displeasure.";
