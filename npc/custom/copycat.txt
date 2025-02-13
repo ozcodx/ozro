@@ -71,7 +71,6 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	Zeny -= .@cost;
 	sc_start SC_SLEEP,3000,1;
 	misceffect EF_HIT5;
-	soundeffect "effect/si_whip.wav",1;
 	mes "[^FF0000Mistress Mimi^000000]";
 	mes "Now... pay attention! *crack*";
 	next;
@@ -85,6 +84,13 @@ geffen,55,53,4	script	Mistress Mimi	4_MISTY,{
 	close;
 	
 	OnInit:
+		// Aumentar atributos del NPC
+		set .npc_dexterity, 250; // Aumentar Destreza
+
+		// Aplicar un efecto que aumente el hit
+		sc_start SC_HITUP, 10000, 100; // Aumentar hit por 10 segundos
+
+		// Aumentar atributos del NPC
 		setarray .skill_id[0],
 			14,     // Cold Bolt
 			19,     // Fire Bolt
